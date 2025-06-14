@@ -1,8 +1,9 @@
 ---
 layout: post
-date: 2015-10-22 15:59:00-0400
+date: 2024-08-21
 inline: true
 related_posts: false
 ---
 
-A simple inline announcement.
+[Successfully defended PhD dissertation, “Enhancing Lightweight Models for Efficient Sensor-based Human Activity Recognition.”](https://cmpe.bogazici.edu.tr/news/2024-09-11-news-congratulations-dr-sumeyye-agac/)
+
