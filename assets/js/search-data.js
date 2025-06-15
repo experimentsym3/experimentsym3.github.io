@@ -405,10 +405,7 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/the_godfather/";
-            },},{id: "news-a-simple-inline-announcement-with-markdown-emoji-sparkles-smile",
-          title: 'A simple inline announcement with Markdown emoji! :sparkles: :smile:',
-          description: "",
-          section: "News",},{id: "news-our-paper-resource-efficient-sensor-based-human-activity-recognition-with-lightweight-deep-models-boosted-with-attention-has-been-published-in-elsevier-s-computers-amp-amp-electrical-engineering",
+            },},{id: "news-our-paper-resource-efficient-sensor-based-human-activity-recognition-with-lightweight-deep-models-boosted-with-attention-has-been-published-in-elsevier-s-computers-amp-amp-electrical-engineering",
           title: 'Our paper: “Resource-efficient, sensor-based human activity recognition with lightweight deep models boosted with...',
           description: "",
           section: "News",},{id: "news-successfully-defended-phd-dissertation-enhancing-lightweight-models-for-efficient-sensor-based-human-activity-recognition",
