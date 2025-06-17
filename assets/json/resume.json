@@ -77,10 +77,21 @@
       "url": "https://gsu.edu.tr/en",
       "area": "",
       "studyType": "BS in Computer Engineering",
-      "startDate": "",
+      "startDate": "2014-09-01",
       "endDate": "2016-07-01",
       "score": "3.13/4.00",
       "courses": []
+    },
+    {
+      "institution": "Université de Reims Champagne-Ardenne",
+      "location": "Troyes, France",
+      "url": "https://www.univ-reims.eu/",
+      "area": "",
+      "studyType": "BS in Electrical Engineering and Industrial Computing (GEII, IUT de Troyes)",
+      "startDate": "2012-07-01",
+      "endDate": "2014-07-01",
+      "score": "15.38/20",
+      "courses": ["I transferred to Galatasaray University in Turkey after successfully completing my second year."]
     }
   ],
   "references": [
