@@ -56,7 +56,8 @@
       "startDate": "2019-01-01",
       "endDate": "2024-12-01",
       "score": "4.00/4.00",
-      "courses": ["Computer Vision, Deep Learning, Pattern Recognition, Biometrics, Natural Language Processing, Advanced Requirement Engineering, Computational Techniques for Social Sciences"]
+      "summary": "Thesis: Enhancing lightweight models for efficient sensor-based human activity recognition",
+      "courses": ["Courses: Computer Vision, Deep Learning, Pattern Recognition, Biometrics, Natural Language Processing, Advanced Requirement Engineering, Computational Techniques for Social Sciences"]
     },
     {
       "institution": "Galatasaray University",
@@ -67,7 +68,8 @@
       "startDate": "2016-01-01",
       "endDate": "2019-01-01",
       "score": "3.78/4.00",
-      "courses": ["Human-Computer Interface, Medical Informatics, Natural Language Processing and Information Retrieval, Data Warehouses and Data Mining, Complex Network Analysis"]
+      "summary": "Thesis: Smoking recognition using smartwatch sensors",
+      "courses": ["Courses: Human-Computer Interface, Medical Informatics, Natural Language Processing and Information Retrieval, Data Warehouses and Data Mining, Complex Network Analysis"]
     },
     {
       "institution": "Galatasaray University",
@@ -77,7 +79,7 @@
       "studyType": "BS in Computer Engineering",
       "startDate": "",
       "endDate": "2016-07-01",
-      "score": "3.78/4.00",
+      "score": "3.13/4.00",
       "courses": []
     }
   ],
