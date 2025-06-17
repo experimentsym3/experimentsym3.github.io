@@ -7,8 +7,7 @@ first_name: Sumeyye
 middle_name:
 last_name: Agac
 email: sumeyyeagacc [at] gmail.com
-contact_note: >
-  You can even add a little note about which of these is the best way to reach you.
+contact_note: > # You can even add a little note about which of these is the best way to reach you.
 description: > # the ">" symbol means to ignore newlines until "footer_text:"
   A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
 footer_text: >
@@ -49,9 +48,9 @@ repo_trophies:
 
 navbar_fixed: true
 footer_fixed: true
-search_enabled: true
-socials_in_search: true
-posts_in_search: true
+search_enabled: false
+socials_in_search: false
+posts_in_search: false
 bib_search: true
 
 # Dimensions
@@ -73,10 +72,10 @@ og_image: # The site-wide (default for all links) Open Graph preview image
 # -----------------------------------------------------------------------------
 # Social integration
 # -----------------------------------------------------------------------------
-github_username: sumeyye-agac # your GitHub user name
-linkedin_username: sumeyyeagac # your LinkedIn user name
-orcid_id: 0000-0001-5231-7008 # your ORCID ID
-scholar_userid: GnrF2DsAAAAJ # your Google Scholar ID
+# github_username: sumeyye-agac # your GitHub user name
+# linkedin_username: sumeyyeagac # your LinkedIn user name
+# orcid_id: 0000-0001-5231-7008 # your ORCID ID
+# scholar_userid: GnrF2DsAAAAJ # your Google Scholar ID
 
 # -----------------------------------------------------------------------------
 # Analytics and search engine verification
