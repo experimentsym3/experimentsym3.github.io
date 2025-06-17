@@ -1,10 +1,14 @@
 github_users:
-  - sumeyye-agac
+  - torvalds
+  - alshedivat
 
-repo_description_lines_max: 5
+repo_description_lines_max: 2
 
 github_repos:
-  - sumeyye-agac/glass-data-participant-detection
-  - sumeyye-agac/homography-and-image-stitching-from-scratch
-  - sumeyye-agac/next-word-prediction-using-MLP-from-scratch
-
+  - alshedivat/al-folio
+  - jekyll/jekyll
+  - twbs/bootstrap
+  - jquery/jquery
+  - FortAwesome/Font-Awesome
+  - mathjax/MathJax
+  - jpswalsh/academicons
