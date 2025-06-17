@@ -1,7 +1,10 @@
 github_users:
+  - sumeyye-agac
 
 repo_description_lines_max: 5
 
 github_repos:
-
+  - sumeyye-agac/glass-data-participant-detection
+  - sumeyye-agac/homography-and-image-stitching-from-scratch
+  - sumeyye-agac/next-word-prediction-using-MLP-from-scratch
 
