@@ -42,91 +42,54 @@ The model predicts the next word by processing three input words in sequence:
 
 ### 🔢 Mathematical Formulation
 
-We model next-word prediction as a 3-word input to 1-word output classification task using a 1-hidden-layer MLP trained from scratch. All inputs are one-hot vectors and weights are updated via manual backpropagation using stochastic gradient descent (SGD).
+We implemented a multi-layer perceptron (MLP) model for next-word prediction, trained using backpropagation and cross-entropy loss. Below are the key mathematical operations:
 
-#### 🧾 Forward Propagation
+---
 
-Let:
-- \( V \): Vocabulary size (250)  
-- \( d \): Embedding dimension (16)  
-- \( H \): Hidden layer size (128)  
+#### 🧮 Forward Pass
 
-Input word vectors (one-hot):
-\[
-\mathbf{x}_1, \mathbf{x}_2, \mathbf{x}_3 \in \mathbb{R}^V
-\]
+**Concatenated input to the hidden layer**:  
+$$ \mathbf{h}_0 = [\mathbf{e}_1, \mathbf{e}_2, \mathbf{e}_3] \in \mathbb{R}^{3d} $$
 
-**Embedding transformation**:
-\[
-\mathbf{e}_i = W_1 \mathbf{x}_i, \quad W_1 \in \mathbb{R}^{d \times V}, \quad i=1,2,3
-\]
+**Hidden layer activation**:  
+$$ \mathbf{h}_1 = \sigma(W_2 \mathbf{h}_0 + \mathbf{b}_1) \quad W_2 \in \mathbb{R}^{H \times 3d}, \quad \mathbf{b}_1 \in \mathbb{R}^{H} $$
 
-**Concatenated input** to the hidden layer:
-\[
-\mathbf{h}_0 = \begin{bmatrix} \mathbf{e}_1 \\ \mathbf{e}_2 \\ \mathbf{e}_3 \end{bmatrix} \in \mathbb{R}^{3d}
-\]
+**Output logits and softmax**:  
+$$ \mathbf{z} = W_3 \mathbf{h}_1 + \mathbf{b}_2 \quad W_3 \in \mathbb{R}^{V \times H}, \quad \mathbf{b}_2 \in \mathbb{R}^{V} $$
+$$ \hat{\mathbf{y}} = \text{softmax}(\mathbf{z}) = \frac{e^{\mathbf{z}_j}}{\sum_{j=1}^{V} e^{\mathbf{z}_j}} $$
 
-**Hidden layer activation**:
-\[
-\mathbf{h}_1 = \sigma(W_2 \mathbf{h}_0 + \mathbf{b}_1), \quad W_2 \in \mathbb{R}^{H \times 3d}, \quad \mathbf{b}_1 \in \mathbb{R}^{H}
-\]
-
-**Output logits and softmax**:
-\[
-\mathbf{z} = W_3 \mathbf{h}_1 + \mathbf{b}_2, \quad W_3 \in \mathbb{R}^{V \times H}, \quad \mathbf{b}_2 \in \mathbb{R}^{V}
-\]
-\[
-\hat{\mathbf{y}} = \text{softmax}(\mathbf{z}) = \frac{e^{\mathbf{z}_i}}{\sum_{j=1}^{V} e^{\mathbf{z}_j}}
-\]
+---
 
 #### 🎯 Loss Function
 
-Cross-entropy loss between one-hot target \( \mathbf{y} \) and predicted \( \hat{\mathbf{y}} \):
-\[
-\mathcal{L} = -\sum_{i=1}^{V} y_i \log(\hat{y}_i)
-\]
+**Cross-entropy loss between target \( \mathbf{y} \) and prediction \( \hat{\mathbf{y}} \)**:  
+$$ \mathcal{L} = -\sum_{i=1}^{V} y_i \log(\hat{y}_i) $$
 
 ---
 
 #### 🔁 Backward Propagation
 
-**Error at output layer**:
-\[
-\delta_3 = \hat{\mathbf{y}} - \mathbf{y}
-\]
+**Error at output layer**:  
+$$ \delta_3 = \hat{\mathbf{y}} - \mathbf{y} $$
 
-**Gradients for output layer**:
-\[
-\nabla W_3 = \delta_3 \cdot \mathbf{h}_1^\top, \quad \nabla \mathbf{b}_2 = \delta_3
-\]
+**Gradients for output layer**:  
+$$ \nabla W_3 = \delta_3 \cdot \mathbf{h}_1^\top \quad \nabla \mathbf{b}_2 = \delta_3 $$
 
-**Error at hidden layer**:
-\[
-\delta_2 = (W_3^\top \delta_3) \odot \sigma'(\mathbf{h}_1)
-\]
+**Error at hidden layer**:  
+$$ \delta_2 = (W_3^\top \delta_3) \odot \sigma'(\mathbf{h}_1) $$
 
-**Gradients for hidden layer**:
-\[
-\nabla W_2 = \delta_2 \cdot \mathbf{h}_0^\top, \quad \nabla \mathbf{b}_1 = \delta_2
-\]
+**Gradients for hidden layer**:  
+$$ \nabla W_2 = \delta_2 \cdot \mathbf{h}_0^\top \quad \nabla \mathbf{b}_1 = \delta_2 $$
 
-**Embedding gradient split** (backprop to \( W_1 \)):
-Let \( \delta_e = W_2^\top \delta_2 \in \mathbb{R}^{3d} \), then split:
-\[
-[\delta_{e_1}, \delta_{e_2}, \delta_{e_3}] \in \mathbb{R}^{d}
-\]
-Update rule:
-\[
-\nabla W_1 += \delta_{e_i} \cdot \mathbf{x}_i^\top \quad \text{for } i=1,2,3
-\]
+**Embedding gradient split** (backprop to \( W_1 \)):  
+Let:  
+$$ \delta_e = W_2^\top \delta_2 \in \mathbb{R}^{3d} $$
 
----
+Split as:  
+$$ [\delta_{e_1}, \delta_{e_2}, \delta_{e_3}] \in \mathbb{R}^d $$
 
-All gradients are applied using SGD with learning rate \( \eta \):
-\[
-W \leftarrow W - \eta \nabla W
-\]
-Biases updated similarly.
+Update rule:  
+$$ \nabla W_1 += \delta_{e_i} \cdot \mathbf{x}_i^\top \quad \text{for } i=1,2,3 $$
 
 ---
 
