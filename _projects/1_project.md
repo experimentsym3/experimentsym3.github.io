@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Smart Glass Participant Detection
+title: User Classification for Smart Glasses: From Authentication to Identification
 description: On-device user presence detection using wearable IMU data
 img: assets/img/12.jpg
 importance: 1
@@ -9,99 +9,94 @@ related_publications: true
 ---
 
 ### 👓 Smart Glass Participant Detection  
-**Lightweight, on-device classification of user presence using IMU data.**
-
-This project explores a real-world deployment scenario where a smart glass device should only collect data when being actively worn. Using data from motion sensors (IMUs), we trained binary classifiers to distinguish between valid and invalid (non-user) sessions.
-
-This system acts as a gatekeeper for more complex models like user authentication and human activity recognition (HAR). It’s built for **low-compute wearable environments** — using simple time-domain features and machine learning models optimized for embedded hardware.
-
-🔗 [View code on GitHub](https://github.com/sumeyye-agac/glass-data-participant-detection)  
-📄 [Published Paper (SN Computer Science)](https://doi.org/10.1007/s42979-023-02202-4)
+**A lightweight, on-device model to detect user presence using smart glasses’ motion sensors.**
 
 ---
 
+### 🚀 Why It Matters  
+Wearables continuously generate sensor data — but not all of it is meaningful. This project tackles the practical problem of detecting whether a smart glass device is actively being worn. It ensures that downstream applications like human activity recognition (HAR) or user authentication don’t process irrelevant or noisy data.
+
+---
+
+### ⚙️ System Overview  
+
 <div class="row">
-  <div class="col-sm-12 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/projects/1_project/head_movements.png" title="Figure – Gesture Design for Smart Glass" class="img-fluid rounded z-depth-1" %}
+  <div class="col-sm-12 mt-3">
+    {% include figure.liquid path="assets/img/projects/1_project/architecture.png" title="System Pipeline" class="img-fluid rounded z-depth-1" %}
   </div>
 </div>
-<div class="caption">
-  A total of six simple head gestures were designed: circle, up-down, tilt, triangle, turn, and square.
-</div>
+
+We collect IMU data from smart glasses, extract low-cost features, and classify each segment as "user" or "no-user" — all on-device, with real-time capability.
 
 ---
 
-### 🔧 Methodology Overview
+### 🧪 Dataset & Gesture Design  
+
 <div class="row">
-  <div class="col-sm-12 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/projects/1_project/architecture.png" title="Pipeline: From IMU to Presence Detection" class="img-fluid rounded z-depth-1" %}
+  <div class="col-sm-12 mt-3">
+    {% include figure.liquid path="assets/img/projects/1_project/head_movements.png" title="Gesture Set" class="img-fluid rounded z-depth-1" %}
   </div>
 </div>
-<div class="caption">
-  Raw IMU data is preprocessed, segmented, and classified using lightweight models for presence detection and later, authentication and identification.
-</div>
+
+- **17 participants**, each performing 6 gestures  
+- **Device**: Epson Moverio BT-350  
+- **Sensors**: Accelerometer, Gyroscope, Rotation Vector, Geomagnetic  
+- **Sampling**: 110 Hz (Acc/Gyr), 55 Hz (GeoMag/RotVec)
 
 ---
 
-### 📊 Signal Characteristics & Variability
+### 📉 Sensor Signals: User Variation  
 
 <div class="row">
-  <div class="col-sm-12 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/projects/1_project/3dplots.png" title="Sensor Traces from Different Volunteers" class="img-fluid rounded z-depth-1" %}
+  <div class="col-sm-12 mt-3">
+    {% include figure.liquid path="assets/img/projects/1_project/3dplots.png" title="3D IMU Traces by User" class="img-fluid rounded z-depth-1" %}
   </div>
 </div>
-<div class="caption">
-  Sample gesture traces from three users using different sensors show intra- and inter-user variability, a core challenge in wearable ML.
-</div>
+
+Gestures produce distinct patterns across users and sensors — a foundation for both authentication and filtering.
 
 ---
 
-### 🧠 Performance Analysis
+### 📊 Results Summary  
 
 <div class="row">
-  <div class="col-sm-12 mt-3 mt-md-0">
+  <div class="col-sm-6 mt-3">
     {% include figure.liquid path="assets/img/projects/1_project/classifiers.png" title="Classifier Comparison (EER %)" class="img-fluid rounded z-depth-1" %}
   </div>
-</div>
-<div class="caption">
-  Adaboost consistently outperformed Random Forest, SVM, and MLP for user authentication using individual sensors.
-</div>
-
-<div class="row">
-  <div class="col-sm-12 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/projects/1_project/far_frr_eer.png" title="Best Results by Gesture (EER, FAR, FRR)" class="img-fluid rounded z-depth-1" %}
+  <div class="col-sm-6 mt-3">
+    {% include figure.liquid path="assets/img/projects/1_project/far_frr_eer.png" title="EER/FAR/FRR by Gesture" class="img-fluid rounded z-depth-1" %}
   </div>
 </div>
-<div class="caption">
-  The best gesture for authentication was <b>triangle</b> using rotation vector + geomagnetic sensors, achieving 1.3% EER.
-</div>
+
+- **Adaboost outperforms** RF, SVM, and MLP across all gestures  
+- Triangle gesture with RotVec+GeoMag achieves **1.3% EER**
 
 <div class="row">
-  <div class="col-sm-12 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/projects/1_project/participant_based2.png" title="Per-user Error Reduction (Before/After Optimization)" class="img-fluid rounded z-depth-1" %}
+  <div class="col-sm-6 mt-3">
+    {% include figure.liquid path="assets/img/projects/1_project/participant_based2.png" title="Optimization Impact by User" class="img-fluid rounded z-depth-1" %}
   </div>
-</div>
-<div class="caption">
-  Adding sliding window and SMOTE-based oversampling significantly reduced error rates across users.
+  <div class="col-sm-6 mt-3">
+    {% include figure.liquid path="assets/img/projects/1_project/eer_results.png" title="Sensor Fusion Results Table" class="img-fluid rounded z-depth-1" %}
+  </div>
 </div>
 
-<div class="row">
-  <div class="col-sm-12 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/projects/1_project/eer_results.png" title="Table – Best Sensor Combinations per Gesture" class="img-fluid rounded z-depth-1" %}
-  </div>
-</div>
-<div class="caption">
-  Using just two sensors (RotVec + GeoMag) was enough to achieve top-tier accuracy, making the system deployable even on constrained wearables.
-</div>
+- Oversampling + sliding window reduced EER across users  
+- Using **only 2 sensors** yields performance comparable to 3–4 sensor setups
 
 ---
 
-### ✅ Key Takeaways
-- **Sensor Modalities**: Accelerometer, Gyroscope, Geomagnetic, and Rotation Vector
-- **Deployment Target**: Smart glass (Epson Moverio BT-350) running Android-based logging app
-- **Best Results**:  
-  - Authentication: **1.3% EER**  
-  - Identification: **99.3% weighted F1-score**  
-- **Edge Optimized**: Models trained with only 3 time-domain features (mean, min, max) per window
+### 🔑 Key Takeaways
 
-**Tags:** `#SensorFusion` `#Wearables` `#BehavioralBiometrics` `#IMU` `#EdgeML` `#EmbeddedAI`
+- ✅ **1.3% EER** with triangle gesture  
+- ✅ **Only 3 features per signal**: mean, min, max  
+- ✅ Runs efficiently on wearable hardware (no deep learning required)  
+- ✅ Dataset + logger developed in-house  
+- ✅ Supports further steps like authentication & identification  
+
+---
+
+### 🔗 Resources  
+- 📁 [GitHub Repository](https://github.com/sumeyye-agac/glass-data-participant-detection)  
+- 📄 [Published Paper (SN Computer Science)](https://doi.org/10.1007/s42979-023-02202-4)
+
+**Tags:** `#EdgeAI` `#Wearables` `#SensorFusion` `#IMU` `#BehavioralBiometrics` `#MachineLearning`
