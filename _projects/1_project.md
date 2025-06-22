@@ -1,7 +1,7 @@
 ---
 layout: page
 title: User Classification for Smart Glasses: From Authentication to Identification
-description: Detecting user presence and identity using motion sensor data from smart glasses
+description: Detecting user presence and identity using on-device IMU data from smart glasses
 img: assets/img/12.jpg
 importance: 1
 category: work
@@ -9,75 +9,98 @@ related_publications: true
 giscus_comments: true
 ---
 
-### 🧠 Context  
-As wearable devices like smart glasses become more prevalent, ensuring that the data they collect is valid — and identifying the actual user — becomes critical. Most systems don't distinguish between idle data (e.g., glasses left on a desk) and meaningful usage. This project addresses that gap.
+Smart glasses continuously stream motion sensor data, but traditional systems treat all of it the same — regardless of whether the device is actually being worn. This can lead to irrelevant or misleading signals being used for downstream tasks such as activity recognition or access control.
+
+This project introduces a real-time, on-device system that filters out such noise by determining whether the glasses are actively worn. When worn, it authenticates the rightful user and can even identify them — using only IMU data and lightweight machine learning models optimized for embedded hardware.
 
 ---
 
-### 🎯 Task  
-Design a complete, real-time machine learning pipeline to:
-- Detect whether smart glasses are currently being worn  
-- Authenticate the rightful user  
-- Identify the individual among a group of users  
-All using only IMU sensor data, running on-device, without deep learning.
+### System Overview
+
+<div class="row">
+  <div class="col-sm-12 mt-3">
+    {% include figure.liquid path="assets/img/projects/1_project/architecture.png" title="System Pipeline" class="img-fluid rounded z-depth-1" %}
+  </div>
+</div>
+
+The system collects motion data from smart glasses, segments it into time windows, and extracts simple time-domain features. Classification is performed at three levels:
+- **Presence Detection**: Is the device being worn?  
+- **Authentication**: Is the current user the authorized one?  
+- **Identification**: Which user is wearing the device?
+
+All predictions are made on-device in real time.
 
 ---
 
-### ⚙️ Approach  
-We built and evaluated a full ML pipeline using smart glasses' motion sensor data.  
-Key components:
+### Dataset & Gesture Design
 
-- **Data**: Collected from 17 participants performing 6 predefined head gestures on Epson Moverio BT-350  
-- **Sensors**: Accelerometer, Gyroscope, Rotation Vector, Geomagnetic  
-- **Features**: Simple time-domain stats (mean, min, max) over 1s windows  
-- **Classifiers tested**:  
-  - Adaboost  
+<div class="row">
+  <div class="col-sm-12 mt-3">
+    {% include figure.liquid path="assets/img/projects/1_project/head_movements.png" title="Head Gesture Set" class="img-fluid rounded z-depth-1" %}
+  </div>
+</div>
+
+A custom dataset was collected from 17 participants wearing Epson Moverio BT-350 smart glasses. Each participant performed six predefined head gestures (triangle, square, up-down, etc.). Data was gathered from:
+- 4 motion sensors: Accelerometer, Gyroscope, Rotation Vector, Geomagnetic  
+- Sampling rates: 110 Hz (Acc/Gyro), 55 Hz (GeoMag/RotVec)  
+- Signals segmented into 1-second windows with 50% overlap  
+- Each window encoded with 108 features (mean, min, max across axes)
+
+---
+
+### Signal Variation Across Users
+
+<div class="row">
+  <div class="col-sm-12 mt-3">
+    {% include figure.liquid path="assets/img/projects/1_project/3dplots.png" title="3D IMU Patterns" class="img-fluid rounded z-depth-1" %}
+  </div>
+</div>
+
+Users executed the same gestures in distinct ways. This variation became a reliable behavioral signal — enabling identity recognition from motion alone.
+
+---
+
+### Methods
+
+A range of models were implemented and compared:
+
+- **Preprocessing**: normalization, statistical feature extraction, overlapping windowing  
+- **Classifiers**:  
+  - Adaboost (most effective overall)  
   - Random Forest  
-  - SVM (RBF/poly)  
+  - SVM (RBF and polynomial kernels)  
   - MLP  
-  - Ensembles (e.g., SVM+MLP)  
-- **Preprocessing**: Sliding window (50% overlap), SMOTE for class imbalance  
-- **Evaluation**: Gesture-specific 10-fold cross-validation  
+  - Model ensembles (SVM + MLP, etc.)  
+- **Class imbalance** was addressed using SMOTE  
+- Evaluations were performed using 10-fold cross-validation on gesture-specific splits
 
 ---
 
-### 📊 Key Results  
+### Results
 
-<div class="row">
-  <div class="col-sm-12 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/projects/1_project/far_frr_eer.png" title="Authentication Performance (EER/FAR/FRR)" class="img-fluid rounded z-depth-1" %}
-  </div>
-</div>
+Without relying on deep learning or cloud computation, the system achieved:
 
-- The triangle gesture with RotVec + GeoMag sensors achieved an **Equal Error Rate of 1.3%**  
-- Adaboost consistently outperformed other models in both authentication and identification tasks
-
-<div class="row">
-  <div class="col-sm-12 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/projects/1_project/eer_results.png" title="Sensor Combination Effect on EER" class="img-fluid rounded z-depth-1" %}
-  </div>
-</div>
-
-- High accuracy was achieved with only **2 sensors**, enabling low-power, on-device deployment  
-- Sliding window and SMOTE together significantly improved robustness across users
+- **1.3% Equal Error Rate** for user authentication, using only the triangle gesture and two sensors (Rotation Vector + Geomagnetic)  
+- **99.3% weighted F1-score** for identifying users across 17 participants, with Random Forest and sensor fusion  
+- Sliding window and SMOTE significantly improved generalization  
+- High performance was maintained even with just two sensors — making it suitable for energy-efficient, on-device deployment
 
 ---
 
-### 🧾 Outcome & Impact  
-- 🔒 Enabled secure, personalized interactions with smart glasses without user input  
-- ⚙️ Designed for embedded deployment using classical ML — no deep learning or cloud needed  
-- 📈 Validated on real data from 17 users with strong performance  
-- 📄 Published in SN Computer Science (Springer, 2023)
+### Why It Matters
 
-This project shows how practical ML pipelines — when thoughtfully designed — can solve real-world problems even under compute and power constraints. It demonstrates attention to deployment constraints, responsible data collection, and model evaluation.
+This system proves that reliable user detection and identification can be done entirely on-device, with minimal compute, using handcrafted features. It supports smarter, more secure wearable experiences without the need for continuous cloud connection or power-hungry models.
+
+The approach is generalizable to other wearable contexts and was validated through peer-reviewed publication.
 
 ---
 
 ### 🔗 Resources  
 - 📁 [GitHub Repository](https://github.com/sumeyye-agac/glass-data-participant-detection)  
-- 📄 [Published Paper (SN Computer Science)](https://doi.org/10.1007/s42979-023-02202-4)
+- 📄 [Published Paper](https://doi.org/10.1007/s42979-023-02202-4)
 
 ---
 
 **Tags:**  
-`#UserAuthentication` `#Identification` `#EdgeAI` `#WearableComputing` `#SensorFusion` `#MachineLearning` `#TimeSeriesClassification`
+`#UserAuthentication` `#EdgeAI` `#BehavioralBiometrics` `#Wearables`  
+`#SensorFusion` `#IMU` `#TimeSeriesClassification` `#Human-CenteredAI`
