@@ -5,7 +5,7 @@ description: User authentication and identification using head movements on smar
 img: assets/img/projects/1_project/cover.jpg
 importance: 1
 category: work
-related_publications: true
+related_publications: false
 ---
 
 ### 🎯 Motivation
