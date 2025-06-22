@@ -87,7 +87,10 @@ The project advances both **user authentication** and **user identification** on
 
 ---
 
-### 🏗️ Architecture Overview
+### 🧊 Architecture Overview
+
+The system processes motion data from smart glasses to authenticate and identify users based on their head gestures. Data is collected from four onboard sensors (accelerometer, gyroscope, rotation vector, geomagnetic), segmented into 1-second windows, and represented using simple statistical features. We frame authentication as a binary classification task and identification as multi-class, evaluating models like Adaboost and Random Forest. With minimal preprocessing and lightweight models, the system achieves up to 99.3% F1-score and 1.3% EER using only two or three sensors, enabling accurate, on-device user recognition.
+
 
 <div class="row justify-content-sm-center">
   <div class="col-sm-10 mt-3 mt-md-0">
