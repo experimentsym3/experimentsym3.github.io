@@ -10,7 +10,7 @@ related_publications: true
 
 ### 🎯 Motivation
 
-Smart glasses are gaining traction across domains like healthcare, education, and industrial training — yet they lack robust, user-friendly methods for personal authentication. Touch-based or alphanumeric methods (e.g., PINs) are often infeasible due to limited or no interface. Linking them to mobile devices is not only inconvenient but also introduces pairing dependencies and security vulnerabilities.
+Smart glasses are gaining traction across domains like healthcare, education, and industrial training - yet they lack robust, user-friendly methods for personal authentication. Touch-based or alphanumeric methods (e.g., PINs) are often infeasible due to limited or no interface. Linking them to mobile devices is not only inconvenient but also introduces pairing dependencies and security vulnerabilities.
 
 This project addresses a critical gap: **How can we design an intuitive, privacy-preserving, and on-device authentication mechanism for smart glasses that does not rely on external devices or intrusive biometrics?**
 
@@ -19,7 +19,7 @@ We hypothesize that **head movement patterns**, captured via built-in inertial s
 - ✅ **Passive and natural**: Users only perform simple, intuitive gestures  
 - ✅ **Lightweight**: Designed with edge deployment in mind (e.g., minimal features, low compute)
 
-The project advances both **user authentication** and **user identification** on wearable head-mounted displays (HMDs) through gesture-based behavioral modeling — contributing to the broader field of human-centered, privacy-preserving AI.
+The project advances both **user authentication** and **user identification** on wearable head-mounted displays (HMDs) through gesture-based behavioral modeling - contributing to the broader field of human-centered, privacy-preserving AI.
 
 ---
 
@@ -82,26 +82,18 @@ The project advances both **user authentication** and **user identification** on
   </div>
 </div>
 <div class="caption">
-  3D plots of motion sensor data for each gesture — showing how different participants execute each gesture uniquely.
+  3D plots of motion sensor data for each gesture - showing how different participants execute each gesture uniquely.
 </div>
 
 ---
 
 ### 🏗️ Architecture Overview
 
-The authentication and identification system is composed of three main components:
-
-#### 1. Data Collection & Preprocessing
-- Epson Moverio BT-350 smart glasses with 4 sensors: Accelerometer, Gyroscope, Rotation Vector, Geomagnetic
-- 6 gestures x 10 repetitions x 17 participants
-- Data segmented into 1-second windows, downsampled to 55 Hz
-- Extracted features: mean, min, max for each axis
-
-#### 2. Model Training
-- Authentication: Binary classification (user vs. no-user)
-- Identification: Multi-class classification (user ID)
-- Classifiers: Adaboost, Random Forest, SVM (RBF & Poly), MLP, ensemble models
-- Techniques: Sliding Window (50% overlap), SMOTE (for balancing classes)
+<div class="row justify-content-sm-center">
+  <div class="col-sm-10 mt-3 mt-md-0">
+    {% include figure.liquid path="assets/img/projects/1_project/cover.png" title="System Architecture" class="img-fluid rounded z-depth-1" %}
+  </div>
+</div>
 
 #### 3. Performance Evaluation
 - Authentication metric: Equal Error Rate (EER)
