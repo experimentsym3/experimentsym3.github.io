@@ -40,79 +40,124 @@ The model predicts the next word by processing three input words in sequence:
 
 ---
 
-
 ### 🔢 Mathematical Formulation
+
+This model predicts the next word in a sequence using a simple multi-layer perceptron (MLP) with an embedding layer. All computations — forward and backward — are implemented from scratch using NumPy, following precise matrix calculus.
+
+---
 
 #### 🧮 Forward Propagation
 
-**Input embeddings**:  
-Each word is one-hot encoded and projected into a 16-dimensional space using a shared embedding matrix \( W_1 \in \mathbb{R}^{250 \times 16} \):
+**Step 1 – One-hot Encoding and Embedding**  
+Each input word \( \mathbf{x}_i \in \mathbb{R}^{250} \) is one-hot encoded and passed through a shared embedding matrix \( W_1 \in \mathbb{R}^{250 \times 16} \):
 
 $$
-\mathbf{e}_1 = \text{word}_1 \cdot W_1 \quad \mathbf{e}_2 = \text{word}_2 \cdot W_1 \quad \mathbf{e}_3 = \text{word}_3 \cdot W_1
+\mathbf{e}_i = \mathbf{x}_i W_1 \quad \text{for } i=1,2,3
 $$
 
-**Concatenated input to the hidden layer**:  
+Each \( \mathbf{e}_i \in \mathbb{R}^{16} \). The embeddings are concatenated:
+
 $$
-\mathbf{h}_0 = [\mathbf{e}_1, \mathbf{e}_2, \mathbf{e}_3] \in \mathbb{R}^{3d}
+\mathbf{h}_0 = [\mathbf{e}_1, \mathbf{e}_2, \mathbf{e}_3] \in \mathbb{R}^{48}
 $$
 
-**Hidden layer activation**:  
+**Step 2 – Hidden Layer**  
+With weights \( W_2 \in \mathbb{R}^{48 \times 128} \), bias \( \mathbf{b}_1 \in \mathbb{R}^{128} \):
+
 $$
-\mathbf{h}_1 = \sigma(W_2 \mathbf{h}_0 + \mathbf{b}_1) \quad W_2 \in \mathbb{R}^{128 \times 48}, \quad \mathbf{b}_1 \in \mathbb{R}^{128}
+\mathbf{z}_1 = \mathbf{h}_0 W_2 + \mathbf{b}_1
 $$
 
-**Output logits and softmax**:  
+Apply sigmoid activation element-wise:
+
 $$
-\mathbf{z} = W_3 \mathbf{h}_1 + \mathbf{b}_2 \quad W_3 \in \mathbb{R}^{250 \times 128}, \quad \mathbf{b}_2 \in \mathbb{R}^{250}
-$$
-$$
-\hat{\mathbf{y}} = \text{softmax}(\mathbf{z}) = \frac{e^{\mathbf{z}_j}}{\sum_{j=1}^{250} e^{\mathbf{z}_j}}
+\mathbf{h}_1 = \sigma(\mathbf{z}_1) = \frac{1}{1 + e^{-\mathbf{z}_1}} \in \mathbb{R}^{128}
 $$
 
-**Cross-entropy loss**:  
+**Step 3 – Output Layer**  
+With \( W_3 \in \mathbb{R}^{128 \times 250} \), \( \mathbf{b}_2 \in \mathbb{R}^{250} \):
+
 $$
-\mathcal{L} = -\sum_{i=1}^{250} y_i \log(\hat{y}_i)
+\mathbf{z}_2 = \mathbf{h}_1 W_3 + \mathbf{b}_2 \\
+\hat{\mathbf{y}} = \text{softmax}(\mathbf{z}_2)
+$$
+
+---
+
+#### 🧾 Loss Function: Cross-Entropy
+
+Given one-hot ground truth \( \mathbf{y} \in \mathbb{R}^{250} \), the cross-entropy loss is:
+
+$$
+\mathcal{L} = -\sum_{j=1}^{250} y_j \log(\hat{y}_j)
+$$
+
+For batch size \( n \):
+
+$$
+\mathcal{L} = -\frac{1}{n} \sum_{i=1}^{n} \sum_{j=1}^{250} y_{ij} \log(\hat{y}_{ij})
 $$
 
 ---
 
 #### 🔁 Backward Propagation
 
-**Error at output layer**:  
+**Step 1 – Gradient of Loss w.r.t. Output (Softmax + Cross-Entropy)**
+
 $$
-\delta_3 = \hat{\mathbf{y}} - \mathbf{y}
+\delta_3 = \hat{\mathbf{y}} - \mathbf{y} \in \mathbb{R}^{250}
 $$
 
-**Output layer gradients**:  
+**Step 2 – Gradients for Output Layer**
+
 $$
-\nabla W_3 = \delta_3 \cdot \mathbf{h}_1^\top \quad \nabla \mathbf{b}_2 = \delta_3
+\frac{\partial \mathcal{L}}{\partial W_3} = \mathbf{h}_1^\top \delta_3, \quad
+\frac{\partial \mathcal{L}}{\partial \mathbf{b}_2} = \delta_3
 $$
 
-**Error at hidden layer**:  
+**Step 3 – Backprop Through Sigmoid**
+
 $$
-\delta_2 = (W_3^\top \delta_3) \odot \sigma'(\mathbf{h}_1)
+\delta_2 = (\delta_3 W_3^\top) \odot \sigma'(\mathbf{z}_1)
 $$
 
-**Hidden layer gradients**:  
+Where:
+
 $$
-\nabla W_2 = \delta_2 \cdot \mathbf{h}_0^\top \quad \nabla \mathbf{b}_1 = \delta_2
+\sigma'(\mathbf{z}_1) = \sigma(\mathbf{z}_1)(1 - \sigma(\mathbf{z}_1)) = \mathbf{h}_1 (1 - \mathbf{h}_1)
 $$
 
-**Embedding layer gradients**:  
-Let  
+So,
+
 $$
-\delta_e = W_2^\top \delta_2 \in \mathbb{R}^{3d}
+\delta_2 = (\delta_3 W_3^\top) \odot \mathbf{h}_1 \odot (1 - \mathbf{h}_1)
 $$
 
-Split as  
+**Step 4 – Gradients for Hidden Layer**
+
 $$
-[\delta_{e_1}, \delta_{e_2}, \delta_{e_3}] \in \mathbb{R}^d
+\frac{\partial \mathcal{L}}{\partial W_2} = \mathbf{h}_0^\top \delta_2, \quad
+\frac{\partial \mathcal{L}}{\partial \mathbf{b}_1} = \delta_2
 $$
 
-Update embedding matrix:  
+**Step 5 – Backprop to Embedding Layer**
+
+Let:
+
 $$
-\nabla W_1 += \delta_{e_i} \cdot \mathbf{x}_i^\top \quad \text{for } i = 1,2,3
+\delta_e = \delta_2 W_2^\top \in \mathbb{R}^{48}
+$$
+
+Then split \( \delta_e \) into:
+
+$$
+[\delta_{e_1}, \delta_{e_2}, \delta_{e_3}] \quad \text{each in } \mathbb{R}^{16}
+$$
+
+The embedding gradient is updated per word:
+
+$$
+\frac{\partial \mathcal{L}}{\partial W_1} += \delta_{e_i} \cdot \mathbf{x}_i^\top \quad \text{for } i = 1,2,3
 $$
 
 ---
