@@ -1,81 +1,70 @@
 ---
 layout: page
-title: project 1
-description: with background image
+title: Smart Glass Participant Detection
+description: On-device presence detection using IMU data from smart glasses
 img: assets/img/12.jpg
 importance: 1
 category: work
 related_publications: true
 ---
 
-Every project has a beautiful feature showcase page.
-It's easy to include images in a flexible 3-column grid format.
-Make your photos 1/3, 2/3, or full width.
+### 👓 Participant Detection from Smart Glass IMU Data
 
-To give your project a background in the portfolio page, just add the img tag to the front matter like so:
+This project implements a lightweight classification system to detect whether smart glasses are being worn, using motion sensor data. It filters out irrelevant or unattended sessions, improving the reliability of downstream tasks such as human activity recognition or user identification.
 
-    ---
-    layout: page
-    title: project
-    description: a project with a background image
-    img: /assets/img/12.jpg
-    ---
+This detection system forms the foundation of a broader on-device behavioral biometrics framework published in *SN Computer Science*. The models are optimized for real-time use on edge devices using minimal features (mean, min, max) for efficiency.
+
+📄 [Published Paper (SN Computer Science)](https://doi.org/10.1007/s42979-023-02202-4)  
+📁 [View Code on GitHub](https://github.com/sumeyye-agac/glass-data-participant-detection)
+
+---
 
 <div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/1.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/3.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
+  <div class="col-sm-6 mt-3 mt-md-0">
+    {% include figure.liquid path="assets/img/glass_gestures.jpg" title="Figure 3 – Head Gestures" class="img-fluid rounded z-depth-1" %}
+  </div>
+  <div class="col-sm-6 mt-3 mt-md-0">
+    {% include figure.liquid path="assets/img/glass_3d_gesture_samples.jpg" title="Figure 4 – 3D Gesture Traces" class="img-fluid rounded z-depth-1" %}
+  </div>
 </div>
 <div class="caption">
-    Caption photos easily. On the left, a road goes through a tunnel. Middle, leaves artistically fall in a hipster photoshoot. Right, in another hipster photoshoot, a lumberjack grasps a handful of pine needles.
+  Gesture types and user-specific IMU signal variations.
 </div>
+
+---
+
 <div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    This image can also have a caption. It's like magic.
-</div>
-
-You can also put regular text between your rows of images, even citations {% cite einstein1950meaning %}.
-Say you wanted to write a bit about your project before you posted the rest of the images.
-You describe how you toiled, sweated, _bled_ for your project, and then... you reveal its glory in the next row of images.
-
-<div class="row justify-content-sm-center">
-    <div class="col-sm-8 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    You can also have artistically styled 2/3 + 1/3 images, like these.
-</div>
-
-The code is simple.
-Just wrap your images with `<div class="col-sm">` and place them inside `<div class="row">` (read more about the <a href="https://getbootstrap.com/docs/4.4/layout/grid/">Bootstrap Grid</a> system).
-To make images responsive, add `img-fluid` class to each; for rounded corners and shadows use `rounded` and `z-depth-1` classes.
-Here's the code for the last row of images above:
-
-{% raw %}
-
-```html
-<div class="row justify-content-sm-center">
-  <div class="col-sm-8 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+  <div class="col-sm-6 mt-3 mt-md-0">
+    {% include figure.liquid path="assets/img/glass_dataset_summary_table.jpg" title="Table 2 – Dataset Summary" class="img-fluid rounded z-depth-1" %}
   </div>
-  <div class="col-sm-4 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+  <div class="col-sm-6 mt-3 mt-md-0">
+    {% include figure.liquid path="assets/img/glass_classifier_eer.jpg" title="Figure 6 – Classifier EER Comparison" class="img-fluid rounded z-depth-1" %}
   </div>
 </div>
-```
+<div class="caption">
+  Overview of the dataset and classifier performances — Adaboost led across sensor-gesture pairs.
+</div>
 
-{% endraw %}
+---
+
+<div class="row">
+  <div class="col-sm-6 mt-3 mt-md-0">
+    {% include figure.liquid path="assets/img/glass_sensor_combination_table.jpg" title="Table 4 – Sensor Combination Results" class="img-fluid rounded z-depth-1" %}
+  </div>
+  <div class="col-sm-6 mt-3 mt-md-0">
+    {% include figure.liquid path="assets/img/glass_optimization_comparison.jpg" title="Figure 7 – Optimization Impact" class="img-fluid rounded z-depth-1" %}
+  </div>
+</div>
+<div class="caption">
+  Best performance achieved with just two sensors (RotVec + GeoMag) and a triangle gesture.
+</div>
+
+---
+
+**Highlights:**
+- 17-participant dataset, collected on Epson Moverio BT-350 smart glasses  
+- Sensors: Accelerometer, Gyroscope, Geomagnetic, Rotation Vector  
+- Best authentication EER: **1.3%**  
+- Best identification F1-Score: **99.3%**
+
+**Tags:** `#WearableAI` `#SensorFusion` `#IMU` `#BiometricSecurity` `#EdgeML`
