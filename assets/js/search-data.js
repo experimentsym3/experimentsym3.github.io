@@ -43,7 +43,7 @@ ninja.data = [{
           description: "",
           section: "News",},{id: "projects-smart-glasses-user-detection-via-head-gestures",
           title: 'Smart Glasses User Detection via Head Gestures',
-          description: "Authentication and Identification using IMU sensor data on smart glasses",
+          description: "Authentication and Identification using IMU sensor data for smart glasses",
           section: "Projects",handler: () => {
               window.location.href = "/projects/1_project/";
             },},{id: "projects-project-2",
