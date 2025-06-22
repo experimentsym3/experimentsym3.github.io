@@ -1,16 +1,6 @@
 ---
 layout: page
 title: User Classification for Smart Glasses: From Authentication to Identification
-description: On-device user presence detection using wearable IMU data
-img: assets/img/12.jpg
-importance: 1
-category: work
-related_publications: true
----
-
-### 👓 Smart Glass Participant Detection  ---
-layout: page
-title: User Classification for Smart Glasses: From Authentication to Identification
 description: IMU-based, on-device user detection system for wearable smart glasses
 img: assets/img/12.jpg
 importance: 1
