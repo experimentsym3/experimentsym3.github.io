@@ -51,9 +51,9 @@ ninja.data = [{
           description: "A systematic exploration of CNN parameters on the CIFAR-10 dataset using TensorFlow",
           section: "Projects",handler: () => {
               window.location.href = "/projects/2_project/";
-            },},{id: "projects-project-3-with-very-long-name",
-          title: 'project 3 with very long name',
-          description: "a project that redirects to another website",
+            },},{id: "projects-predicting-the-next-word-from-scratch",
+          title: 'Predicting the Next Word from Scratch',
+          description: "Building and training a multi-layer perceptron for next-word prediction on a 250-word vocabulary using only numpy",
           section: "Projects",handler: () => {
               window.location.href = "/projects/3_project/";
             },},{id: "projects-project-4",
