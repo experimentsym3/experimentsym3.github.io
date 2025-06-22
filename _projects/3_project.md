@@ -3,7 +3,7 @@ layout: page
 title: Predicting the Next Word from Scratch
 description: Building and training a multi-layer perceptron for next-word prediction on a 250-word vocabulary using only numpy
 img: assets/img/projects/3_project/1.png
-importance: 1
+importance: 3
 category: work
 related_publications: false
 ---
