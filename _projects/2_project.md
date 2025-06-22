@@ -3,7 +3,7 @@ layout: page
 title: How Does a CNN Learn?
 description: A systematic exploration of CNN parameters on the CIFAR-10 dataset using TensorFlow
 img: assets/img/projects/2_project/26May_K33_fc1_test_tsne_100.png
-importance: 1
+importance: 2
 category: work
 related_publications: false
 ---
