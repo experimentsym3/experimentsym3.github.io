@@ -1,8 +1,8 @@
 ---
 layout: page
 title: Smart Glasses User Detection via Head Gestures
-description: Authentication and Identification using IMU sensor data for smart glasses
-img: assets/img/projects/1_project/square_gesture.png
+description: Authentication and Identification using IMU sensor data on smart glasses
+img: assets/img/projects/1_project/cover.jpg
 importance: 1
 category: work
 related_publications: true
@@ -84,6 +84,29 @@ The project advances both **user authentication** and **user identification** on
 <div class="caption">
   3D plots of motion sensor data for each gesture — showing how different participants execute each gesture uniquely.
 </div>
+
+---
+
+### 🏗️ Architecture Overview
+
+The authentication and identification system is composed of three main components:
+
+#### 1. Data Collection & Preprocessing
+- Epson Moverio BT-350 smart glasses with 4 sensors: Accelerometer, Gyroscope, Rotation Vector, Geomagnetic
+- 6 gestures x 10 repetitions x 17 participants
+- Data segmented into 1-second windows, downsampled to 55 Hz
+- Extracted features: mean, min, max for each axis
+
+#### 2. Model Training
+- Authentication: Binary classification (user vs. no-user)
+- Identification: Multi-class classification (user ID)
+- Classifiers: Adaboost, Random Forest, SVM (RBF & Poly), MLP, ensemble models
+- Techniques: Sliding Window (50% overlap), SMOTE (for balancing classes)
+
+#### 3. Performance Evaluation
+- Authentication metric: Equal Error Rate (EER)
+- Identification metric: Weighted F1-score
+- Best results: 1.3% EER with Adaboost, 99.3% F1-score with Random Forest
 
 ---
 
