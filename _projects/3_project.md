@@ -1,81 +1,126 @@
 ---
 layout: page
-title: project 3 with very long name
-description: a project that redirects to another website
-img: assets/img/7.jpg
-redirect: https://unsplash.com
-importance: 3
+title: Predicting the Next Word from Scratch
+description: Building and training a multi-layer perceptron for next-word prediction on a 250-word vocabulary using only numpy
+img: assets/img/projects/3_project/1.png
+importance: 1
 category: work
+related_publications: false
 ---
 
-Every project has a beautiful feature showcase page.
-It's easy to include images in a flexible 3-column grid format.
-Make your photos 1/3, 2/3, or full width.
+### 🎯 Motivation
 
-To give your project a background in the portfolio page, just add the img tag to the front matter like so:
+This project tackles the challenge of next-word prediction in short text sequences using a **multi-layer perceptron (MLP)** built entirely from scratch using NumPy—no deep learning libraries like TensorFlow or PyTorch. While modern models often depend on large-scale transformer architectures, this work highlights the learning dynamics and architectural challenges of a minimalistic MLP trained on a constrained vocabulary.
 
-    ---
-    layout: page
-    title: project
-    description: a project with a background image
-    img: /assets/img/12.jpg
-    ---
+The goal was to predict the most likely **4th word** given a sequence of 3 input words. With a controlled 250-word vocabulary and fixed-length sequences, the project focuses on foundational principles: **embedding representations**, **forward/backward propagation**, and **gradient-based optimization**.
+
+---
+
+### 📎 Links  
+- 🔗 [GitHub Repository](https://github.com/sumeyye-agac/next-word-prediction-using-MLP-from-scratch)
+
+---
+
+### 🧠 Network Architecture
+
+The model predicts the next word by processing three input words in sequence:
+
+1. **Embedding Layer**: Each word index is converted to a one-hot vector and mapped to a 16-dimensional embedding (via matrix multiplication with a learned `W1`).
+2. **Hidden Layer**: The three embeddings are concatenated into a 48-dimensional vector and passed to a hidden layer with 128 units and sigmoid activation.
+3. **Output Layer**: A softmax layer predicts a 250-dimensional output representing the probability distribution over the vocabulary.
 
 <div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/1.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/3.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
+  <div class="col-sm">
+    {% include figure.liquid path="assets/img/projects/3_project/20epoch.png" title="Training Results (20 Epochs)" class="img-fluid rounded z-depth-1" %}
+  </div>
+  <div class="col-sm">
+    {% include figure.liquid path="assets/img/projects/3_project/50epoch.png" title="Training Results (50 Epochs)" class="img-fluid rounded z-depth-1" %}
+  </div>
 </div>
-<div class="caption">
-    Caption photos easily. On the left, a road goes through a tunnel. Middle, leaves artistically fall in a hipster photoshoot. Right, in another hipster photoshoot, a lumberjack grasps a handful of pine needles.
-</div>
+
+---
+
+### ⚗️ Experimentation & Insights
+
+A wide range of experiments were conducted to understand what impacts model learning the most:
+
+| Category              | Variants Explored                     |
+|-----------------------|----------------------------------------|
+| Initialization        | Zero, Random, Xavier (final)           |
+| Learning Rate         | 0.1, 0.01 (final), 0.001               |
+| Batch Size            | 10, 50, 100 (final), 200, 500          |
+| Epochs                | 10, 20 (final), 50                     |
+| Weight Updates        | Manual SGD via backward propagation    |
+| Evaluation Strategy   | Per-epoch validation + test accuracy   |
+
+Findings:
+- **Zero initialization** failed due to symmetry.
+- **Xavier initialization** worked best for sigmoid.
+- **Batch size impact** was minimal *only* under optimal learning rates.
+- Final performance reached ~36% accuracy — competitive given limited expressiveness and no pretrained embeddings.
+
+---
+
+### 📉 Performance Visualization
+
+To monitor convergence, training and validation accuracy/loss were recorded per epoch. Results revealed that convergence stabilized after ~20 epochs, motivating early stopping.
+
 <div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    This image can also have a caption. It's like magic.
-</div>
-
-You can also put regular text between your rows of images.
-Say you wanted to write a little bit about your project before you posted the rest of the images.
-You describe how you toiled, sweated, _bled_ for your project, and then... you reveal its glory in the next row of images.
-
-<div class="row justify-content-sm-center">
-    <div class="col-sm-8 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    You can also have artistically styled 2/3 + 1/3 images, like these.
-</div>
-
-The code is simple.
-Just wrap your images with `<div class="col-sm">` and place them inside `<div class="row">` (read more about the <a href="https://getbootstrap.com/docs/4.4/layout/grid/">Bootstrap Grid</a> system).
-To make images responsive, add `img-fluid` class to each; for rounded corners and shadows use `rounded` and `z-depth-1` classes.
-Here's the code for the last row of images above:
-
-{% raw %}
-
-```html
-<div class="row justify-content-sm-center">
-  <div class="col-sm-8 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+  <div class="col-sm">
+    {% include figure.liquid path="assets/img/projects/3_project/20epoch.png" title="Epoch 20 Convergence" class="img-fluid rounded z-depth-1" %}
   </div>
-  <div class="col-sm-4 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+  <div class="col-sm">
+    {% include figure.liquid path="assets/img/projects/3_project/50epoch.png" title="Epoch 50 Convergence" class="img-fluid rounded z-depth-1" %}
   </div>
 </div>
-```
 
-{% endraw %}
+---
+
+### 🧬 Word Embedding Visualization
+
+To inspect learned word semantics, the 16-dimensional embedding vectors were reduced to 2D using **t-SNE**, producing several **semantically or syntactically coherent clusters**:
+
+<div class="row mt-3">
+  <div class="col-sm">
+    {% include figure.liquid path="assets/img/projects/3_project/1.png" title="Cluster 1" class="img-fluid rounded z-depth-1" %}
+  </div>
+  <div class="col-sm">
+    {% include figure.liquid path="assets/img/projects/3_project/2.png" title="Cluster 2" class="img-fluid rounded z-depth-1" %}
+  </div>
+</div>
+<div class="row mt-3">
+  <div class="col-sm">
+    {% include figure.liquid path="assets/img/projects/3_project/3.png" title="Cluster 3" class="img-fluid rounded z-depth-1" %}
+  </div>
+  <div class="col-sm">
+    {% include figure.liquid path="assets/img/projects/3_project/4.png" title="Cluster 4" class="img-fluid rounded z-depth-1" %}
+  </div>
+</div>
+
+Examples include:
+- Modals: *can, could, might, should*  
+- Pronouns: *my, your, their, his*  
+- Temporal: *now, then, today*  
+- Conjunctions: *and, but, or*
+
+---
+
+### 📌 Sample Predictions
+
+The trained model could generate grammatically and semantically valid next-word predictions:
+
+| Input Sequence       | Predicted Word |
+|----------------------|----------------|
+| city of new          | york           |
+| life in the          | world          |
+| he is the            | best           |
+
+These results reflect learned sequential patterns despite architectural simplicity.
+
+---
+
+### ⚙️ Technical Stack
+- **Language**: Python (NumPy only)
+- **Network**: 1 hidden layer MLP with embeddings
+- **Optimization**: Custom backward propagation & SGD
+- **Evaluation**: Accuracy, Loss, Manual t-SNE, Prediction sampling

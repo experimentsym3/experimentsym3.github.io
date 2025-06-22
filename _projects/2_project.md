@@ -10,7 +10,7 @@ related_publications: false
 
 ### 🎯 Motivation
 
-In this project, I built and analyzed a convolutional neural network (CNN) from scratch in TensorFlow to investigate the impact of architectural and training hyperparameters on model performance. While most deep learning pipelines focus solely on accuracy, this work emphasizes systematic experimentation and interpretability—examining how design decisions affect convergence, generalization, and representation learning.
+In this project, I built and analyzed a convolutional neural network (CNN) in TensorFlow to investigate the impact of architectural and training hyperparameters on model performance. While most deep learning pipelines focus solely on accuracy, this work emphasizes systematic experimentation and interpretability—examining how design decisions affect convergence, generalization, and representation learning.
 
 Using the CIFAR-10 benchmark dataset, I ran over 30 comparative experiments, isolating variables such as activation functions, filter sizes, kernel initializations, batch normalization, dropout, data augmentation, and optimization strategies. My goal was to draw reliable conclusions about which choices are critical under real-world constraints like limited training time, computational budget, and risk of overfitting.
 
