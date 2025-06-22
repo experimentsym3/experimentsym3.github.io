@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Smart Glasses User Detection via Head Gestures
-description: Authentication and Identification using IMU sensor data on smart glasses
+title: Who’s Wearing the Glasses?
+description: User authentication and identification using head movements on smart glasses
 img: assets/img/projects/1_project/cover.jpg
 importance: 1
 category: work
