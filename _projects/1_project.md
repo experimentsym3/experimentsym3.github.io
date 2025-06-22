@@ -94,7 +94,7 @@ The system processes motion data from smart glasses to authenticate and identify
 
 <div class="row justify-content-sm-center">
   <div class="col-sm-10 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/projects/1_project/cover.png" title="System Architecture" class="img-fluid rounded z-depth-1" %}
+    {% include figure.liquid path="assets/img/projects/1_project/architecture.png" title="System Architecture" class="img-fluid rounded z-depth-1" %}
   </div>
 </div>
 
