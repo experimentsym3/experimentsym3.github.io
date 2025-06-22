@@ -89,6 +89,27 @@ The model was trained using several optimization strategies including SGD, RMSPr
   </div>
 </div>
 
+#### 🔬 Experiment Summary
+
+This project involved extensive experimentation to understand the impact of different hyperparameters and architectural choices on CNN performance. Each category below was systematically explored through isolated tests:
+
+| Category             | Variants Explored                         |
+|----------------------|--------------------------------------------|
+| Activation Functions | ReLU, Sigmoid, Tanh                        |
+| Filter Sizes         | 3×3, 5×5, 7×7                              |
+| Feature Maps         | 32–64–128, 32–32–64, 64–128–256            |
+| Fully Connected Layers | 1 layer, 2 layers, 3 layers              |
+| Pooling Methods      | Max pooling, Average pooling              |
+| Initialization Schemes | He, Xavier, Random Normal               |
+| Data Augmentation    | Horizontal flip, Random crop, Combined (S3) |
+| Dropout Rates        | 0.3, 0.5, No dropout                       |
+| Batch Normalization  | With batch norm, Without batch norm       |
+| Batch Sizes          | 16, 32, 64                                 |
+| Optimizers           | Adam, SGD, RMSProp, Adagrad, Adadelta     |
+
+Each configuration was logged, visualized, and interpreted to understand not just what works, but why it works. This deliberate process informed the final model design.
+
+
 ### ⚙️ Technical Stack
 - **Framework**: TensorFlow 
 - **Dataset**: CIFAR-10  
