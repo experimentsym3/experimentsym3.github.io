@@ -41,9 +41,9 @@ ninja.data = [{
           section: "News",},{id: "news-successfully-defended-phd-dissertation-enhancing-lightweight-models-for-efficient-sensor-based-human-activity-recognition",
           title: 'Successfully defended PhD dissertation, “Enhancing Lightweight Models for Efficient Sensor-based Human Activity Recognition.”...',
           description: "",
-          section: "News",},{id: "projects-project-1",
-          title: 'project 1',
-          description: "with background image",
+          section: "News",},{id: "projects-smart-glasses-user-detection-via-head-gestures",
+          title: 'Smart Glasses User Detection via Head Gestures',
+          description: "Authentication and Identification using IMU sensor data on smart glasses",
           section: "Projects",handler: () => {
               window.location.href = "/projects/1_project/";
             },},{id: "projects-project-2",
