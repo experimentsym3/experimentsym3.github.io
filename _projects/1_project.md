@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Smart Glass Participant Detection
-description: On-device presence detection using IMU data from smart glasses
+title: User Authentication and Identification on Smart Glasses with Motion Sensors
+description: 
 img: assets/img/12.jpg
 importance: 1
 category: work
