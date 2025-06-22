@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Predicting the Next Word from Scratch
-description: Building and training a multi-layer perceptron for next-word prediction on a 250-word vocabulary using only numpy
+description: Building and training a multi-layer perceptron for next-word prediction on a 250-word vocabulary using only NumPy
 img: assets/img/projects/3_project/1.png
 importance: 3
 category: work
@@ -10,7 +10,7 @@ related_publications: false
 
 ### 🎯 Motivation
 
-This project tackles the challenge of next-word prediction in short text sequences using a **multi-layer perceptron (MLP)** built entirely from scratch using NumPy—no deep learning libraries like TensorFlow or PyTorch. While modern models often depend on large-scale transformer architectures, this work highlights the learning dynamics and architectural challenges of a minimalistic MLP trained on a constrained vocabulary.
+This project tackles the challenge of next-word prediction in short text sequences using a **multi-layer perceptron (MLP)** built entirely from scratch using **NumPy**—no deep learning libraries like TensorFlow or PyTorch. While modern models often depend on large-scale transformer architectures, this work highlights the learning dynamics and architectural challenges of a minimalistic MLP trained on a constrained vocabulary.
 
 The goal was to predict the most likely **4th word** given a sequence of 3 input words. With a controlled 250-word vocabulary and fixed-length sequences, the project focuses on foundational principles: **embedding representations**, **forward/backward propagation**, and **gradient-based optimization**.
 
@@ -40,56 +40,80 @@ The model predicts the next word by processing three input words in sequence:
 
 ---
 
+
 ### 🔢 Mathematical Formulation
 
-We implemented a multi-layer perceptron (MLP) model for next-word prediction, trained using backpropagation and cross-entropy loss. Below are the key mathematical operations:
+#### 🧮 Forward Propagation
 
----
+**Input embeddings**:  
+Each word is one-hot encoded and projected into a 16-dimensional space using a shared embedding matrix \( W_1 \in \mathbb{R}^{250 \times 16} \):
 
-#### 🧮 Forward Pass
+$$
+\mathbf{e}_1 = \text{word}_1 \cdot W_1 \quad \mathbf{e}_2 = \text{word}_2 \cdot W_1 \quad \mathbf{e}_3 = \text{word}_3 \cdot W_1
+$$
 
 **Concatenated input to the hidden layer**:  
-$$ \mathbf{h}_0 = [\mathbf{e}_1, \mathbf{e}_2, \mathbf{e}_3] \in \mathbb{R}^{3d} $$
+$$
+\mathbf{h}_0 = [\mathbf{e}_1, \mathbf{e}_2, \mathbf{e}_3] \in \mathbb{R}^{3d}
+$$
 
 **Hidden layer activation**:  
-$$ \mathbf{h}_1 = \sigma(W_2 \mathbf{h}_0 + \mathbf{b}_1) \quad W_2 \in \mathbb{R}^{H \times 3d}, \quad \mathbf{b}_1 \in \mathbb{R}^{H} $$
+$$
+\mathbf{h}_1 = \sigma(W_2 \mathbf{h}_0 + \mathbf{b}_1) \quad W_2 \in \mathbb{R}^{128 \times 48}, \quad \mathbf{b}_1 \in \mathbb{R}^{128}
+$$
 
 **Output logits and softmax**:  
-$$ \mathbf{z} = W_3 \mathbf{h}_1 + \mathbf{b}_2 \quad W_3 \in \mathbb{R}^{V \times H}, \quad \mathbf{b}_2 \in \mathbb{R}^{V} $$
-$$ \hat{\mathbf{y}} = \text{softmax}(\mathbf{z}) = \frac{e^{\mathbf{z}_j}}{\sum_{j=1}^{V} e^{\mathbf{z}_j}} $$
+$$
+\mathbf{z} = W_3 \mathbf{h}_1 + \mathbf{b}_2 \quad W_3 \in \mathbb{R}^{250 \times 128}, \quad \mathbf{b}_2 \in \mathbb{R}^{250}
+$$
+$$
+\hat{\mathbf{y}} = \text{softmax}(\mathbf{z}) = \frac{e^{\mathbf{z}_j}}{\sum_{j=1}^{250} e^{\mathbf{z}_j}}
+$$
 
----
-
-#### 🎯 Loss Function
-
-**Cross-entropy loss between target \( \mathbf{y} \) and prediction \( \hat{\mathbf{y}} \)**:  
-$$ \mathcal{L} = -\sum_{i=1}^{V} y_i \log(\hat{y}_i) $$
+**Cross-entropy loss**:  
+$$
+\mathcal{L} = -\sum_{i=1}^{250} y_i \log(\hat{y}_i)
+$$
 
 ---
 
 #### 🔁 Backward Propagation
 
 **Error at output layer**:  
-$$ \delta_3 = \hat{\mathbf{y}} - \mathbf{y} $$
+$$
+\delta_3 = \hat{\mathbf{y}} - \mathbf{y}
+$$
 
-**Gradients for output layer**:  
-$$ \nabla W_3 = \delta_3 \cdot \mathbf{h}_1^\top \quad \nabla \mathbf{b}_2 = \delta_3 $$
+**Output layer gradients**:  
+$$
+\nabla W_3 = \delta_3 \cdot \mathbf{h}_1^\top \quad \nabla \mathbf{b}_2 = \delta_3
+$$
 
 **Error at hidden layer**:  
-$$ \delta_2 = (W_3^\top \delta_3) \odot \sigma'(\mathbf{h}_1) $$
+$$
+\delta_2 = (W_3^\top \delta_3) \odot \sigma'(\mathbf{h}_1)
+$$
 
-**Gradients for hidden layer**:  
-$$ \nabla W_2 = \delta_2 \cdot \mathbf{h}_0^\top \quad \nabla \mathbf{b}_1 = \delta_2 $$
+**Hidden layer gradients**:  
+$$
+\nabla W_2 = \delta_2 \cdot \mathbf{h}_0^\top \quad \nabla \mathbf{b}_1 = \delta_2
+$$
 
-**Embedding gradient split** (backprop to \( W_1 \)):  
-Let:  
-$$ \delta_e = W_2^\top \delta_2 \in \mathbb{R}^{3d} $$
+**Embedding layer gradients**:  
+Let  
+$$
+\delta_e = W_2^\top \delta_2 \in \mathbb{R}^{3d}
+$$
 
-Split as:  
-$$ [\delta_{e_1}, \delta_{e_2}, \delta_{e_3}] \in \mathbb{R}^d $$
+Split as  
+$$
+[\delta_{e_1}, \delta_{e_2}, \delta_{e_3}] \in \mathbb{R}^d
+$$
 
-Update rule:  
-$$ \nabla W_1 += \delta_{e_i} \cdot \mathbf{x}_i^\top \quad \text{for } i=1,2,3 $$
+Update embedding matrix:  
+$$
+\nabla W_1 += \delta_{e_i} \cdot \mathbf{x}_i^\top \quad \text{for } i = 1,2,3
+$$
 
 ---
 
@@ -177,3 +201,4 @@ These results reflect learned sequential patterns despite architectural simplici
 - **Network**: 1 hidden layer MLP with embeddings
 - **Optimization**: Custom backward propagation & SGD
 - **Evaluation**: Accuracy, Loss, Manual t-SNE, Prediction sampling
+
