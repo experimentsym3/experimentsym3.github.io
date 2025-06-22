@@ -53,7 +53,7 @@ ninja.data = [{
               window.location.href = "/projects/2_project/";
             },},{id: "projects-predicting-the-next-word-from-scratch",
           title: 'Predicting the Next Word from Scratch',
-          description: "Building and training a multi-layer perceptron for next-word prediction on a 250-word vocabulary using only numpy",
+          description: "Building and training a multi-layer perceptron for next-word prediction on a 250-word vocabulary using only NumPy",
           section: "Projects",handler: () => {
               window.location.href = "/projects/3_project/";
             },},{id: "projects-project-4",
