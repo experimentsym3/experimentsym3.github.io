@@ -1,106 +1,81 @@
 ---
 layout: page
-title: User Classification for Smart Glasses: From Authentication to Identification
-description: Detecting user presence and identity using on-device IMU data from smart glasses
+title: project 1
+description: with background image
 img: assets/img/12.jpg
 importance: 1
 category: work
 related_publications: true
-giscus_comments: true
 ---
 
-Smart glasses continuously stream motion sensor data, but traditional systems treat all of it the same — regardless of whether the device is actually being worn. This can lead to irrelevant or misleading signals being used for downstream tasks such as activity recognition or access control.
+Every project has a beautiful feature showcase page.
+It's easy to include images in a flexible 3-column grid format.
+Make your photos 1/3, 2/3, or full width.
 
-This project introduces a real-time, on-device system that filters out such noise by determining whether the glasses are actively worn. When worn, it authenticates the rightful user and can even identify them — using only IMU data and lightweight machine learning models optimized for embedded hardware.
+To give your project a background in the portfolio page, just add the img tag to the front matter like so:
 
----
-
-### System Overview
+    ---
+    layout: page
+    title: project
+    description: a project with a background image
+    img: /assets/img/12.jpg
+    ---
 
 <div class="row">
-  <div class="col-sm-12 mt-3">
-    {% include figure.liquid path="assets/img/projects/1_project/architecture.png" title="System Pipeline" class="img-fluid rounded z-depth-1" %}
-  </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="assets/img/1.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="assets/img/3.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+    </div>
 </div>
-
-The system collects motion data from smart glasses, segments it into time windows, and extracts simple time-domain features. Classification is performed at three levels:
-- **Presence Detection**: Is the device being worn?  
-- **Authentication**: Is the current user the authorized one?  
-- **Identification**: Which user is wearing the device?
-
-All predictions are made on-device in real time.
-
----
-
-### Dataset & Gesture Design
-
+<div class="caption">
+    Caption photos easily. On the left, a road goes through a tunnel. Middle, leaves artistically fall in a hipster photoshoot. Right, in another hipster photoshoot, a lumberjack grasps a handful of pine needles.
+</div>
 <div class="row">
-  <div class="col-sm-12 mt-3">
-    {% include figure.liquid path="assets/img/projects/1_project/head_movements.png" title="Head Gesture Set" class="img-fluid rounded z-depth-1" %}
-  </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="caption">
+    This image can also have a caption. It's like magic.
 </div>
 
-A custom dataset was collected from 17 participants wearing Epson Moverio BT-350 smart glasses. Each participant performed six predefined head gestures (triangle, square, up-down, etc.). Data was gathered from:
-- 4 motion sensors: Accelerometer, Gyroscope, Rotation Vector, Geomagnetic  
-- Sampling rates: 110 Hz (Acc/Gyro), 55 Hz (GeoMag/RotVec)  
-- Signals segmented into 1-second windows with 50% overlap  
-- Each window encoded with 108 features (mean, min, max across axes)
+You can also put regular text between your rows of images, even citations {% cite einstein1950meaning %}.
+Say you wanted to write a bit about your project before you posted the rest of the images.
+You describe how you toiled, sweated, _bled_ for your project, and then... you reveal its glory in the next row of images.
 
----
-
-### Signal Variation Across Users
-
-<div class="row">
-  <div class="col-sm-12 mt-3">
-    {% include figure.liquid path="assets/img/projects/1_project/3dplots.png" title="3D IMU Patterns" class="img-fluid rounded z-depth-1" %}
-  </div>
+<div class="row justify-content-sm-center">
+    <div class="col-sm-8 mt-3 mt-md-0">
+        {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm-4 mt-3 mt-md-0">
+        {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="caption">
+    You can also have artistically styled 2/3 + 1/3 images, like these.
 </div>
 
-Users executed the same gestures in distinct ways. This variation became a reliable behavioral signal — enabling identity recognition from motion alone.
+The code is simple.
+Just wrap your images with `<div class="col-sm">` and place them inside `<div class="row">` (read more about the <a href="https://getbootstrap.com/docs/4.4/layout/grid/">Bootstrap Grid</a> system).
+To make images responsive, add `img-fluid` class to each; for rounded corners and shadows use `rounded` and `z-depth-1` classes.
+Here's the code for the last row of images above:
 
----
+{% raw %}
 
-### Methods
+```html
+<div class="row justify-content-sm-center">
+  <div class="col-sm-8 mt-3 mt-md-0">
+    {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+  </div>
+  <div class="col-sm-4 mt-3 mt-md-0">
+    {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+  </div>
+</div>
+```
 
-A range of models were implemented and compared:
-
-- **Preprocessing**: normalization, statistical feature extraction, overlapping windowing  
-- **Classifiers**:  
-  - Adaboost (most effective overall)  
-  - Random Forest  
-  - SVM (RBF and polynomial kernels)  
-  - MLP  
-  - Model ensembles (SVM + MLP, etc.)  
-- **Class imbalance** was addressed using SMOTE  
-- Evaluations were performed using 10-fold cross-validation on gesture-specific splits
-
----
-
-### Results
-
-Without relying on deep learning or cloud computation, the system achieved:
-
-- **1.3% Equal Error Rate** for user authentication, using only the triangle gesture and two sensors (Rotation Vector + Geomagnetic)  
-- **99.3% weighted F1-score** for identifying users across 17 participants, with Random Forest and sensor fusion  
-- Sliding window and SMOTE significantly improved generalization  
-- High performance was maintained even with just two sensors — making it suitable for energy-efficient, on-device deployment
-
----
-
-### Why It Matters
-
-This system proves that reliable user detection and identification can be done entirely on-device, with minimal compute, using handcrafted features. It supports smarter, more secure wearable experiences without the need for continuous cloud connection or power-hungry models.
-
-The approach is generalizable to other wearable contexts and was validated through peer-reviewed publication.
-
----
-
-### 🔗 Resources  
-- 📁 [GitHub Repository](https://github.com/sumeyye-agac/glass-data-participant-detection)  
-- 📄 [Published Paper](https://doi.org/10.1007/s42979-023-02202-4)
-
----
-
-**Tags:**  
-`#UserAuthentication` `#EdgeAI` `#BehavioralBiometrics` `#Wearables`  
-`#SensorFusion` `#IMU` `#TimeSeriesClassification` `#Human-CenteredAI`
+{% endraw %}
