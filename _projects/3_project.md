@@ -40,59 +40,64 @@ The model predicts the next word by processing three input words in sequence:
 
 ---
 
-### 🔢 Mathematical Formulation
 
 This model predicts the next word in a sequence using a simple multi-layer perceptron (MLP) with an embedding layer. All computations — forward and backward — are implemented from scratch using NumPy, following precise matrix calculus.
 
 ---
 
+### 🔢 Mathematical Formulation
+
+Before diving into implementation, we derive the complete forward and backward propagation steps from first principles. This ensures correct dimensionality, transparency in training dynamics, and a solid foundation for debugging and experimentation.
+
+---
+
 #### 🧮 Forward Propagation
 
-**Step 1 – One-hot Encoding and Embedding**  
-Each input word \( \mathbf{x}_i \in \mathbb{R}^{250} \) is one-hot encoded and passed through a shared embedding matrix \( W_1 \in \mathbb{R}^{250 \times 16} \):
+**Step 1 – Word Embeddings**  
+Each of the 3 input words is represented as a one-hot vector \( \mathbf{x}_i \in \mathbb{R}^{250} \). These are projected into a continuous space using a shared embedding matrix \( \mathbf{W}_1 \in \mathbb{R}^{250 \times 16} \):
 
 $$
-\mathbf{e}_i = \mathbf{x}_i W_1 \quad \text{for } i=1,2,3
+\mathbf{e}_i = \mathbf{x}_i \cdot \mathbf{W}_1 \in \mathbb{R}^{16}, \quad \text{for } i = 1, 2, 3
 $$
 
-Each \( \mathbf{e}_i \in \mathbb{R}^{16} \). The embeddings are concatenated:
+**Step 2 – Concatenation**  
+We stack the three embeddings into a single input vector:
 
 $$
 \mathbf{h}_0 = [\mathbf{e}_1, \mathbf{e}_2, \mathbf{e}_3] \in \mathbb{R}^{48}
 $$
 
-**Step 2 – Hidden Layer**  
-With weights \( W_2 \in \mathbb{R}^{48 \times 128} \), bias \( \mathbf{b}_1 \in \mathbb{R}^{128} \):
+**Step 3 – Hidden Layer (Linear + Sigmoid)**  
+Using weights \( \mathbf{W}_2 \in \mathbb{R}^{48 \times 128} \) and biases \( \mathbf{b}_1 \in \mathbb{R}^{128} \):
 
 $$
-\mathbf{z}_1 = \mathbf{h}_0 W_2 + \mathbf{b}_1
+\mathbf{z}_1 = \mathbf{h}_0 \cdot \mathbf{W}_2 + \mathbf{b}_1 \in \mathbb{R}^{128}
 $$
-
-Apply sigmoid activation element-wise:
-
 $$
 \mathbf{h}_1 = \sigma(\mathbf{z}_1) = \frac{1}{1 + e^{-\mathbf{z}_1}} \in \mathbb{R}^{128}
 $$
 
-**Step 3 – Output Layer**  
-With \( W_3 \in \mathbb{R}^{128 \times 250} \), \( \mathbf{b}_2 \in \mathbb{R}^{250} \):
+**Step 4 – Output Layer (Linear + Softmax)**  
+Project to vocabulary size using \( \mathbf{W}_3 \in \mathbb{R}^{128 \times 250} \), \( \mathbf{b}_2 \in \mathbb{R}^{250} \):
 
 $$
-\mathbf{z}_2 = \mathbf{h}_1 W_3 + \mathbf{b}_2 \\
-\hat{\mathbf{y}} = \text{softmax}(\mathbf{z}_2)
+\mathbf{z}_2 = \mathbf{h}_1 \cdot \mathbf{W}_3 + \mathbf{b}_2 \in \mathbb{R}^{250}
+$$
+$$
+\hat{\mathbf{y}} = \text{softmax}(\mathbf{z}_2) = \frac{e^{\mathbf{z}_2}}{\sum_{j=1}^{250} e^{\mathbf{z}_2^{(j)}}} \in \mathbb{R}^{250}
 $$
 
 ---
 
 #### 🧾 Loss Function: Cross-Entropy
 
-Given one-hot ground truth \( \mathbf{y} \in \mathbb{R}^{250} \), the cross-entropy loss is:
+We minimize the cross-entropy between the one-hot encoded target \( \mathbf{y} \in \mathbb{R}^{250} \) and predicted distribution \( \hat{\mathbf{y}} \):
 
 $$
 \mathcal{L} = -\sum_{j=1}^{250} y_j \log(\hat{y}_j)
 $$
 
-For batch size \( n \):
+For mini-batch of size \( n \):
 
 $$
 \mathcal{L} = -\frac{1}{n} \sum_{i=1}^{n} \sum_{j=1}^{250} y_{ij} \log(\hat{y}_{ij})
@@ -102,7 +107,7 @@ $$
 
 #### 🔁 Backward Propagation
 
-**Step 1 – Gradient of Loss w.r.t. Output (Softmax + Cross-Entropy)**
+**Step 1 – Error at Output Layer**
 
 $$
 \delta_3 = \hat{\mathbf{y}} - \mathbf{y} \in \mathbb{R}^{250}
@@ -111,57 +116,45 @@ $$
 **Step 2 – Gradients for Output Layer**
 
 $$
-\frac{\partial \mathcal{L}}{\partial W_3} = \mathbf{h}_1^\top \delta_3, \quad
-\frac{\partial \mathcal{L}}{\partial \mathbf{b}_2} = \delta_3
+\nabla \mathbf{W}_3 = \mathbf{h}_1^\top \cdot \delta_3 \quad \nabla \mathbf{b}_2 = \delta_3
 $$
 
 **Step 3 – Backprop Through Sigmoid**
 
 $$
-\delta_2 = (\delta_3 W_3^\top) \odot \sigma'(\mathbf{z}_1)
-$$
-
-Where:
-
-$$
-\sigma'(\mathbf{z}_1) = \sigma(\mathbf{z}_1)(1 - \sigma(\mathbf{z}_1)) = \mathbf{h}_1 (1 - \mathbf{h}_1)
-$$
-
-So,
-
-$$
-\delta_2 = (\delta_3 W_3^\top) \odot \mathbf{h}_1 \odot (1 - \mathbf{h}_1)
+\delta_2 = (\delta_3 \cdot \mathbf{W}_3^\top) \odot \mathbf{h}_1 \odot (1 - \mathbf{h}_1)
 $$
 
 **Step 4 – Gradients for Hidden Layer**
 
 $$
-\frac{\partial \mathcal{L}}{\partial W_2} = \mathbf{h}_0^\top \delta_2, \quad
-\frac{\partial \mathcal{L}}{\partial \mathbf{b}_1} = \delta_2
+\nabla \mathbf{W}_2 = \mathbf{h}_0^\top \cdot \delta_2 \quad \nabla \mathbf{b}_1 = \delta_2
 $$
 
-**Step 5 – Backprop to Embedding Layer**
-
+**Step 5 – Backprop to Embedding Layer**  
 Let:
 
 $$
-\delta_e = \delta_2 W_2^\top \in \mathbb{R}^{48}
+\delta_{\text{embed}} = \delta_2 \cdot \mathbf{W}_2^\top \in \mathbb{R}^{48}
 $$
 
-Then split \( \delta_e \) into:
+Split into:
 
 $$
-[\delta_{e_1}, \delta_{e_2}, \delta_{e_3}] \quad \text{each in } \mathbb{R}^{16}
+[\delta_{e_1}, \delta_{e_2}, \delta_{e_3}] \in \mathbb{R}^{16}
 $$
 
-The embedding gradient is updated per word:
+Update embedding matrix:
 
 $$
-\frac{\partial \mathcal{L}}{\partial W_1} += \delta_{e_i} \cdot \mathbf{x}_i^\top \quad \text{for } i = 1,2,3
+\nabla \mathbf{W}_1 += \delta_{e_i} \cdot \mathbf{x}_i^\top \quad \text{for } i = 1, 2, 3
 $$
 
 ---
 
+This explicit breakdown aligns with the core training algorithm implemented in NumPy and mirrors full symbolic derivation in standard deep learning texts.
+
+---
 ### ⚗️ Experimentation & Insights
 
 A wide range of experiments were conducted to understand what impacts model learning the most:
