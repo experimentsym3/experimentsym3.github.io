@@ -67,7 +67,7 @@ We tracked the cluster assignment evolution visually across several EM steps, re
 
 ### 🧮 Mathematical Formulation
 
-Let \( \mathbf{x}_i \in \mathbb{R}^d \) be the data point, and let \( \pi_k \), \( \mu_k \), and \( \Sigma_k \) be the weight, mean, and covariance matrix for Gaussian component \( k \). Then:
+Let $$\mathbf{x}_i \in \mathbb{R}^d$$ be the data point, and let $$\pi_k \), \( \mu_k$$, and $$\Sigma_k$$ be the weight, mean, and covariance matrix for Gaussian component $$k$$. Then:
 
 #### **E-step**: Responsibility computation
 
