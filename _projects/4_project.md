@@ -2,7 +2,7 @@
 layout: page
 title: Gaussian Mixture Modeling with Expectation-Maximization
 description: Step-by-step implementation of the expectation-maximization algorithm for gaussian mixture models with dynamic clustering visualizations
-img: assets/img/projects/4_project/EMforGM_iteration14-101001.png
+img: assets/img/projects/4_project/cover4.png
 importance: 3
 category: work
 related_publications: false
