@@ -54,7 +54,7 @@ Before diving into implementation, we derive the complete forward and backward p
 #### 🧮 Forward Propagation
 
 **Step 1 – Word Embeddings**  
-Each of the 3 input words is represented as a one-hot vector \( \mathbf{x}_i \in \mathbb{R}^{250} \). These are projected into a continuous space using a shared embedding matrix \( \mathbf{W}_1 \in \mathbb{R}^{250 \times 16} \):
+Each of the 3 input words is represented as a one-hot vector $$\mathbf{x}_i \in \mathbb{R}^{250}$$. These are projected into a continuous space using a shared embedding matrix $$\mathbf{W}_1 \in \mathbb{R}^{250 \times 16}$$:
 
 $$
 \mathbf{e}_i = \mathbf{x}_i \cdot \mathbf{W}_1 \in \mathbb{R}^{16}, \quad \text{for } i = 1, 2, 3
@@ -68,7 +68,7 @@ $$
 $$
 
 **Step 3 – Hidden Layer (Linear + Sigmoid)**  
-Using weights \( \mathbf{W}_2 \in \mathbb{R}^{48 \times 128} \) and biases \( \mathbf{b}_1 \in \mathbb{R}^{128} \):
+Using weights $$\mathbf{W}_2 \in \mathbb{R}^{48 \times 128}$$ and biases $$\mathbf{b}_1 \in \mathbb{R}^{128}$$:
 
 $$
 \mathbf{z}_1 = \mathbf{h}_0 \cdot \mathbf{W}_2 + \mathbf{b}_1 \in \mathbb{R}^{128}
@@ -78,7 +78,7 @@ $$
 $$
 
 **Step 4 – Output Layer (Linear + Softmax)**  
-Project to vocabulary size using \( \mathbf{W}_3 \in \mathbb{R}^{128 \times 250} \), \( \mathbf{b}_2 \in \mathbb{R}^{250} \):
+Project to vocabulary size using $$\mathbf{W}_3 \in \mathbb{R}^{128 \times 250}$$, $$\mathbf{b}_2 \in \mathbb{R}^{250}$$:
 
 $$
 \mathbf{z}_2 = \mathbf{h}_1 \cdot \mathbf{W}_3 + \mathbf{b}_2 \in \mathbb{R}^{250}
@@ -91,7 +91,7 @@ $$
 
 #### 🧾 Loss Function: Cross-Entropy
 
-We minimize the cross-entropy between the one-hot encoded target \( \mathbf{y} \in \mathbb{R}^{250} \) and predicted distribution \( \hat{\mathbf{y}} \):
+We minimize the cross-entropy between the one-hot encoded target $$\mathbf{y} \in \mathbb{R}^{250}$$ and predicted distribution $$\hat{\mathbf{y}}$$:
 
 $$
 \mathcal{L} = -\sum_{j=1}^{250} y_j \log(\hat{y}_j)
