@@ -56,9 +56,9 @@ ninja.data = [{
           description: "Building and training a multi-layer perceptron for next-word prediction on a 250-word vocabulary using only NumPy",
           section: "Projects",handler: () => {
               window.location.href = "/projects/3_project/";
-            },},{id: "projects-project-4",
-          title: 'project 4',
-          description: "another without an image",
+            },},{id: "projects-gaussian-mixture-modeling-with-expectation-maximization",
+          title: 'Gaussian Mixture Modeling with Expectation-Maximization',
+          description: "Step-by-step implementation of the expectation-maximization algorithm for gaussian mixture models with dynamic clustering visualizations",
           section: "Projects",handler: () => {
               window.location.href = "/projects/4_project/";
             },},{id: "projects-project-5",
