@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Clustering with Gaussian Mixture Models Using Expectation-Maximization (From Scratch)
-description: Step-by-step implementation of the expectation-maximization (EM) algorithm for Gaussian mixture models (GMMs) using NumPy
+title: Expectation-Maximization for GMM from Scratch
+description: Step-by-step implementation of the expectation-maximization (EM) algorithm for Gaussian mixture models (GMMs) from scratch
 img: assets/img/projects/4_project/cover4.png
 importance: 4
 category: work
