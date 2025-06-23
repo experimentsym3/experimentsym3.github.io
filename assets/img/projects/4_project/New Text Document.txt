@@ -1,0 +1,44 @@
+C:\Python\Python37\python.exe C:/Users/Sumeyye/PycharmProjects/PatternRec/EMforGaussianMixtures3-plotdenemeleri.py
+Initial Values
+means =  [[0.3217365838983671, 0.8060292390475462], [0.13975558981891956, 0.2731962080505155], [0.8139476682963628, 0.5605540624161546]]
+covariances =  [[[1.0, 0.0], [0.0, 1.0]], [[1.0, 0.0], [0.0, 1.0]], [[1.0, 0.0], [0.0, 1.0]]]
+mixing_coefficients =  [0.33333333 0.33333333 0.33333333]
+max_iteration_number:  200
+convergence_value:  0.01
+Iteration:  0  - Log likelihood value:  -1404.546426715278
+Iteration:  1  - Log likelihood value:  -1386.97363868976
+Iteration:  2  - Log likelihood value:  -1374.7419464084626
+Iteration:  3  - Log likelihood value:  -1369.8397377505044
+Iteration:  4  - Log likelihood value:  -1367.8474243130372
+Iteration:  5  - Log likelihood value:  -1366.6092681730818
+Iteration:  6  - Log likelihood value:  -1365.305093873631
+Iteration:  7  - Log likelihood value:  -1363.4274453677
+Iteration:  8  - Log likelihood value:  -1360.72377451371
+Iteration:  9  - Log likelihood value:  -1357.4834021053543
+Iteration:  10  - Log likelihood value:  -1353.4360609232538
+Iteration:  11  - Log likelihood value:  -1347.3797736776396
+Iteration:  12  - Log likelihood value:  -1337.9859610230378
+Iteration:  13  - Log likelihood value:  -1324.342988950472
+Iteration:  14  - Log likelihood value:  -1308.5551867170302
+Iteration:  15  - Log likelihood value:  -1291.141103162413
+Iteration:  16  - Log likelihood value:  -1261.3586753938334
+Iteration:  17  - Log likelihood value:  -1232.5792498943078
+Iteration:  18  - Log likelihood value:  -1231.6887730459648
+Iteration:  19  - Log likelihood value:  -1231.6887296169482
+Final Values
+means =  [[4.37909616 4.35186988]
+ [0.70209925 0.6613974 ]
+ [9.60515914 9.16835945]]
+covariances =  [[[ 2.74779653 -0.11932228]
+  [-0.11932228  0.61801916]]
+
+ [[ 2.11796293 -0.0996951 ]
+  [-0.0996951   0.64089913]]
+
+ [[ 2.01245136 -0.6416675 ]
+  [-0.6416675   0.8217115 ]]]
+mixing_coefficients =  [0.3334954  0.33317129 0.33333332]
+max_iteration_number:  200
+convergence_value:  0.01
+
+Process finished with exit code 0
