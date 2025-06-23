@@ -1,9 +1,9 @@
 ---
 layout: page
-title: Gaussian Mixture Modeling with Expectation-Maximization
-description: Step-by-step implementation of the expectation-maximization algorithm for gaussian mixture models with dynamic clustering visualizations
+title: Expectation-Maximization Algorithm for GMM from Scratch
+description: Step-by-step implementation of the expectation-maximization (EM) algorithm for gaussian mixture models (GMMs)
 img: assets/img/projects/4_project/cover4.png
-importance: 3
+importance: 4
 category: work
 related_publications: false
 ---
