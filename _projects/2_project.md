@@ -34,13 +34,13 @@ Key configuration:
 - 83%+ test accuracy achieved after ~100 epochs
 
 This architecture was chosen not for complexity, but for the ability to clearly isolate and interpret the effect of each modification.
-
+<!--
 <div class="row justify-content-sm-center">
   <div class="col-sm-10 mt-3 mt-md-0">
     {% include figure.liquid path="assets/img/projects/2_project/16May_E3_accuracy_loss_curve.png" title="Training & Test Accuracy / Loss" class="img-fluid rounded z-depth-1" %}
   </div>
 </div>
-
+-->
 ---
 
 ### 📊 Parameter Impact
@@ -48,18 +48,22 @@ This architecture was chosen not for complexity, but for the ability to clearly 
 Each parameter was varied in isolation and evaluated using held-out test performance. Key findings:
 
 - ReLU consistently outperformed sigmoid/tanh in both convergence and generalization  
-- Batch normalization yielded significant gains when applied before activation  
+- Batch normalization (BN) yielded significant gains when applied before activation  
 - Smaller filters (3x3) provided optimal trade-off between spatial resolution and compute  
 - Dropout slowed convergence and underperformed in this architecture  
 - Adam was the most robust optimizer across experiments
 
-<div class="row">
-  <div class="col-sm">
+<div class="d-flex justify-content-center">
+  <div class="col-md-6">
     {% include figure.liquid path="assets/img/projects/2_project/batchnorm.png" title="Effect of Batch Normalization" class="img-fluid rounded z-depth-1" %}
   </div>
+</div>
+
+  <!--
   <div class="col-sm">
     {% include figure.liquid path="assets/img/projects/2_project/batchsize32.png" title="Batch Size Comparison" class="img-fluid rounded z-depth-1" %}
   </div>
+  -->
 </div>
 
 ---
@@ -68,8 +72,8 @@ Each parameter was varied in isolation and evaluated using held-out test perform
 
 To inspect how feature representations evolve across training, I extracted the latent space from the final dense layer and visualized it using t-SNE. Over 100 epochs, the learned space became more structured and separable, especially for well-represented classes.
 
-<div class="row justify-content-sm-center">
-  <div class="col-sm-10 mt-3 mt-md-0">
+<div class="d-flex justify-content-center">
+  <div class="col-md-6">
     {% include figure.liquid path="assets/img/projects/2_project/26May_K33_fc1_test_tsne_100.png" title="t-SNE of final feature representations (Epoch 100)" class="img-fluid rounded z-depth-1" %}
   </div>
 </div>

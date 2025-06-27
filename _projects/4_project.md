@@ -158,5 +158,4 @@ Different random initializations lead to different convergence paths. Below are 
 - **Algorithm**: Expectation-Maximization for Gaussian Mixture Models
 - **Visualization**: Iterative clustering, posterior surfaces, convergence curves
 - **Evaluation**: Log-likelihood trends, cluster interpretability, sensitivity analysis
-
 ---
