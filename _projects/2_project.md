@@ -34,13 +34,7 @@ Key configuration:
 - 83%+ test accuracy achieved after ~100 epochs
 
 This architecture was chosen not for complexity, but for the ability to clearly isolate and interpret the effect of each modification.
-<!--
-<div class="row justify-content-sm-center">
-  <div class="col-sm-10 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/projects/2_project/16May_E3_accuracy_loss_curve.png" title="Training & Test Accuracy / Loss" class="img-fluid rounded z-depth-1" %}
-  </div>
-</div>
--->
+
 ---
 
 ### 📊 Parameter Impact
@@ -57,13 +51,6 @@ Each parameter was varied in isolation and evaluated using held-out test perform
   <div class="col-md-6">
     {% include figure.liquid path="assets/img/projects/2_project/batchnorm.png" title="Effect of Batch Normalization" class="img-fluid rounded z-depth-1" %}
   </div>
-</div>
-
-  <!--
-  <div class="col-sm">
-    {% include figure.liquid path="assets/img/projects/2_project/batchsize32.png" title="Batch Size Comparison" class="img-fluid rounded z-depth-1" %}
-  </div>
-  -->
 </div>
 
 ---
