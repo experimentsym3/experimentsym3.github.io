@@ -12,7 +12,7 @@ related_publications: false
 
 This project demonstrates how the **Expectation-Maximization (EM)** algorithm can be used to fit a **Gaussian Mixture Model (GMM)** to unlabeled data. Unlike K-means, GMM with EM models data as a combination of probabilistic clusters with soft assignments, providing more flexible and realistic representations of real-world data.
 
-The implementation was built from scratch in Python, with custom logic for the E-step and M-step. Visualizations of how cluster assignments evolve over iterations provide valuable intuition on the convergence behavior and sensitivity to initialization.
+The implementation was built **from scratch** in Python, with custom logic for the E-step and M-step. Visualizations of how cluster assignments evolve over iterations provide valuable intuition on the convergence behavior and sensitivity to initialization.
 
 ---
 
@@ -158,4 +158,5 @@ Different random initializations lead to different convergence paths. Below are 
 - **Algorithm**: Expectation-Maximization for Gaussian Mixture Models
 - **Visualization**: Iterative clustering, posterior surfaces, convergence curves
 - **Evaluation**: Log-likelihood trends, cluster interpretability, sensitivity analysis
+
 ---
