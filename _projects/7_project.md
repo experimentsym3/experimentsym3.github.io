@@ -4,7 +4,7 @@ title: Wrist Motion Feature Engineering
 description: Activity recognition study analyzing motion, orientation, and rotation features from wrist-worn accelerometer data to classify daily activities.
 img: assets/img/projects/7_project/figure4.png
 importance: 7
-category: research
+category: work
 related_publications: true
 ---
 
