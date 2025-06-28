@@ -22,7 +22,7 @@ This project demonstrates how **homography estimation** can be used to warp and 
 
 ### 🧠 Theoretical Background
 
-Given two images of a planar scene, their relation is modeled by a **homography matrix** \(H\):
+Given two images of a planar scene, their relation is modeled by a **homography matrix** $$H$$:
 
 $$
 \begin{bmatrix}
@@ -50,23 +50,23 @@ h_{31} & h_{32} & h_{33}
 \end{bmatrix}
 $$
 
-To estimate \(H\):
+To estimate $$H$$:
 
-1. Collect \(n\) point pairs \((x_i, y_i)\) ↔ \((x'_i, y'_i)\).
+1. Collect $$n$$ point pairs $$(x_i, y_i)$$ ↔ $$(x'_i, y'_i)$$.
 2. Formulate the system:
 
 $$
 A \cdot h = 0
 $$
 
-with \(A\) of shape \(2n \times 9\).
+with $$A$$ of shape $$2n \times 9$$.
 3. Solve using **Singular Value Decomposition (SVD)**:
 
 $$
 A = U \cdot S \cdot V^T
 $$
 
-The last column of \(V\) reshaped to \(3 \times 3\) gives \(H\).
+The last column of $$V$$ reshaped to $$3 \times 3$$ gives $$H$$.
 
 ---
 
@@ -103,12 +103,12 @@ Given two images, corresponding points are selected either interactively (using 
 ---
 
 **2️⃣ Homography Estimation**  
-A **homography matrix \(H\)** is computed to map points from the source image plane to the destination (base) image plane, aligning them geometrically. In this work, **singular value decomposition (SVD)** was used to solve the overdetermined system of equations and estimate the best-fit homography. For example, `paris_b` was used as the base image and `paris_a` or `paris_c` as sources.
+A **homography matrix $$H$$** is computed to map points from the source image plane to the destination (base) image plane, aligning them geometrically. In this work, **singular value decomposition (SVD)** was used to solve the overdetermined system of equations and estimate the best-fit homography. For example, `paris_b` was used as the base image and `paris_a` or `paris_c` as sources.
 
 ---
 
 **3️⃣ Image Warping**  
-A custom warping function takes the source image and the computed homography matrix \(H\) to generate a **warped image projected into the base image’s plane**. This project employed **backward warping**, which iterates over destination pixels and maps them to source coordinates using the inverse homography.
+A custom warping function takes the source image and the computed homography matrix $$H$$ to generate a **warped image projected into the base image’s plane**. This project employed **backward warping**, which iterates over destination pixels and maps them to source coordinates using the inverse homography.
 
 ---
 
