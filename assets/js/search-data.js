@@ -66,9 +66,9 @@ ninja.data = [{
           description: "Full implementation of homography estimation and panoramic image stitching from scratch, including SVD-based estimation, backward warping, and blending experiments.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/5_project/";
-            },},{id: "projects-project-6",
-          title: 'project 6',
-          description: "a project with no image",
+            },},{id: "projects-variational-autoencoder-for-mnist-digits",
+          title: 'Variational Autoencoder for MNIST Digits',
+          description: "Implementation of a Variational Autoencoder (VAE) in TensorFlow, exploring reconstruction quality and generative capabilities on MNIST handwritten digits.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/6_project/";
             },},{id: "projects-project-7",
