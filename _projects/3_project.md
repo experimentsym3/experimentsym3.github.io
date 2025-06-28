@@ -16,7 +16,7 @@ The goal was to predict the most likely **4th word** given a sequence of 3 input
 
 ---
 
-### 📎 Links  
+### 🔗 Links  
 - [Project on GitHub](https://github.com/sumeyye-agac/next-word-prediction-using-MLP-from-scratch)
 
 ---

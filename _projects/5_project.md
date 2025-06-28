@@ -14,7 +14,7 @@ This project demonstrates how homography estimation can be used to warp and blen
 
 ---
 
-### 📎 Links
+### 🔗 Links
 
 - [Project on GitHub](https://github.com/sumeyye-agac/homography-and-image-stitching-from-scratch)
 

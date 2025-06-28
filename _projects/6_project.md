@@ -14,9 +14,9 @@ This project explores how a **Variational Autoencoder (VAE)** can learn structur
 
 ---
 
-### 📎 Links
+### 🔗 Links
 
-- 🔗 [Project on GitHub](https://github.com/sumeyye-agac/variational-autoencoder-MNIST-tensorflow)
+- [Project on GitHub](https://github.com/sumeyye-agac/variational-autoencoder-MNIST-tensorflow)
 
 ---
 
