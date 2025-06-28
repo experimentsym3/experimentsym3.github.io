@@ -16,7 +16,7 @@ This project investigates how different feature sets derived from wrist-worn acc
 
 ### 🔗 Links
 
-- [Publication DOI](https://doi.org/10.5220/0006007100760084)
+- [Publication](https://doi.org/10.5220/0006007100760084)
 
 ---
 

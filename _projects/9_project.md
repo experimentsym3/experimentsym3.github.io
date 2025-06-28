@@ -16,7 +16,7 @@ This project explores how **knowledge distillation and attention mechanisms** ca
 
 ### 🔗 Links
 
-- [Project on GitHub](https://github.com/sumeyye-agac/attention-distillation-HAR)
+- [Publication](https://www.scitepress.org/Link.aspx?doi=10.5220/0006007100760084)
 
 ---
 

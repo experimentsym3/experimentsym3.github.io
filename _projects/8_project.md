@@ -16,7 +16,7 @@ This project investigated how **dynamic, context-aware adaptation** can improve 
 
 ### 🔗 Links
 
-- [Publication](https://doi.org/10.3990/1.9789402806533)
+- [Publication](https://doi.org/10.1016/j.compeleceng.2020.106949)
 
 ---
 
