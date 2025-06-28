@@ -1,80 +1,157 @@
 ---
 layout: page
-title: project 5
-description: a project with a background image
-img: assets/img/1.jpg
+title: Image Stitching
+description: Full implementation of homography estimation and panoramic image stitching from scratch, including SVD-based estimation, backward warping, and blending experiments.
+img: assets/img/projects/5_project/blended_image.jpg
 importance: 5
-category: fun
+category: work
+related_publications: false
 ---
 
-Every project has a beautiful feature showcase page.
-It's easy to include images in a flexible 3-column grid format.
-Make your photos 1/3, 2/3, or full width.
+### 🎯 Motivation
 
-To give your project a background in the portfolio page, just add the img tag to the front matter like so:
+This project demonstrates how **homography estimation** can be used to warp and blend images into panoramic mosaics. Unlike library-based stitching (e.g., OpenCV’s `cv2.stitcher()`), this implementation was built **completely from scratch** in Python, providing hands-on experience with projective geometry, SVD decomposition, and practical blending.
 
-    ---
-    layout: page
-    title: project
-    description: a project with a background image
-    img: /assets/img/12.jpg
-    ---
+The work highlights the critical role of point correspondences and explores the effects of using fewer, more, or incorrect points.
 
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/1.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/3.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    Caption photos easily. On the left, a road goes through a tunnel. Middle, leaves artistically fall in a hipster photoshoot. Right, in another hipster photoshoot, a lumberjack grasps a handful of pine needles.
-</div>
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    This image can also have a caption. It's like magic.
-</div>
+---
 
-You can also put regular text between your rows of images.
-Say you wanted to write a little bit about your project before you posted the rest of the images.
-You describe how you toiled, sweated, _bled_ for your project, and then... you reveal its glory in the next row of images.
+### 📎 Links
 
-<div class="row justify-content-sm-center">
-    <div class="col-sm-8 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    You can also have artistically styled 2/3 + 1/3 images, like these.
-</div>
+- 🔗 [GitHub Repository](https://github.com/sumeyye-agac/homography-and-image-stitching-from-scratch)
 
-The code is simple.
-Just wrap your images with `<div class="col-sm">` and place them inside `<div class="row">` (read more about the <a href="https://getbootstrap.com/docs/4.4/layout/grid/">Bootstrap Grid</a> system).
-To make images responsive, add `img-fluid` class to each; for rounded corners and shadows use `rounded` and `z-depth-1` classes.
-Here's the code for the last row of images above:
+---
 
-{% raw %}
+### 🧠 Theoretical Background
 
-```html
-<div class="row justify-content-sm-center">
-  <div class="col-sm-8 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-  </div>
-  <div class="col-sm-4 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-  </div>
-</div>
-```
+Given two images of a planar scene, their relation is modeled by a **homography matrix** \(H\):
 
-{% endraw %}
+$$
+\begin{bmatrix}
+x' \\
+y' \\
+1
+\end{bmatrix}
+\sim
+H \cdot
+\begin{bmatrix}
+x \\
+y \\
+1
+\end{bmatrix}
+$$
+
+where:
+
+$$
+H =
+\begin{bmatrix}
+h_{11} & h_{12} & h_{13} \\
+h_{21} & h_{22} & h_{23} \\
+h_{31} & h_{32} & h_{33}
+\end{bmatrix}
+$$
+
+To estimate \(H\), we:
+
+1. Collect \(n\) point pairs \((x_i, y_i)\) ↔ \((x'_i, y'_i)\).
+2. Formulate an overdetermined system:
+
+$$
+A \cdot h = 0
+$$
+
+where \(A\) is \(2n \times 9\).
+3. Solve using **Singular Value Decomposition (SVD)**:
+
+$$
+A = U \cdot S \cdot V^T
+$$
+
+The last column of \(V\) yields the flattened homography matrix.
+
+---
+
+### ⚙️ Implementation Highlights
+
+**Core Components:**
+
+- **Point Selection**  
+  Manual selection of corresponding points via `matplotlib.ginput()`.
+- **Homography Estimation**  
+  Custom SVD-based solver (`compute_homography()`).
+- **Backward Warping**  
+  Mapping destination pixels via the inverse homography (`warp()`).
+- **Blending**  
+  Offset-aware placement and overlap handling (`blend2images()`, `blend3images()`).
+
+**Interpolation:**  
+Nearest-neighbor interpolation was used for simplicity. Future improvements could include bilinear interpolation.
+
+---
+
+### 🧪 Experiments and Results
+
+Below are **final results for each experiment**. They illustrate the effects of different correspondence strategies.
+
+---
+
+#### 📌 Paris 3-Image Mosaic (10 Correct Points)
+
+![Paris Mosaic](/assets/img/projects/5_project/final_paris_mosaic_10points.jpg)
+
+*Using 10 carefully selected correspondences per image pair.*
+
+---
+
+#### 📌 Paris 3-Image Mosaic (5 Correct Points)
+
+![Paris Mosaic 5 Points](/assets/img/projects/5_project/final_paris_mosaic_5points.jpg)
+
+*Reduced correspondences led to less precise alignment.*
+
+---
+
+#### 📌 Paris Mosaic with Wrong Points
+
+![Paris Mosaic Wrong](/assets/img/projects/5_project/final_paris_mosaic_wrong.jpg)
+
+*Adding 5 incorrect correspondences severely degraded the result.*
+
+---
+
+#### 📌 CMPE Building Mosaic (Middle-Out)
+
+![CMPE Mosaic](/assets/img/projects/5_project/final_cmpe_mosaic.jpg)
+
+*5 images stitched in middle-out order. Minor distortions due to limited overlap.*
+
+---
+
+#### 📌 North Campus Mosaic (Middle-Out)
+
+![North Campus Mosaic](/assets/img/projects/5_project/final_north_mosaic.jpg)
+
+*Challenging dataset with black regions due to projection misalignment.*
+
+---
+
+### 📝 Reflections
+
+- **Point Accuracy:** Selecting high-quality correspondences is essential for reliable warping.
+- **SVD Stability:** The least-squares SVD solution worked well as long as outliers were minimized.
+- **Blending:** Simple pixel overlap can produce visible seams; more advanced blending could further improve results.
+- **Learning:** Implementing every step manually provided deep understanding of homography in practice.
+
+---
+
+### ⚙️ Technical Stack
+
+- **Language:** Python (NumPy, Matplotlib)
+- **Algorithm:** Homography estimation via SVD
+- **Warping:** Backward mapping with nearest-neighbor interpolation
+- **Blending:** Custom mosaic generation functions
+
+---
+
+Feel free to explore the code and try stitching your own image sets!
