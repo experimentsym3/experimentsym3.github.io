@@ -10,7 +10,7 @@ related_publications: false
 
 ### 🎯 Motivation
 
-This project demonstrates how **homography estimation** can be used to warp and blend images into panoramic mosaics. Unlike using ready-made libraries (e.g., OpenCV's `stitcher()`), this pipeline was built **entirely from scratch in Python**, providing deep understanding of projective geometry, matrix decomposition, and blending challenges.
+This project demonstrates how **homography estimation** can be used to warp and blend images into panoramic mosaics. Unlike using ready-made libraries (e.g., OpenCV's `stitcher()`), this pipeline was built **entirely from scratch in Python**, providing a clear, step-by-step understanding of projective geometry and practical blending challenges.
 
 ---
 
@@ -70,86 +70,82 @@ The last column of $$V$$ reshaped to $$3 \times 3$$ gives $$H$$.
 
 ---
 
-### ⚙️ Implementation Highlights
-
-**Core Components:**
-
-- **Point Selection**  
-  Manual selection via `matplotlib.ginput()`.
-- **Homography Estimation**  
-  SVD-based solver: `compute_homography()`.
-- **Backward Warping**  
-  Transforming the target image: `warp()`.
-- **Blending**  
-  Offset-aware mosaics: `blend2images()` and `blend3images()`.
-
-**Interpolation:**  
-Nearest-neighbor was used for simplicity; bilinear can be integrated later.
-
----
-
 ### 🛠️ Pipeline Overview
 
-A Python program was developed to stitch two or more input images together into a single panoramic image. The process consists of **four main modules**:
+A Python program was developed to stitch multiple input images into a single panoramic image. The process consists of **four main modules**:
 
 ---
 
 **1️⃣ Point Selection**  
-Given two images, corresponding points are selected either interactively (using `ginput`) or via predetermined coordinates. The selection quality is critical—stitching errors are most often due to:  
+Corresponding points were selected manually by clicking on the images. The selection quality is critical—stitching errors often result from:  
 - The number of points chosen  
-- Their spatial distribution across the images  
+- Their distribution across the images  
 - The precise ordering of point pairs  
+
+*Example of selected points on images:*
+
+<div class="row mt-3">
+  <div class="col-sm-4">
+    <img src="/assets/img/projects/5_project/points_paris_a.jpg" alt="Points Paris A" class="img-fluid rounded z-depth-1">
+    <p class="mt-2 text-center"><em>Paris A - Selected Points</em></p>
+  </div>
+  <div class="col-sm-4">
+    <img src="/assets/img/projects/5_project/points_paris_b.jpg" alt="Points Paris B" class="img-fluid rounded z-depth-1">
+    <p class="mt-2 text-center"><em>Paris B - Selected Points</em></p>
+  </div>
+  <div class="col-sm-4">
+    <img src="/assets/img/projects/5_project/points_paris_c.jpg" alt="Points Paris C" class="img-fluid rounded z-depth-1">
+    <p class="mt-2 text-center"><em>Paris C - Selected Points</em></p>
+  </div>
+</div>
 
 ---
 
 **2️⃣ Homography Estimation**  
-A **homography matrix $$H$$** is computed to map points from the source image plane to the destination (base) image plane, aligning them geometrically. In this work, **singular value decomposition (SVD)** was used to solve the overdetermined system of equations and estimate the best-fit homography. For example, `paris_b` was used as the base image and `paris_a` or `paris_c` as sources.
+A **homography matrix $$H$$** was computed to map points from each source image onto the plane of the destination (base) image, aligning them geometrically. For the Paris experiments, `paris_b` was used as the base image.
 
 ---
 
 **3️⃣ Image Warping**  
-A custom warping function takes the source image and the computed homography matrix $$H$$ to generate a **warped image projected into the base image’s plane**. This project employed **backward warping**, which iterates over destination pixels and maps them to source coordinates using the inverse homography.
+Each source image was warped onto the plane of the base image using backward warping. This means iterating over destination pixels and mapping them back into source coordinates.
+
+*Example warped images:*
+
+<div class="row mt-3">
+  <div class="col-sm-6">
+    <img src="/assets/img/projects/5_project/warped_paris_a.jpg" alt="Warped Paris A" class="img-fluid rounded z-depth-1">
+    <p class="mt-2 text-center"><em>Warped Paris A</em></p>
+  </div>
+  <div class="col-sm-6">
+    <img src="/assets/img/projects/5_project/warped_paris_c.jpg" alt="Warped Paris C" class="img-fluid rounded z-depth-1">
+    <p class="mt-2 text-center"><em>Warped Paris C</em></p>
+  </div>
+</div>
 
 ---
 
 **4️⃣ Blending Images**  
-Finally, the **blending step** combines the warped images and the base image into a seamless mosaic. For stitching three images, a dedicated method (`blend3images`) was implemented, accepting the base image, two warped images, and their corresponding offsets in x and y directions. The function assembles all parts into the final composite panorama.
+Finally, all warped images were blended with the base image to produce a continuous panorama. Simple pixel replacement was used in overlapping regions.
+
+*Example of a blended intermediate result:*
+
+![Blended Image](/assets/img/projects/5_project/blended_image.jpg)
 
 ---
 
 ✅ **Summary of Steps**
-To create a stitched panorama, **these four steps must be followed in sequence**:
+To create a stitched panorama, **these four steps were followed in sequence**:
 
 1. Select corresponding points carefully.
 2. Compute the homography matrix via SVD.
-3. Warp the source image(s) onto the destination plane.
+3. Warp the source images onto the destination plane.
 4. Blend all images into a single mosaic.
-
----
-
-### 🖼️ Intermediate Warping Example
-
-Below you see the **step-by-step warping process** on the Paris dataset:
-
-- **Base image**:
-
-  ![Base Image - Paris B](/assets/img/projects/5_project/paris_b.jpg)
-
-- **Warped source images**:
-
-  ![Warped Paris A](/assets/img/projects/5_project/warped_paris_a.jpg)
-
-  ![Warped Paris C](/assets/img/projects/5_project/warped_paris_c.jpg)
-
-- **Blended result of two images**:
-
-  ![Blended Image](/assets/img/projects/5_project/blended_image.jpg)
 
 ---
 
 ### 🧪 Experiments and Results
 
-Below are the final results of the main experiments, demonstrating the impact of point selection and blending strategies.
+Below are the final results for the Paris dataset, illustrating how the number and quality of point correspondences impact stitching quality.
 
 ---
 
@@ -157,7 +153,7 @@ Below are the final results of the main experiments, demonstrating the impact of
 
 ![Paris Mosaic - 10 Points](/assets/img/projects/5_project/final_paris_mosaic_10points.jpg)
 
-*Stitched panorama with 10 high-quality correspondences per pair.*
+*Stitched panorama with 10 carefully selected correspondences per pair.*
 
 ---
 
@@ -165,7 +161,7 @@ Below are the final results of the main experiments, demonstrating the impact of
 
 ![Paris Mosaic - 5 Points](/assets/img/projects/5_project/final_paris_mosaic_5points.jpg)
 
-*Using fewer correspondences produced misalignments.*
+*Using fewer correspondences resulted in visible misalignments.*
 
 ---
 
@@ -173,42 +169,17 @@ Below are the final results of the main experiments, demonstrating the impact of
 
 ![Paris Mosaic - Wrong Points](/assets/img/projects/5_project/final_paris_mosaic_wrong.jpg)
 
-*Adding 5 incorrect correspondences severely degraded the output.*
-
----
-
-#### 📌 CMPE Building Mosaic (Middle-Out)
-
-![CMPE Mosaic](/assets/img/projects/5_project/final_cmpe_mosaic.jpg)
-
-*Five images stitched in middle-out order; minor distortions remain.*
-
----
-
-#### 📌 North Campus Mosaic (Middle-Out)
-
-![North Campus Mosaic](/assets/img/projects/5_project/final_north_mosaic.jpg)
-
-*Challenging dataset with limited overlap and projection misalignment.*
+*Adding incorrect correspondences severely degraded the output.*
 
 ---
 
 ### 📝 Reflections
 
-- **Point Selection:** The single most important factor in quality.
-- **SVD Stability:** Robust as long as outliers were minimized.
-- **Blending:** Simple overlap merging causes visible seams; advanced blending is a future improvement.
-- **Learning Outcome:** Implementing the full pipeline manually provided deep intuition into each step of homography-based stitching.
+- **Point Selection:** The most critical factor in quality.
+- **SVD Stability:** Effective as long as outliers were minimized.
+- **Blending:** Simple overlap merging caused visible seams; more advanced blending could improve results.
+- **Learning Outcome:** Implementing this pipeline manually provided an in-depth understanding of homography-based image stitching.
 
 ---
 
-### ⚙️ Technical Stack
-
-- **Language:** Python (NumPy, Matplotlib)
-- **Algorithm:** Homography estimation via SVD
-- **Warping:** Backward mapping with nearest-neighbor interpolation
-- **Blending:** Custom mosaic assembly
-
----
-
-Feel free to explore the code and try stitching your own images!
+Feel free to explore the repository and try stitching your own images!
