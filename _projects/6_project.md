@@ -10,7 +10,7 @@ related_publications: false
 
 ### ✨ Motivation
 
-This project explores how a **Variational Autoencoder (VAE)** can learn structured latent representations of handwritten digits. Unlike standard autoencoders, VAEs explicitly model distributions and allow sampling new instances from the latent space. To investigate this, I implemented an architecture combining an **LSTM encoder** (to process images as sequences) and a **CNN decoder** (to reconstruct images), training and refining it from scratch on the MNIST dataset.
+This project implements a **Variational Autoencoder (VAE)** to learn latent representations of MNIST digits. Unlike conventional autoencoders, VAEs model latent distributions, enabling sampling of new images. The architecture combines an **LSTM encoder**, which processes images as sequences, and a **CNN decoder**, which reconstructs outputs.
 
 ---
 
@@ -22,47 +22,39 @@ This project explores how a **Variational Autoencoder (VAE)** can learn structur
 
 ### ⚙️ Implementation Highlights
 
-- **Encoder:** Single-layer LSTM treating each 28×28 image as a sequence of 28 time steps (rows), with 64 hidden units to produce latent vectors.
-- **Latent Variables:** Computed mean, variance, and epsilon for reparameterization, sampling latent variable z from a Gaussian distribution.
-- **Decoder:** Multiple configurations of transposed convolutional layers, dense layers, and optional dropout to reconstruct 28×28 outputs.
-- **Loss Function:** Binary cross-entropy for reconstruction and KL divergence to regularize latent space.
-- **Training:** 50 epochs with Adam optimizer (learning rates experimented between 0.0005 and 0.001).
+- **Encoder:** Single-layer LSTM treating each 28×28 image as a sequence of 28 rows. Hidden size: 64 units.
+- **Latent Variables:** Mean and variance outputs for reparameterization and sampling latent vector z.
+- **Decoder:** Transposed convolutional layers and dense layers in multiple configurations.
+- **Loss Function:** Binary cross-entropy plus KL divergence.
+- **Training:** 50 epochs with Adam optimizer (learning rates between 0.0005–0.001).
 
 ---
 
 ### 🛠️ Workflow
 
-1. **Data Preparation:**  
-   MNIST digits normalized to [0,1].
-2. **Model Construction:**  
-   Custom encoder and decoder modules.
-3. **Training:**  
-   Mini-batch gradient descent over 50 epochs.
-4. **Evaluation:**  
-   - Reconstruction of training examples  
-   - Generation of random samples  
-   - Analysis of convergence through loss curves
+1. **Data Preparation:** MNIST images normalized to [0,1].
+2. **Model Construction:** LSTM encoder and CNN decoder defined in TensorFlow.
+3. **Training:** Mini-batch gradient descent, batch size 100.
+4. **Evaluation:** Reconstruction of test images, generation from random latent vectors, convergence analysis.
 
 ---
 
 ### 🧪 Results and Visualizations
 
-This project involved **seven major configurations**, each progressively improving the model’s generative performance.
+Seven configurations were tested to improve reconstruction accuracy and sample diversity.
 
 ---
 
 #### 🔹 Baseline Configuration
 
-**Description:**  
-The initial decoder included 3 transposed convolution layers and no dropout. Learning rate was set to 0.0005.
+**Setup:**
+3 transposed convolution layers, no dropout, learning rate 0.0005.
 
-**Observations:**  
-- Reconstruction loss decreased steadily and stabilized by epoch 20.  
-- KL divergence increased as latent space regularized.  
-- Reconstructions were clear and recognizable.  
-- Generated samples were often blank or indistinct, indicating limited diversity.
-
-**Visualizations:**
+**Observations:**
+- Reconstruction loss decreased and stabilized by epoch 20.
+- KL divergence increased gradually.
+- Reconstructions were clear.
+- Generated samples often lacked detail or were blank.
 
 <div class="row mt-3">
   <div class="col-sm-6">
@@ -77,71 +69,67 @@ The initial decoder included 3 transposed convolution layers and no dropout. Lea
 
 ---
 
-#### 🔹 Deeper Decoder with Additional Layers
+#### 🔹 Deeper Decoder
 
-**Description:**  
-Added extra transposed convolution and dense layers to increase capacity.
+**Setup:**
+Additional transposed convolution and dense layers to increase model capacity.
 
-**Observations:**  
-- Slight improvement in reconstruction sharpness.  
-- Generated digits still lacked variety.  
-- KL divergence slightly higher, indicating stronger regularization.
-
-**Visualizations:**
+**Observations:**
+- Reconstructions became sharper.
+- Generated digits remained repetitive.
+- KL divergence slightly higher.
 
 <div class="row mt-3">
   <div class="col-sm-6">
-    <img src="/assets/img/projects/6_project/S6_test_49-.png" alt="Reconstructions Enhanced" class="img-fluid rounded z-depth-1">
+    <img src="/assets/img/projects/6_project/S6_test_49-.png" alt="Reconstructions Deeper" class="img-fluid rounded z-depth-1">
     <p class="mt-2 text-center"><em>Reconstructions – Deeper Decoder</em></p>
   </div>
   <div class="col-sm-6">
-    <img src="/assets/img/projects/6_project/S6_loss_curves.png" alt="Loss Enhanced" class="img-fluid rounded z-depth-1">
+    <img src="/assets/img/projects/6_project/S6_loss_curves.png" alt="Loss Deeper" class="img-fluid rounded z-depth-1">
     <p class="mt-2 text-center"><em>Training Loss – Deeper Decoder</em></p>
   </div>
 </div>
 
 ---
 
-#### 🔹 Experimenting with Dropout
+#### 🔹 Dropout Integration
 
-**Description:**  
-Introduced dropout layers to encourage variability and prevent overfitting.
+**Setup:**
+Dropout layers added to improve generalization.
 
-**Observations:**  
-- Training loss curves became less stable.  
-- Generated samples deteriorated, often showing partial or noisy digits.  
-- Confirmed that high dropout alone was insufficient for better sampling.
+**Observations:**
+- Training loss curves became unstable.
+- Generated images showed incomplete or noisy digits.
+- Dropout alone did not improve diversity.
 
 ---
 
-#### 🔹 Optimized Configuration (Best Performing)
+#### 🔹 Optimized Configuration
 
-**Description:**  
-Reduced dense layer sizes in the decoder, increased channel counts, and increased learning rate to 0.001.
+**Setup:**
+Smaller dense layers, increased convolution channels, learning rate increased to 0.001.
 
-**Observations:**  
-- Clear reconstructions with consistent digit contours.  
-- Generated samples were diverse: digits 0, 2, 4, 6, 7, 8, and 9 appeared frequently.  
-- Faster convergence without sacrificing output quality.
-
-**Visualizations:**
+**Observations:**
+- Reconstructions were consistent and clear.
+- Generated samples covered digits 0–9.
+- Convergence was faster.
 
 <div class="row mt-3">
   <div class="col-sm-6">
-    <img src="/assets/img/projects/6_project/S7_test_49-.png" alt="Reconstructions Best" class="img-fluid rounded z-depth-1">
+    <img src="/assets/img/projects/6_project/S7_test_49-.png" alt="Reconstructions Optimized" class="img-fluid rounded z-depth-1">
     <p class="mt-2 text-center"><em>Reconstructions – Optimized Model</em></p>
   </div>
   <div class="col-sm-6">
-    <img src="/assets/img/projects/6_project/S10_loss_curves.png" alt="Loss Best" class="img-fluid rounded z-depth-1">
+    <img src="/assets/img/projects/6_project/S10_loss_curves.png" alt="Loss Optimized" class="img-fluid rounded z-depth-1">
     <p class="mt-2 text-center"><em>Training Loss – Optimized Model</em></p>
   </div>
 </div>
 
 ---
 
-#### 🔹 Generated Samples Across Configurations
+#### 🔹 Generated Samples
 
-Sampling from the latent space showed how the models progressed:
+Sampling from latent space demonstrated improvement over experiments.
 
 <div class="row mt-3">
   <div class="col-sm-4">
@@ -162,16 +150,11 @@ Sampling from the latent space showed how the models progressed:
 
 ### 📝 Reflections
 
-- **Model Design:**  
-  Combining an LSTM encoder and CNN decoder provided a unique perspective on representing spatial sequences in latent space.
-- **Training Dynamics:**  
-  Learning rate adjustments had a significant impact on convergence speed and output quality.
-- **Regularization:**  
-  KL divergence was essential for maintaining a smooth latent space, but excessive dropout degraded output consistency.
-- **Generative Quality:**  
-  The final configuration achieved diverse and recognizable digits without overfitting training data.
-- **Learning Outcome:**  
-  This project deepened my understanding of probabilistic generative models and their sensitivity to architecture design.
+- The LSTM encoder improved sequential feature extraction compared to simple dense encoders.
+- Learning rate adjustments significantly affected convergence speed and reconstruction stability.
+- KL divergence helped maintain latent space regularity, supporting smooth interpolation.
+- Excessive dropout reduced output quality.
+- Overall, combining sequence modeling and convolutional decoding yielded diverse generative outputs.
 
 ---
 
