@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Variational Autoencoder for MNIST Digits
-description: Implementation of a Variational Autoencoder (VAE) in TensorFlow, exploring reconstruction quality and generative capabilities on MNIST handwritten digits.
+description: Implementation of a Variational Autoencoder combining an LSTM encoder and CNN decoder to generate handwritten digits, exploring architecture variations and training dynamics.
 img: assets/img/projects/6_project/cover.jpg
 importance: 6
 category: work
@@ -10,81 +10,138 @@ related_publications: false
 
 ### ✨ Motivation
 
-This project demonstrates how a **Variational Autoencoder (VAE)** can learn a compressed probabilistic representation of high-dimensional data. Unlike standard autoencoders, VAEs introduce a structured latent space by modeling distributions, enabling generative sampling of new data instances. The goal was to implement a VAE from scratch on the MNIST dataset and analyze reconstruction fidelity and latent space interpolation.
+This project explores how a **Variational Autoencoder (VAE)** can learn structured latent representations of handwritten digits. Unlike standard autoencoders, VAEs explicitly model distributions and allow sampling new instances from the latent space. To investigate this, I implemented an architecture combining an **LSTM encoder** (to process images as sequences) and a **CNN decoder** (to reconstruct images), training and refining it from scratch on the MNIST dataset.
 
 ---
 
-### Links
+### 📎 Links
 
 - 🔗 [Project on GitHub](https://github.com/sumeyye-agac/variational-autoencoder-MNIST-tensorflow)
 
 ---
 
-### 🧩 Method Overview
-
-Variational Autoencoders combine two key components:
-
-- An **encoder network** that maps input data to latent variables parameterized as Gaussian distributions (means and variances).
-- A **decoder network** that reconstructs images from latent samples.
-
-During training, the objective is to balance:
-
-- **Reconstruction loss** (how accurately the input is reproduced).
-- **KL-divergence loss** (regularization that keeps the latent space close to a standard normal distribution).
-
-This approach enables both accurate reconstruction and smooth sampling of new digit images.
-
----
-
 ### ⚙️ Implementation Highlights
 
-- **Framework:** TensorFlow (Keras API)
-- **Encoder:** Dense layers estimating mean and variance
-- **Decoder:** Transposed convolutional layers to reconstruct 28×28 images
-- **Latent Dimension:** Tuned through experimentation
-- **Training:** Adam optimizer, custom loss combining reconstruction and KL divergence
+- **Encoder:** Single-layer LSTM treating each 28×28 image as a sequence of 28 time steps (rows), with 64 hidden units to produce latent vectors.
+- **Latent Variables:** Computed mean, variance, and epsilon for reparameterization, sampling latent variable z from a Gaussian distribution.
+- **Decoder:** Multiple configurations of transposed convolutional layers, dense layers, and optional dropout to reconstruct 28×28 outputs.
+- **Loss Function:** Binary cross-entropy for reconstruction and KL divergence to regularize latent space.
+- **Training:** 50 epochs with Adam optimizer (learning rates experimented between 0.0005 and 0.001).
 
 ---
 
 ### 🛠️ Workflow
 
-The process included:
-
-1. **Data Preprocessing:**  
+1. **Data Preparation:**  
    MNIST digits normalized to [0,1].
 2. **Model Construction:**  
    Custom encoder and decoder modules.
 3. **Training:**  
-   50 epochs with mini-batch updates.
+   Mini-batch gradient descent over 50 epochs.
 4. **Evaluation:**  
-   Visual reconstructions, random sampling, and monitoring convergence.
+   - Reconstruction of training examples  
+   - Generation of random samples  
+   - Analysis of convergence through loss curves
 
 ---
 
 ### 🧪 Results and Visualizations
 
-**Example Reconstructions:**  
-Comparison between original test digits and VAE reconstructions:
+This project involved **seven major configurations**, each progressively improving the model’s generative performance.
+
+---
+
+#### 🔹 Baseline Configuration
+
+**Description:**  
+The initial decoder included 3 transposed convolution layers and no dropout. Learning rate was set to 0.0005.
+
+**Observations:**  
+- Reconstruction loss decreased steadily and stabilized by epoch 20.  
+- KL divergence increased as latent space regularized.  
+- Reconstructions were clear and recognizable.  
+- Generated samples were often blank or indistinct, indicating limited diversity.
+
+**Visualizations:**
 
 <div class="row mt-3">
-  <div class="col-sm-4">
+  <div class="col-sm-6">
     <img src="/assets/img/projects/6_project/S5_test_49-.png" alt="Reconstructions Baseline" class="img-fluid rounded z-depth-1">
     <p class="mt-2 text-center"><em>Reconstructions – Baseline Model</em></p>
   </div>
-  <div class="col-sm-4">
-    <img src="/assets/img/projects/6_project/S6_test_49-.png" alt="Reconstructions Enhanced" class="img-fluid rounded z-depth-1">
-    <p class="mt-2 text-center"><em>Reconstructions – Enhanced Decoder</em></p>
-  </div>
-  <div class="col-sm-4">
-    <img src="/assets/img/projects/6_project/S7_test_49-.png" alt="Reconstructions Best Model" class="img-fluid rounded z-depth-1">
-    <p class="mt-2 text-center"><em>Reconstructions – Best Performing Model</em></p>
+  <div class="col-sm-6">
+    <img src="/assets/img/projects/6_project/S5_loss_curves.png" alt="Loss Baseline" class="img-fluid rounded z-depth-1">
+    <p class="mt-2 text-center"><em>Training Loss – Baseline Model</em></p>
   </div>
 </div>
 
 ---
 
-**Generated Samples:**  
-Random samples from the latent space demonstrate generative capacity:
+#### 🔹 Deeper Decoder with Additional Layers
+
+**Description:**  
+Added extra transposed convolution and dense layers to increase capacity.
+
+**Observations:**  
+- Slight improvement in reconstruction sharpness.  
+- Generated digits still lacked variety.  
+- KL divergence slightly higher, indicating stronger regularization.
+
+**Visualizations:**
+
+<div class="row mt-3">
+  <div class="col-sm-6">
+    <img src="/assets/img/projects/6_project/S6_test_49-.png" alt="Reconstructions Enhanced" class="img-fluid rounded z-depth-1">
+    <p class="mt-2 text-center"><em>Reconstructions – Deeper Decoder</em></p>
+  </div>
+  <div class="col-sm-6">
+    <img src="/assets/img/projects/6_project/S6_loss_curves.png" alt="Loss Enhanced" class="img-fluid rounded z-depth-1">
+    <p class="mt-2 text-center"><em>Training Loss – Deeper Decoder</em></p>
+  </div>
+</div>
+
+---
+
+#### 🔹 Experimenting with Dropout
+
+**Description:**  
+Introduced dropout layers to encourage variability and prevent overfitting.
+
+**Observations:**  
+- Training loss curves became less stable.  
+- Generated samples deteriorated, often showing partial or noisy digits.  
+- Confirmed that high dropout alone was insufficient for better sampling.
+
+---
+
+#### 🔹 Optimized Configuration (Best Performing)
+
+**Description:**  
+Reduced dense layer sizes in the decoder, increased channel counts, and increased learning rate to 0.001.
+
+**Observations:**  
+- Clear reconstructions with consistent digit contours.  
+- Generated samples were diverse: digits 0, 2, 4, 6, 7, 8, and 9 appeared frequently.  
+- Faster convergence without sacrificing output quality.
+
+**Visualizations:**
+
+<div class="row mt-3">
+  <div class="col-sm-6">
+    <img src="/assets/img/projects/6_project/S7_test_49-.png" alt="Reconstructions Best" class="img-fluid rounded z-depth-1">
+    <p class="mt-2 text-center"><em>Reconstructions – Optimized Model</em></p>
+  </div>
+  <div class="col-sm-6">
+    <img src="/assets/img/projects/6_project/S10_loss_curves.png" alt="Loss Best" class="img-fluid rounded z-depth-1">
+    <p class="mt-2 text-center"><em>Training Loss – Optimized Model</em></p>
+  </div>
+</div>
+
+---
+
+#### 🔹 Generated Samples Across Configurations
+
+Sampling from the latent space showed how the models progressed:
 
 <div class="row mt-3">
   <div class="col-sm-4">
@@ -103,36 +160,18 @@ Random samples from the latent space demonstrate generative capacity:
 
 ---
 
-**Training Dynamics:**  
-Loss curves showing convergence and the impact of different configurations:
-
-<div class="row mt-3">
-  <div class="col-sm-4">
-    <img src="/assets/img/projects/6_project/S5_loss_curves.png" alt="Loss Baseline" class="img-fluid rounded z-depth-1">
-    <p class="mt-2 text-center"><em>Training Loss – Baseline Model</em></p>
-  </div>
-  <div class="col-sm-4">
-    <img src="/assets/img/projects/6_project/S6_loss_curves.png" alt="Loss Enhanced" class="img-fluid rounded z-depth-1">
-    <p class="mt-2 text-center"><em>Training Loss – Enhanced Decoder</em></p>
-  </div>
-  <div class="col-sm-4">
-    <img src="/assets/img/projects/6_project/S10_loss_curves.png" alt="Loss Best" class="img-fluid rounded z-depth-1">
-    <p class="mt-2 text-center"><em>Training Loss – Best Performing Model</em></p>
-  </div>
-</div>
-
----
-
 ### 📝 Reflections
 
-- **Latent Space Regularization:**  
-  KL divergence effectively encouraged continuous and structured representations.
-- **Reconstruction Quality:**  
-  Outputs were clear and recognizable, though resolution was limited by model complexity.
-- **Generative Sampling:**  
-  Random samples produced diverse digit-like outputs, confirming the model learned a meaningful latent space.
+- **Model Design:**  
+  Combining an LSTM encoder and CNN decoder provided a unique perspective on representing spatial sequences in latent space.
+- **Training Dynamics:**  
+  Learning rate adjustments had a significant impact on convergence speed and output quality.
+- **Regularization:**  
+  KL divergence was essential for maintaining a smooth latent space, but excessive dropout degraded output consistency.
+- **Generative Quality:**  
+  The final configuration achieved diverse and recognizable digits without overfitting training data.
 - **Learning Outcome:**  
-  Building this VAE pipeline provided hands-on experience with probabilistic autoencoding.
+  This project deepened my understanding of probabilistic generative models and their sensitivity to architecture design.
 
 ---
 
