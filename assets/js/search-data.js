@@ -43,7 +43,7 @@ ninja.data = [{
           description: "",
           section: "News",},{id: "projects-who-s-wearing-the-glasses",
           title: 'Who’s Wearing the Glasses?',
-          description: "User authentication and identification using head movements on smart glasses",
+          description: "User authentication and identification using head movements for smart glasses",
           section: "Projects",handler: () => {
               window.location.href = "/projects/1_project/";
             },},{id: "projects-how-does-a-cnn-learn",
@@ -68,7 +68,7 @@ ninja.data = [{
               window.location.href = "/projects/5_project/";
             },},{id: "projects-variational-autoencoder-for-mnist-digits",
           title: 'Variational Autoencoder for MNIST Digits',
-          description: "Implementation of a Variational Autoencoder (VAE) in TensorFlow, exploring reconstruction quality and generative capabilities on MNIST handwritten digits.",
+          description: "Implementation of a Variational Autoencoder combining an LSTM encoder and CNN decoder to generate handwritten digits, exploring architecture variations and training dynamics.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/6_project/";
             },},{id: "projects-project-7",
