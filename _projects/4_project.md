@@ -17,7 +17,7 @@ The implementation was built **from scratch** in Python, with custom logic for t
 ---
 
 ### 📎 Links  
-- 🔗 [GitHub Repository](https://github.com/sumeyye-agac/logistic-regression-from-scratch)
+- 🔗 [Project on GitHub](https://github.com/sumeyye-agac/logistic-regression-from-scratch)
 
 ---
 

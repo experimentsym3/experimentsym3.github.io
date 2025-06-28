@@ -1,80 +1,145 @@
 ---
 layout: page
-title: project 6
-description: a project with no image
-img:
-importance: 6
-category: fun
+title: Variational Autoencoder for MNIST Digits
+description: Implementation of a Variational Autoencoder (VAE) in TensorFlow, exploring reconstruction quality and generative capabilities on MNIST handwritten digits.
+img: assets/img/projects/6_project/cover.jpg
+importance: 5
+category: work
+related_publications: false
 ---
 
-Every project has a beautiful feature showcase page.
-It's easy to include images in a flexible 3-column grid format.
-Make your photos 1/3, 2/3, or full width.
+### 🎯 Motivation
 
-To give your project a background in the portfolio page, just add the img tag to the front matter like so:
+This project demonstrates how a **Variational Autoencoder (VAE)** can learn a compressed probabilistic representation of high-dimensional data. Unlike standard autoencoders, VAEs introduce a structured latent space by modeling distributions, enabling generative sampling of new data instances. The goal was to implement a VAE from scratch on the MNIST dataset and analyze reconstruction fidelity and latent space interpolation.
 
-    ---
-    layout: page
-    title: project
-    description: a project with a background image
-    img: /assets/img/12.jpg
-    ---
+---
 
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/1.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/3.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    Caption photos easily. On the left, a road goes through a tunnel. Middle, leaves artistically fall in a hipster photoshoot. Right, in another hipster photoshoot, a lumberjack grasps a handful of pine needles.
-</div>
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    This image can also have a caption. It's like magic.
-</div>
+### 📎 Links
 
-You can also put regular text between your rows of images.
-Say you wanted to write a little bit about your project before you posted the rest of the images.
-You describe how you toiled, sweated, _bled_ for your project, and then... you reveal its glory in the next row of images.
+- 🔗 [Project on GitHub](https://github.com/sumeyye-agac/variational-autoencoder-MNIST-tensorflow)
 
-<div class="row justify-content-sm-center">
-    <div class="col-sm-8 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    You can also have artistically styled 2/3 + 1/3 images, like these.
-</div>
+---
 
-The code is simple.
-Just wrap your images with `<div class="col-sm">` and place them inside `<div class="row">` (read more about the <a href="https://getbootstrap.com/docs/4.4/layout/grid/">Bootstrap Grid</a> system).
-To make images responsive, add `img-fluid` class to each; for rounded corners and shadows use `rounded` and `z-depth-1` classes.
-Here's the code for the last row of images above:
+### 🧠 Method Overview
 
-{% raw %}
+Variational Autoencoders combine two key components:
 
-```html
-<div class="row justify-content-sm-center">
-  <div class="col-sm-8 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+- An **encoder network** that maps input data to latent variables parameterized as Gaussian distributions (means and variances).
+- A **decoder network** that reconstructs images from latent samples.
+
+During training, the objective is to minimize the evidence lower bound (ELBO), balancing:
+
+- **Reconstruction loss** (accuracy of output relative to input)
+- **KL-divergence loss** (regularization encouraging latent distributions to match a prior)
+
+This ensures smooth latent space structure and supports generative sampling.
+
+---
+
+### ⚙️ Implementation Highlights
+
+- **Framework:** TensorFlow (Keras API)
+- **Encoder Architecture:** Two dense layers outputting mean and log variance
+- **Decoder Architecture:** Two dense layers reconstructing 28×28 images
+- **Latent Dimension:** Tunable (multiple experiments with different sizes)
+- **Training:** Adam optimizer with custom combined loss
+
+---
+
+### 🛠️ Workflow
+
+The process included:
+
+1. **Data Preprocessing:**  
+   MNIST digits normalized to [0,1].
+2. **Model Construction:**  
+   Custom encoder and decoder modules.
+3. **Training:**  
+   50 epochs with mini-batch updates.
+4. **Evaluation:**  
+   Visual reconstructions, random sampling, and convergence monitoring.
+
+---
+
+### 🧪 Results and Visualizations
+
+**Example Reconstructions:**  
+Comparison between original test digits and VAE reconstructions:
+
+<div class="row mt-3">
+  <div class="col-sm-4">
+    <img src="/assets/img/projects/6_project/S5_test_49-.png" alt="Reconstructions S5" class="img-fluid rounded z-depth-1">
+    <p class="mt-2 text-center"><em>Reconstructions – Setup S5</em></p>
   </div>
-  <div class="col-sm-4 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+  <div class="col-sm-4">
+    <img src="/assets/img/projects/6_project/S6_test_49-.png" alt="Reconstructions S6" class="img-fluid rounded z-depth-1">
+    <p class="mt-2 text-center"><em>Reconstructions – Setup S6</em></p>
+  </div>
+  <div class="col-sm-4">
+    <img src="/assets/img/projects/6_project/S7_test_49-.png" alt="Reconstructions S7" class="img-fluid rounded z-depth-1">
+    <p class="mt-2 text-center"><em>Reconstructions – Setup S7</em></p>
   </div>
 </div>
-```
 
-{% endraw %}
+---
+
+**Generated Samples:**  
+Sampling from the latent space shows the model’s generative capacity:
+
+<div class="row mt-3">
+  <div class="col-sm-4">
+    <img src="/assets/img/projects/6_project/S8_test_49-.png" alt="Generated S8" class="img-fluid rounded z-depth-1">
+    <p class="mt-2 text-center"><em>Generated Samples (49)</em></p>
+  </div>
+  <div class="col-sm-4">
+    <img src="/assets/img/projects/6_project/S8_test_99-.png" alt="Generated S8 - 99" class="img-fluid rounded z-depth-1">
+    <p class="mt-2 text-center"><em>Generated Samples (99)</em></p>
+  </div>
+  <div class="col-sm-4">
+    <img src="/assets/img/projects/6_project/generated_images.png" alt="Generated Random Samples" class="img-fluid rounded z-depth-1">
+    <p class="mt-2 text-center"><em>Random Latent Samples</em></p>
+  </div>
+</div>
+
+---
+
+**Training Dynamics:**  
+Loss curves showing convergence and decomposition of loss terms:
+
+<div class="row mt-3">
+  <div class="col-sm-4">
+    <img src="/assets/img/projects/6_project/S5_loss_curves.png" alt="Loss S5" class="img-fluid rounded z-depth-1">
+    <p class="mt-2 text-center"><em>Loss Curves – Setup S5</em></p>
+  </div>
+  <div class="col-sm-4">
+    <img src="/assets/img/projects/6_project/S6_loss_curves.png" alt="Loss S6" class="img-fluid rounded z-depth-1">
+    <p class="mt-2 text-center"><em>Loss Curves – Setup S6</em></p>
+  </div>
+  <div class="col-sm-4">
+    <img src="/assets/img/projects/6_project/S10_loss_curves.png" alt="Loss S10" class="img-fluid rounded z-depth-1">
+    <p class="mt-2 text-center"><em>Loss Curves – Setup S10</em></p>
+  </div>
+</div>
+
+---
+
+### 📝 Reflections
+
+- **Latent Space Regularization:**  
+  KL divergence effectively encouraged continuous and structured latent representations.
+- **Reconstruction Quality:**  
+  Outputs were clear and recognizable, though resolution was limited by model capacity.
+- **Generative Sampling:**  
+  Random samples demonstrated diverse digit forms, validating learned distributions.
+- **Learning Outcome:**  
+  Implementing this pipeline end-to-end provided deep intuition about probabilistic autoencoding.
+
+---
+
+### ⚙️ Technical Stack
+
+- **Language:** Python
+- **Libraries:** TensorFlow, Keras, NumPy, Matplotlib
+- **Dataset:** MNIST (60,000 training, 10,000 test digits)
+
+---

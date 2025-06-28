@@ -24,7 +24,7 @@ The project advances both **user authentication** and **user identification** on
 ---
 
 ### 📎 Links  
-- 🔗 [GitHub Repository](https://github.com/sumeyye-agac/glass-data-participant-detection)  
+- 🔗 [Project on GitHub](https://github.com/sumeyye-agac/glass-data-participant-detection)  
 - 📄 [Published Paper (SN Computer Science, 2023)](https://doi.org/10.1007/s42979-023-02202-4)
 
 ---

@@ -17,7 +17,7 @@ Using the CIFAR-10 benchmark dataset, I ran over 30 comparative experiments, iso
 ---
 
 ### 📎 Links  
-- 🔗 [GitHub Repository](https://github.com/sumeyye-agac/object-classification-CIFAR10-tensorflow)
+- 🔗 [Project on GitHub](https://github.com/sumeyye-agac/object-classification-CIFAR10-tensorflow)
 
 ---
 
