@@ -1,8 +1,8 @@
 ---
 layout: page
-title: Wrist Motion Feature Engineering
-description: Activity recognition study analyzing motion, orientation, and rotation features from wrist-worn accelerometer data to classify daily activities.
-img: assets/img/projects/7_project/figure4.png
+title: Efficient Feature Engineering for Wrist Motion Recognition
+description: Activity recognition pipeline combining accelerometer and gyroscope signals, adaptive sampling strategies, and comprehensive feature extraction for wearable devices.
+img: assets/img/projects/7_project/figure1.png
 importance: 7
 category: work
 related_publications: false
@@ -10,130 +10,83 @@ related_publications: false
 
 ### ✨ Motivation
 
-This project investigates how different feature sets derived from wrist-worn accelerometer data can be used to recognize daily activities. Unlike smartphone-based approaches that rely on pocket placement, wrist-worn devices capture hand and arm movements and provide richer signals for activities such as eating, smoking, and writing. The work focused on extracting and evaluating motion, orientation, and rotation features to compare their impact on classification accuracy.
+Wearable devices generate vast amounts of motion data, but building a practical recognition pipeline requires more than collecting sensor readings. This project focused on designing an **adaptive activity recognition system** that balances classification accuracy, latency, and energy consumption, targeting scenarios like smoking detection, eating, and locomotion monitoring.
+
+Unlike many prior studies that use fixed data collection parameters, this approach dynamically adjusted sampling rates and window sizes depending on detected motion state (e.g., static vs. complex), aiming for efficient yet reliable recognition.
 
 ---
 
-### 🔗 Links
+### ⚙️ Pipeline Overview
 
-- [Publication](https://doi.org/10.5220/0006007100760084)
+The solution consisted of **three main modules**, orchestrated to process incoming wrist-worn accelerometer (ACC) and gyroscope (GYR) data:
 
----
+**1. State Detection Module**  
+- Continuously monitors motion to classify windows as *simple* (low variability) or *complex* (high variability).
+- Adjusts sampling frequency and feature extraction configuration in real-time.
+- Example: static activities used 1 Hz sampling with 30-second windows, complex ones used 5 Hz sampling with 20-second windows.
 
-### ⚙️ Implementation Highlights
+**2. Classification Module**  
+- Extracts statistical and frequency-domain features from sensor streams.
+- Trains separate models for simple and complex states.
+- Classifiers include Random Forests and ensemble methods, optimized via cross-validation.
 
-- **Sensor Placement:** Samsung Galaxy S2 phone attached to the right wrist to emulate smartwatch usage.
-- **Sampling Rate:** 50 Hz accelerometer, linear accelerometer, and gyroscope data.
-- **Feature Sets:**
-  - Motion features computed from acceleration magnitude.
-  - Orientation features derived from 3-axis accelerometer signals.
-  - Rotation features computed as pitch and roll angles.
-- **Activities:** 13 activities including eating, typing, writing, drinking, smoking, walking, jogging, biking, sitting, standing, and stair use.
-- **Classifiers:** Decision Tree, Naive Bayes, and Random Forest.
+**3. Session Module**
+- Aggregates predictions over time.
+- Updates per-activity statistics like average F1-scores and session counts.
+- Supports tracking user-specific patterns for personalized adaptation.
 
----
+*Pipeline flowchart:*
 
-### 🛠️ Workflow
-
-1. **Data Collection:**  
-   Recorded sensor data from 10 participants performing all activities.
-2. **Feature Extraction:**  
-   Computed time-domain and frequency-domain descriptors for each window.
-3. **Preprocessing:**  
-   20-second non-overlapping windows created.
-4. **Classification:**  
-   10-fold cross-validation for all classifier-feature combinations.
-5. **Evaluation:**  
-   Recognition performance compared across configurations.
+<img src="/assets/img/projects/7_project/figure1.png" alt="Pipeline Flowchart" class="img-fluid rounded z-depth-1 mt-3">
 
 ---
 
-### 🧩 Feature Extraction Details
+### 🧠 Feature Extraction Strategy
 
-For each 20-second window, the following features were computed to characterize motion, orientation, and rotation:
+Features were engineered to capture both temporal and spectral signatures of motion. Selected features included:
 
-**Time-Domain Features (per axis):**
-- Mean
-- Standard Deviation
-- Skewness
-- Kurtosis
-- Energy
-- Entropy
+- **Time-domain:** mean, variance, standard deviation, skewness, kurtosis.
+- **Frequency-domain:** energy and entropy computed via FFT.
+- **Correlation metrics:** inter-axis relationships.
+- **Range and slope indicators:** to capture transitions.
 
-**Frequency-Domain Features:**
-- Dominant frequency component
-- Amplitude of dominant frequency
-
-**Rotation Features (Pitch and Roll):**
-- Same statistical features computed from rotation angles derived via accelerometer.
-
-**Windowing Parameters:**
-- Window length: 20 seconds
-- Overlap: None
-- Sampling rate: 50 Hz
+Notably, the **feature set was adapted** depending on the detected state to reduce computational cost in simple motion contexts.
 
 ---
 
-### 🧪 Results and Visualizations
+### 🧪 Results and Insights
 
-This study compared raw acceleration, linear acceleration, and gyroscope-derived rotation features across multiple classifiers and feature combinations.
+Key experiments compared static configurations with the dynamic adaptive pipeline across multiple activities and recording scenarios. 
 
----
+- **Dynamic configuration** achieved higher F1-scores while reducing CPU time and memory consumption.
+- For example, complex sessions improved F1-scores by ~15–20% over baseline configurations while maintaining energy consumption below 300 mWh.
+- Shorter window durations (e.g., 5–10 seconds) were beneficial for detecting transitions but slightly reduced recognition performance for steady activities.
 
-**Figure 1 – Raw Acceleration Signals**
+*Illustrative performance comparison:*
 
-<img src="/assets/img/projects/7_project/figure1.png" alt="Raw Acceleration Signals" class="img-fluid rounded z-depth-1">
-<p class="mt-2 text-center"><em>Example X, Y, Z axes and magnitude signals recorded during selected activities.</em></p>
-
----
-
-**Figure 2 – Rotation Angles**
-
-<img src="/assets/img/projects/7_project/figure2.png" alt="Rotation Angles" class="img-fluid rounded z-depth-1">
-<p class="mt-2 text-center"><em>Computed pitch and roll rotation angles from accelerometer data.</em></p>
+<img src="/assets/img/projects/7_project/f1score_comparison.png" alt="Performance Comparison" class="img-fluid rounded z-depth-1 mt-3">
 
 ---
 
-**Figure 3 – Accuracy of Feature Sets**
+✅ **Key Takeaways**
 
-<img src="/assets/img/projects/7_project/figure3.png" alt="Feature Set Accuracy" class="img-fluid rounded z-depth-1">
-<p class="mt-2 text-center"><em>Average recognition accuracy for motion, orientation, and rotation features, with and without combinations.</em></p>
-
----
-
-**Figure 4 – Classifier Comparison**
-
-<img src="/assets/img/projects/7_project/figure4.png" alt="Classifier Comparison" class="img-fluid rounded z-depth-1">
-<p class="mt-2 text-center"><em>Classification accuracy comparison across Naive Bayes, Decision Tree, and Random Forest classifiers.</em></p>
-
----
-
-**Figure 5 – Activity Recognition Accuracy**
-
-<img src="/assets/img/projects/7_project/figure5.png" alt="Activity Accuracy" class="img-fluid rounded z-depth-1">
-<p class="mt-2 text-center"><em>Recognition accuracy per activity label, showing performance variation across activities.</em></p>
+- **Adaptive Sampling:** Crucial for balancing accuracy and energy usage.
+- **Feature Selection:** Combining temporal and spectral features improved robustness.
+- **Resource Efficiency:** Dynamic adjustments consistently lowered computation costs compared to static configurations.
 
 ---
 
 ### 📝 Reflections
 
-- **Feature Contribution:**  
-  Orientation features provided the highest discriminative power among individual feature sets.
-- **Classifier Selection:**  
-  Random Forest consistently outperformed other classifiers, achieving up to 89% accuracy with combined features.
-- **Sensor Efficiency:**  
-  Accelerometer-only configurations remained competitive and offered lower power consumption.
-- **Rotation Features:**  
-  Gyroscope-derived rotation features slightly improved recognition for stair-related activities but had limited overall impact.
-- **Window Size:**  
-  Longer window durations improved recognition for activities with longer temporal patterns.
+Designing this pipeline required careful trade-offs between recognition quality and practicality for real-world wearable deployment. Implementing dynamic sampling and session-based aggregation provided valuable insights into efficient motion sensing strategies.
+
+Feel free to adapt this approach for your own applications, such as health monitoring or gesture recognition on low-power devices!
 
 ---
 
 ### ⚙️ Technical Stack
 
 - **Language:** Python
-- **Libraries:** NumPy, Scikit-learn
-- **Hardware:** Samsung Galaxy S2 sensors (accelerometer, linear acceleration, gyroscope)
-- **Evaluation:** 10-fold stratified cross-validation
+- **Libraries:** Scikit-learn, NumPy, SciPy, Matplotlib
+- **Sensors:** 3-axis accelerometer and gyroscope
 
