@@ -1,80 +1,165 @@
 ---
 layout: page
-title: project 9
-description: another project with an image 🎉
-img: assets/img/6.jpg
+title: Attention-Based Knowledge Distillation for Efficient HAR
+description: Lightweight human activity recognition with knowledge distillation and attention modules, demonstrating high accuracy and low compute cost on wearable sensor data.
+img: assets/img/projects/8_project/modelsizes_wisdm2.png
 importance: 9
-category: fun
+category: work
+related_publications: false
 ---
 
-Every project has a beautiful feature showcase page.
-It's easy to include images in a flexible 3-column grid format.
-Make your photos 1/3, 2/3, or full width.
+### ✨ Motivation
 
-To give your project a background in the portfolio page, just add the img tag to the front matter like so:
+This project explores how **knowledge distillation and attention mechanisms** can be combined to train efficient deep learning models for **Human Activity Recognition (HAR)**. The goal was to achieve **high recognition accuracy with low computational cost** on wrist-worn sensor data, enabling practical deployment on resource-constrained devices.
 
-    ---
-    layout: page
-    title: project
-    description: a project with a background image
-    img: /assets/img/12.jpg
-    ---
+---
 
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/1.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/3.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    Caption photos easily. On the left, a road goes through a tunnel. Middle, leaves artistically fall in a hipster photoshoot. Right, in another hipster photoshoot, a lumberjack grasps a handful of pine needles.
-</div>
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    This image can also have a caption. It's like magic.
-</div>
+### 🔗 Links
 
-You can also put regular text between your rows of images.
-Say you wanted to write a little bit about your project before you posted the rest of the images.
-You describe how you toiled, sweated, _bled_ for your project, and then... you reveal its glory in the next row of images.
+- [Project on GitHub](https://github.com/sumeyye-agac/attention-distillation-HAR)
 
-<div class="row justify-content-sm-center">
-    <div class="col-sm-8 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    You can also have artistically styled 2/3 + 1/3 images, like these.
-</div>
+---
 
-The code is simple.
-Just wrap your images with `<div class="col-sm">` and place them inside `<div class="row">` (read more about the <a href="https://getbootstrap.com/docs/4.4/layout/grid/">Bootstrap Grid</a> system).
-To make images responsive, add `img-fluid` class to each; for rounded corners and shadows use `rounded` and `z-depth-1` classes.
-Here's the code for the last row of images above:
+### 🧠 Method Overview
 
-{% raw %}
+The core idea is to **transfer knowledge** from a large, accurate *teacher* model (OM/MM) to a lightweight *student* model (LM), while also incorporating **channel and spatial attention modules** into the student. 
 
-```html
-<div class="row justify-content-sm-center">
-  <div class="col-sm-8 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+- **Teacher Model:** Generates soft target distributions and internal attention maps.
+- **Student Model:** Learns to mimic both predictions and attentions.
+- **Loss Function:** Weighted combination of:
+  - Student prediction loss (cross-entropy with ground truth)
+  - Distillation loss (matching softened outputs)
+  - Attention loss (matching teacher attention maps)
+
+*Architecture Example:*
+
+![Distillation + Attention Architecture](/assets/img/projects/8_project/distillation_attention_architecture2.png)
+
+---
+
+### ⚙️ Model Components
+
+**Channel Attention (CA):** Learns which sensor channels (axes) are most informative.  
+**Spatial Attention (SA):** Learns where in time the important patterns occur.  
+**Distillation Mechanism:** Uses a temperature scaling parameter *T* to soften teacher logits, providing richer supervisory signal to the student.  
+
+---
+
+### 🛠️ Implementation Highlights
+
+- **Datasets:**
+  - Opportunity
+  - WISDM
+  - UCI Sensors
+- **Sensors:**
+  - Accelerometer (ACC)
+  - Gyroscope (GYR)
+- **Metrics:**
+  - F1-Score
+  - Accuracy
+  - FLOPs (compute)
+  - Parameter count
+- **Variants:**
+  - LM (student)
+  - LM-Att (student + attention)
+  - RB-KD (rule-based distillation)
+  - RB-KD-Att
+  - RAB-KD (attention distillation)
+- **Training:**
+  - Optimizer: Adam
+  - Temperature scaling applied for soft targets
+
+---
+
+### 🧪 Results and Visualizations
+
+---
+
+#### 📊 Model Sizes across Datasets
+
+<div class="row mt-3">
+  <div class="col-sm-4">
+    <img src="/assets/img/projects/8_project/modelsizes_opp2.png" alt="Model Sizes - Opportunity" class="img-fluid rounded z-depth-1">
+    <p class="mt-2 text-center"><em>Model Sizes – Opportunity Dataset</em></p>
   </div>
-  <div class="col-sm-4 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+  <div class="col-sm-4">
+    <img src="/assets/img/projects/8_project/modelsizes_wisdm2.png" alt="Model Sizes - WISDM" class="img-fluid rounded z-depth-1">
+    <p class="mt-2 text-center"><em>Model Sizes – WISDM Dataset</em></p>
+  </div>
+  <div class="col-sm-4">
+    <img src="/assets/img/projects/8_project/modelsizes_sensors2.png" alt="Model Sizes - Sensors" class="img-fluid rounded z-depth-1">
+    <p class="mt-2 text-center"><em>Model Sizes – Sensors Dataset</em></p>
   </div>
 </div>
-```
 
-{% endraw %}
+---
+
+#### 🟢 Performance Comparisons (Recognition)
+
+**Opportunity Dataset:**
+
+<img src="/assets/img/projects/8_project/opportunity_attdist_results.png" alt="Opportunity Results" class="img-fluid rounded z-depth-1">
+
+**WISDM Dataset:**
+
+<img src="/assets/img/projects/8_project/wisdm_attdist_results.png" alt="WISDM Results" class="img-fluid rounded z-depth-1">
+
+**Sensors Dataset:**
+
+<img src="/assets/img/projects/8_project/sensors_attdist_results.png" alt="Sensors Results" class="img-fluid rounded z-depth-1">
+
+---
+
+#### 🔵 Performance Comparisons (Resource Use)
+
+**Opportunity:**
+<img src="/assets/img/projects/8_project/dist_att_resource.png" alt="Resource Trade-offs Opportunity" class="img-fluid rounded z-depth-1">
+
+**WISDM:**
+<img src="/assets/img/projects/8_project/dist_att2_resource.png" alt="Resource Trade-offs WISDM" class="img-fluid rounded z-depth-1">
+
+**Sensors:**
+<img src="/assets/img/projects/8_project/dist_att3_resource.png" alt="Resource Trade-offs Sensors" class="img-fluid rounded z-depth-1">
+
+---
+
+#### 🟣 Bubble Charts (Accuracy vs. Compute)
+
+These visuals summarize the **trade-off between recognition performance and FLOPs**, highlighting how *attention distillation approaches yield strong performance with much lower compute* compared to monolithic teacher models.
+
+<div class="row mt-3">
+  <div class="col-sm-4">
+    <img src="/assets/img/projects/8_project/dist_att_rec.png" alt="Bubble Chart Opportunity" class="img-fluid rounded z-depth-1">
+    <p class="mt-2 text-center"><em>F1-Score vs. FLOPs – Opportunity</em></p>
+  </div>
+  <div class="col-sm-4">
+    <img src="/assets/img/projects/8_project/dist_att2_rec.png" alt="Bubble Chart WISDM" class="img-fluid rounded z-depth-1">
+    <p class="mt-2 text-center"><em>F1-Score vs. FLOPs – WISDM</em></p>
+  </div>
+  <div class="col-sm-4">
+    <img src="/assets/img/projects/8_project/dist_att3_rec.png" alt="Bubble Chart Sensors" class="img-fluid rounded z-depth-1">
+    <p class="mt-2 text-center"><em>F1-Score vs. FLOPs – Sensors</em></p>
+  </div>
+</div>
+
+---
+
+### 📝 Key Takeaways
+
+- **Distillation Benefits:** Knowledge distillation alone improved F1-scores by 4–6% depending on dataset.
+- **Attention Modules:** Channel and spatial attention further boosted recognition accuracy, especially on WISDM.
+- **Efficiency:** Compared to the original monolithic models, the distilled student networks required **up to 10× fewer FLOPs** with minimal accuracy loss.
+- **Best Configuration:** RAB-KD consistently delivered the best trade-off, outperforming simpler distillation variants.
+
+---
+
+### ⚙️ Technical Stack
+
+- **Language:** Python
+- **Libraries:** TensorFlow, Keras, NumPy
+- **Datasets:** Opportunity, WISDM, UCI Sensors
+- **Hardware:** Experiments performed on GPU-enabled compute node
+
+---
+
+Feel free to adapt this pipeline to your own HAR tasks or other sensor-based applications!
