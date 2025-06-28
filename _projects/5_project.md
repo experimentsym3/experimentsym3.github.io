@@ -65,8 +65,11 @@ Finally, the warped images were combined with the base image to produce a contin
 
 *Example of a blended result:*
 
-<img src="/assets/img/projects/5_project/blended_image.jpg" alt="Blended Image" class="img-fluid rounded z-depth-1">
-<p class="mt-2 text-center"><em>Blended Image</em></p>
+<div class="d-flex justify-content-center">
+  <div class="col-md-6">
+    {% include figure.liquid path="/assets/img/projects/5_project/blended_image.jpg" title="Blended Image" class="img-fluid rounded z-depth-1" %}
+  </div>
+</div>
 
 ---
 
