@@ -5,7 +5,7 @@ description: Activity recognition study analyzing motion, orientation, and rotat
 img: assets/img/projects/7_project/figure4.png
 importance: 7
 category: work
-related_publications: true
+related_publications: false
 ---
 
 ### ✨ Motivation
