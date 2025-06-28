@@ -1,81 +1,160 @@
 ---
 layout: page
-title: project 8
-description: an other project with a background image and giscus comments
-img: assets/img/9.jpg
+title: Context-Aware Dynamic Activity Recognition on Wearables
+description: Development of a dynamic HAR pipeline adapting sampling rate, window length, and sensor usage to improve accuracy and efficiency on smartwatches.
+img: assets/img/projects/8_project/Res-FScore-rev.png
 importance: 8
 category: work
-giscus_comments: true
+related_publications: false
 ---
 
-Every project has a beautiful feature showcase page.
-It's easy to include images in a flexible 3-column grid format.
-Make your photos 1/3, 2/3, or full width.
+### ✨ Motivation
 
-To give your project a background in the portfolio page, just add the img tag to the front matter like so:
+This project investigated how **dynamic, context-aware adaptation** can improve human activity recognition (HAR) on wrist-worn devices. Unlike static pipelines with fixed sampling and feature extraction, this system **adjusts configurations at runtime** based on activity complexity to balance **accuracy, battery consumption, and computational cost**.
 
-    ---
-    layout: page
-    title: project
-    description: a project with a background image
-    img: /assets/img/12.jpg
-    ---
+---
 
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/1.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/3.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    Caption photos easily. On the left, a road goes through a tunnel. Middle, leaves artistically fall in a hipster photoshoot. Right, in another hipster photoshoot, a lumberjack grasps a handful of pine needles.
-</div>
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    This image can also have a caption. It's like magic.
-</div>
+### 🔗 Links
 
-You can also put regular text between your rows of images.
-Say you wanted to write a little bit about your project before you posted the rest of the images.
-You describe how you toiled, sweated, _bled_ for your project, and then... you reveal its glory in the next row of images.
+- [Publication](https://doi.org/10.3990/1.9789402806533)
 
-<div class="row justify-content-sm-center">
-    <div class="col-sm-8 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    You can also have artistically styled 2/3 + 1/3 images, like these.
-</div>
+---
 
-The code is simple.
-Just wrap your images with `<div class="col-sm">` and place them inside `<div class="row">` (read more about the <a href="https://getbootstrap.com/docs/4.4/layout/grid/">Bootstrap Grid</a> system).
-To make images responsive, add `img-fluid` class to each; for rounded corners and shadows use `rounded` and `z-depth-1` classes.
-Here's the code for the last row of images above:
+### 🧠 Method Overview
 
-{% raw %}
+The architecture includes **three main modules**, illustrated in the flowchart below:
 
-```html
-<div class="row justify-content-sm-center">
-  <div class="col-sm-8 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-  </div>
-  <div class="col-sm-4 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+<div class="row mt-3">
+  <div class="col-sm-12 text-center">
+    <img src="/assets/img/projects/8_project/Fig1_RevisionNov2020.png" alt="System Flowchart" class="img-fluid rounded z-depth-1">
+    <p class="mt-2"><em>System Flowchart – State Detection, Session Management, and Classification Modules</em></p>
   </div>
 </div>
-```
 
-{% endraw %}
+---
+
+#### 🚦 1. State Detection Module
+- **Purpose:** Identify if the current activity is *simple* or *complex*.
+- **How it works:**
+  - Reads accelerometer (ACC) data in sliding windows.
+  - If the last detected state was complex, gyroscope (GYR) data are also read.
+  - Uses a **rule-based algorithm** (Section 3.3 of the paper) to decide state transitions.
+  - If an activity persists for >60 seconds, it triggers a classification phase.
+
+---
+
+#### 🗂️ 2. Session Module
+- **Purpose:** Track sessions of the same activity over time.
+- **Functionality:**
+  - Determines whether the activity already exists in the dictionary.
+  - Updates average F1-score and occurrence count.
+  - Prepares session context for classification.
+
+---
+
+#### 🧩 3. Classification Module
+- **Purpose:** Classify the detected session with an appropriate model.
+- **Dynamic configuration:**
+  - *Simple Session:*
+    - Low-frequency sampling
+    - Lightweight feature set
+    - ACC data only
+  - *Complex Session:*
+    - High-frequency sampling
+    - Richer feature set
+    - ACC + GYR data
+  - The module then computes the F1-score and updates session metrics.
+
+---
+
+### ⚙️ Technical Highlights
+
+**Sensor and Data Configurations**
+- **Sensors:** 3-axis accelerometer, 3-axis gyroscope
+- **Sampling Rates:** 1 Hz to 50 Hz
+- **Window Sizes:** 5–30 seconds
+- **Feature Types:**
+  - Statistical (mean, std, range)
+  - Frequency domain (energy, entropy)
+
+**Dynamic Adaptation**
+- The state detection algorithm automatically:
+  - Reduces sampling when the user is static
+  - Switches to richer features and higher sampling when complex motion is detected
+- This ensures **energy savings without compromising classification performance**.
+
+---
+
+### 🧪 Results and Insights
+
+**Resource and Performance Comparison**
+Experiments evaluated Static, Semi-Dynamic, and Dynamic configurations:
+
+- **Static:** Always uses full sensor set and highest sampling.
+- **Semi-Dynamic:** Varies sampling rate.
+- **Dynamic:** Varies sampling, feature set, and sensor usage.
+
+**Key Findings:**
+- Dynamic configuration achieved **highest F1-score (0.78)** while:
+  - Reducing CPU time by ~15%
+  - Decreasing energy consumption by ~38%
+  - Lowering memory usage
+
+**Visual Results:**
+
+<div class="row mt-3">
+  <div class="col-sm-6">
+    <img src="/assets/img/projects/8_project/Res-FScore-rev2_new.png" alt="Resource vs F1 Score" class="img-fluid rounded z-depth-1">
+    <p class="mt-2 text-center"><em>Resource Consumption and Accuracy Trade-off</em></p>
+  </div>
+</div>
+
+**Efficiency Trends:**
+
+- Static configurations consumed significantly more CPU and energy.
+- Dynamic configuration flattened CPU and energy curves across sampling rates.
+- **Dynamic mode maintained stable memory usage while improving performance.**
+
+<div class="row mt-3">
+  <div class="col-sm-6">
+    <img src="/assets/img/projects/8_project/CPU-Fsel-rev.png" alt="CPU Time" class="img-fluid rounded z-depth-1">
+  </div>
+  <div class="col-sm-6">
+    <img src="/assets/img/projects/8_project/Energy-Fsel-rev.png" alt="Energy Consumption" class="img-fluid rounded z-depth-1">
+  </div>
+</div>
+
+---
+
+### ✨ Key Contributions
+
+✅ **Adaptive HAR Pipeline:**  
+First system to dynamically switch sampling rate, feature complexity, and sensor set on a smartwatch.
+
+✅ **Rule-Based State Detection:**  
+Lightweight state classification enabling context awareness without heavy computation.
+
+✅ **Resource Profiling:**  
+Detailed measurements of CPU time, energy, and memory across configurations.
+
+✅ **Improved F1-Score:**  
+Demonstrated that dynamic adaptation improves accuracy while reducing resource load.
+
+---
+
+### 📝 Reflections
+
+- **Dynamic configurations consistently outperformed static approaches** in both efficiency and accuracy.
+- **Rule-based state detection proved effective and lightweight** for on-device processing.
+- Future work could explore personalized thresholds and continuous learning to further optimize adaptation.
+- This work demonstrated that **context-aware HAR pipelines are feasible on low-power wearables**.
+
+---
+
+### ⚙️ Technical Stack
+
+- **Languages:** Python
+- **Devices:** Wrist-worn IMU sensors
+- **Techniques:** Dynamic configuration switching, adaptive feature extraction, energy profiling
+
+
