@@ -76,9 +76,9 @@ ninja.data = [{
           description: "Activity recognition study analyzing motion, orientation, and rotation features from wrist-worn accelerometer data to classify daily activities.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/7_project/";
-            },},{id: "projects-project-8",
-          title: 'project 8',
-          description: "an other project with a background image and giscus comments",
+            },},{id: "projects-context-aware-dynamic-activity-recognition-on-wearables",
+          title: 'Context-Aware Dynamic Activity Recognition on Wearables',
+          description: "Development of a dynamic HAR pipeline adapting sampling rate, window length, and sensor usage to improve accuracy and efficiency on smartwatches.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/8_project/";
             },},{id: "projects-project-9",
