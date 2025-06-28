@@ -81,9 +81,9 @@ ninja.data = [{
           description: "Development of a dynamic HAR pipeline adapting sampling rate, window length, and sensor usage to improve accuracy and efficiency on smartwatches.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/8_project/";
-            },},{id: "projects-project-9",
-          title: 'project 9',
-          description: "another project with an image 🎉",
+            },},{id: "projects-attention-based-knowledge-distillation-for-efficient-har",
+          title: 'Attention-Based Knowledge Distillation for Efficient HAR',
+          description: "Lightweight human activity recognition with knowledge distillation and attention modules, demonstrating high accuracy and low compute cost on wearable sensor data.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/9_project/";
             },},{
