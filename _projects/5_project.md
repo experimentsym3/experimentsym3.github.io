@@ -51,23 +51,19 @@ A homography matrix was computed to map each source image onto the reference pla
 **3. Image Warping**  
 Each image was warped to align with the base image using backward warping. This involves mapping each destination pixel back to its source location.
 
-*Example warped images:*
+*Example warped image:*
 
 <div class="row mt-3">
   <div class="col-sm-6">
     <img src="/assets/img/projects/5_project/warped_paris_a.jpg" alt="Warped Paris A" class="img-fluid rounded z-depth-1">
     <p class="mt-2 text-center"><em>Warped Paris A</em></p>
   </div>
-  <div class="col-sm-6">
-    <img src="/assets/img/projects/5_project/warped_paris_c.jpg" alt="Warped Paris C" class="img-fluid rounded z-depth-1">
-    <p class="mt-2 text-center"><em>Warped Paris C</em></p>
-  </div>
 </div>
 
 **4. Blending Images**  
 Finally, the warped images were combined with the base image to produce a continuous panorama. Simple pixel replacement was used in overlapping regions.
 
-*Example of a blended intermediate result:*
+*Example of a blended result:*
 
 <img src="/assets/img/projects/5_project/blended_image.jpg" alt="Blended Image" class="img-fluid rounded z-depth-1">
 <p class="mt-2 text-center"><em>Blended Image</em></p>
