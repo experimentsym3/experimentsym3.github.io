@@ -8,28 +8,28 @@ category: work
 related_publications: false
 ---
 
-### 🎯 Motivation
+### ✨ Motivation
 
 Smart glasses are gaining traction across domains like healthcare, education, and industrial training - yet they lack robust, user-friendly methods for personal authentication. Touch-based or alphanumeric methods (e.g., PINs) are often infeasible due to limited or no interface. Linking them to mobile devices is not only inconvenient but also introduces pairing dependencies and security vulnerabilities.
 
 This project addresses a critical gap: **How can we design an intuitive, privacy-preserving, and on-device authentication mechanism for smart glasses that does not rely on external devices or intrusive biometrics?**
 
 We hypothesize that **head movement patterns**, captured via built-in inertial sensors (IMU), can serve as behavioral biometrics unique to individuals. This approach has several advantages:
-- ✅ **Device-native**: No need for extra hardware or external sensors  
-- ✅ **Passive and natural**: Users only perform simple, intuitive gestures  
-- ✅ **Lightweight**: Designed with edge deployment in mind (e.g., minimal features, low compute)
+- **Device-native**: No need for extra hardware or external sensors  
+- **Passive and natural**: Users only perform simple, intuitive gestures  
+- **Lightweight**: Designed with edge deployment in mind (e.g., minimal features, low compute)
 
 The project advances both **user authentication** and **user identification** on wearable head-mounted displays (HMDs) through gesture-based behavioral modeling - contributing to the broader field of human-centered, privacy-preserving AI.
 
 ---
 
-### 📎 Links  
+### Links  
 - 🔗 [Project on GitHub](https://github.com/sumeyye-agac/glass-data-participant-detection)  
 - 📄 [Published Paper (SN Computer Science, 2023)](https://doi.org/10.1007/s42979-023-02202-4)
 
 ---
 
-### 👤 Head Gestures
+### Head Gestures
 <div class="row">
   <div class="col-sm">
     {% include figure.liquid path="assets/img/projects/1_project/circle_gesture.png" title="Circle" class="img-fluid rounded z-depth-1" %}

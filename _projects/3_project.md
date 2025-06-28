@@ -8,7 +8,7 @@ category: work
 related_publications: false
 ---
 
-### 🎯 Motivation
+### ✨ Motivation
 
 This project tackles the challenge of next-word prediction in short text sequences using a **multi-layer perceptron (MLP)** built entirely from scratch using **NumPy**—no deep learning libraries like TensorFlow or PyTorch. While modern models often depend on large-scale transformer architectures, this work highlights the learning dynamics and architectural challenges of a minimalistic MLP trained on a constrained vocabulary.
 
@@ -17,11 +17,11 @@ The goal was to predict the most likely **4th word** given a sequence of 3 input
 ---
 
 ### 📎 Links  
-- 🔗 [Project on GitHub](https://github.com/sumeyye-agac/next-word-prediction-using-MLP-from-scratch)
+- [Project on GitHub](https://github.com/sumeyye-agac/next-word-prediction-using-MLP-from-scratch)
 
 ---
 
-### 🧠 Network Architecture
+### 🧩 Network Architecture
 
 The model predicts the next word by processing three input words in sequence:
 

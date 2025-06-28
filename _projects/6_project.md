@@ -8,19 +8,19 @@ category: work
 related_publications: false
 ---
 
-### 🎯 Motivation
+### ✨ Motivation
 
 This project demonstrates how a **Variational Autoencoder (VAE)** can learn a compressed probabilistic representation of high-dimensional data. Unlike standard autoencoders, VAEs introduce a structured latent space by modeling distributions, enabling generative sampling of new data instances. The goal was to implement a VAE from scratch on the MNIST dataset and analyze reconstruction fidelity and latent space interpolation.
 
 ---
 
-### 📎 Links
+### Links
 
 - 🔗 [Project on GitHub](https://github.com/sumeyye-agac/variational-autoencoder-MNIST-tensorflow)
 
 ---
 
-### 🧠 Method Overview
+### 🧩 Method Overview
 
 Variational Autoencoders combine two key components:
 

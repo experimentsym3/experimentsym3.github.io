@@ -8,7 +8,7 @@ category: work
 related_publications: false
 ---
 
-### 🎯 Motivation
+### ✨ Motivation
 
 This project demonstrates how the **Expectation-Maximization (EM)** algorithm can be used to fit a **Gaussian Mixture Model (GMM)** to unlabeled data. Unlike K-means, GMM with EM models data as a combination of probabilistic clusters with soft assignments, providing more flexible and realistic representations of real-world data.
 
@@ -17,11 +17,11 @@ The implementation was built **from scratch** in Python, with custom logic for t
 ---
 
 ### 📎 Links  
-- 🔗 [Project on GitHub](https://github.com/sumeyye-agac/logistic-regression-from-scratch)
+- [Project on GitHub](https://github.com/sumeyye-agac/logistic-regression-from-scratch)
 
 ---
 
-### 🧠 Algorithm Summary
+### 🧩 Algorithm Summary
 
 We aim to fit the data with $$K = 3$$ Gaussian components. The EM algorithm proceeds iteratively with the following two steps:
 

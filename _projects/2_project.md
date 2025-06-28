@@ -8,7 +8,7 @@ category: work
 related_publications: false
 ---
 
-### 🎯 Motivation
+### ✨ Motivation
 
 In this project, I built and analyzed a convolutional neural network (CNN) in TensorFlow to investigate the impact of architectural and training hyperparameters on model performance. While most deep learning pipelines focus solely on accuracy, this work emphasizes systematic experimentation and interpretability—examining how design decisions affect convergence, generalization, and representation learning.
 
@@ -17,11 +17,11 @@ Using the CIFAR-10 benchmark dataset, I ran over 30 comparative experiments, iso
 ---
 
 ### 📎 Links  
-- 🔗 [Project on GitHub](https://github.com/sumeyye-agac/object-classification-CIFAR10-tensorflow)
+- [Project on GitHub](https://github.com/sumeyye-agac/object-classification-CIFAR10-tensorflow)
 
 ---
 
-### 🧠 Architecture Overview
+### 🧩 Architecture Overview
 
 The final CNN model consists of three convolutional layers with ReLU activation and He initialization, followed by a dense layer. Max pooling and batch normalization were applied, but dropout was intentionally omitted after experimental comparison. Input data was normalized and augmented with horizontal flips and random crops.
 
@@ -55,7 +55,7 @@ Each parameter was varied in isolation and evaluated using held-out test perform
 
 ---
 
-### 🧬 Feature Representation Analysis
+### 🔬 Feature Representation Analysis
 
 To inspect how feature representations evolve across training, I extracted the latent space from the final dense layer and visualized it using t-SNE. Over 100 epochs, the learned space became more structured and separable, especially for well-represented classes.
 
@@ -80,7 +80,7 @@ The model was trained using several optimization strategies including SGD, RMSPr
   </div>
 </div>
 
-#### 🔬 Experiment Summary
+#### 🔍 Experiment Summary
 
 This project involved extensive experimentation to understand the impact of different hyperparameters and architectural choices on CNN performance. Each category below was systematically explored through isolated tests:
 

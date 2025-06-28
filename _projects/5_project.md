@@ -8,7 +8,7 @@ category: work
 related_publications: false
 ---
 
-### 🎯 Motivation
+### ✨ Motivation
 
 This project demonstrates how homography estimation can be used to warp and blend images into panoramic mosaics. Unlike relying on built-in libraries (e.g., OpenCV's `stitcher()`), the entire pipeline was implemented from scratch in Python, providing a clear, step-by-step understanding of projective geometry and image blending.
 
@@ -16,7 +16,7 @@ This project demonstrates how homography estimation can be used to warp and blen
 
 ### 📎 Links
 
-- 🔗 [Project on GitHub](https://github.com/sumeyye-agac/homography-and-image-stitching-from-scratch)
+- [Project on GitHub](https://github.com/sumeyye-agac/homography-and-image-stitching-from-scratch)
 
 ---
 
