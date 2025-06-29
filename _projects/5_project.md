@@ -53,7 +53,7 @@ Each image was warped to align with the base image using backward warping. This 
 
 *Example warped image:*
 
-<div class="row mt-3">
+<div class="row mt-3 justify-content-center">
   <div class="col-sm-6">
     <img src="/assets/img/projects/5_project/warped_paris_a.jpg" alt="Warped Paris A" class="img-fluid rounded z-depth-1">
     <p class="mt-2 text-center"><em>Warped Paris A</em></p>
@@ -65,9 +65,10 @@ Finally, the warped images were combined with the base image to produce a contin
 
 *Example of a blended result:*
 
-<div class="d-flex justify-content-center">
-  <div class="col-md-6">
-    {% include figure.liquid path="/assets/img/projects/5_project/blended_image.jpg" title="Blended Image" class="img-fluid rounded z-depth-1" %}
+<div class="row mt-3 justify-content-center">
+  <div class="col-sm-6">
+    <img src="/assets/img/projects/5_project/blended_image.jpg" alt="Blended Image" class="img-fluid rounded z-depth-1">
+    <p class="mt-2 text-center"><em>Warped Paris A</em></p>
   </div>
 </div>
 
