@@ -29,7 +29,7 @@ The project advances both **user authentication** and **user identification** on
 
 ---
 
-### Head Gestures
+### 👤 Head Gestures
 <div class="row">
   <div class="col-sm">
     {% include figure.liquid path="assets/img/projects/1_project/circle_gesture.png" title="Circle" class="img-fluid rounded z-depth-1" %}

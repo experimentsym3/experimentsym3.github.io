@@ -16,11 +16,11 @@ This project explores how **knowledge distillation and attention mechanisms** ca
 
 ### 🔗 Links
 
-- [Publication](https://www.scitepress.org/Link.aspx?doi=10.5220/0006007100760084)
+- [Publication](https://ieeexplore.ieee.org/abstract/document/10599908)
 
 ---
 
-### 🧠 Method Overview
+### 📘 Method Overview
 
 The core idea is to **transfer knowledge** from a large, accurate *teacher* model (OM/MM) to a lightweight *student* model (LM), while also incorporating **channel and spatial attention modules** into the student. 
 

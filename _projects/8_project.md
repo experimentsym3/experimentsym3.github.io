@@ -20,7 +20,7 @@ This project investigated how **dynamic, context-aware adaptation** can improve 
 
 ---
 
-### 🧠 Method Overview
+### 📘 Method Overview
 
 The architecture includes **three main modules**, illustrated in the flowchart below:
 
