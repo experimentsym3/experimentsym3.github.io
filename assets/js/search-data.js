@@ -76,6 +76,11 @@ ninja.data = [{
           description: "Activity recognition pipeline combining accelerometer and gyroscope signals, adaptive sampling strategies, and comprehensive feature extraction for wearable devices.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/7_project/";
+            },},{id: "projects-context-aware-dynamic-activity-recognition-on-wearables",
+          title: 'Context-Aware Dynamic Activity Recognition on Wearables',
+          description: "Development of a dynamic HAR pipeline adapting sampling rate, window length, and sensor usage to improve accuracy and efficiency on smartwatches.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/8_project/";
             },},{
       id: 'light-theme',
       title: 'Change theme to light',
