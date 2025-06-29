@@ -66,6 +66,11 @@ ninja.data = [{
           description: "Full implementation of homography estimation and panoramic image stitching from scratch, including SVD-based estimation, backward warping, and blending experiments.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/5_project/";
+            },},{id: "projects-variational-autoencoder-for-mnist-digits",
+          title: 'Variational Autoencoder for MNIST Digits',
+          description: "Implementation of a Variational Autoencoder combining an LSTM encoder and CNN decoder to generate handwritten digits, exploring architecture variations and training dynamics.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/6_project/";
             },},{
       id: 'light-theme',
       title: 'Change theme to light',
