@@ -61,31 +61,6 @@ ninja.data = [{
           description: "Step-by-step implementation of the expectation-maximization (EM) algorithm for Gaussian mixture models (GMMs) from scratch",
           section: "Projects",handler: () => {
               window.location.href = "/projects/4_project/";
-            },},{id: "projects-image-stitching-panoramic-from-scratch",
-          title: 'Image Stitching (Panoramic) from Scratch',
-          description: "Full implementation of homography estimation and panoramic image stitching from scratch, including SVD-based estimation, backward warping, and blending experiments.",
-          section: "Projects",handler: () => {
-              window.location.href = "/projects/5_project/";
-            },},{id: "projects-variational-autoencoder-for-mnist-digits",
-          title: 'Variational Autoencoder for MNIST Digits',
-          description: "Implementation of a Variational Autoencoder combining an LSTM encoder and CNN decoder to generate handwritten digits, exploring architecture variations and training dynamics.",
-          section: "Projects",handler: () => {
-              window.location.href = "/projects/6_project/";
-            },},{id: "projects-efficient-feature-engineering-for-wrist-motion-recognition",
-          title: 'Efficient Feature Engineering for Wrist Motion Recognition',
-          description: "Activity recognition pipeline combining accelerometer and gyroscope signals, adaptive sampling strategies, and comprehensive feature extraction for wearable devices.",
-          section: "Projects",handler: () => {
-              window.location.href = "/projects/7_project/";
-            },},{id: "projects-context-aware-dynamic-activity-recognition-on-wearables",
-          title: 'Context-Aware Dynamic Activity Recognition on Wearables',
-          description: "Development of a dynamic HAR pipeline adapting sampling rate, window length, and sensor usage to improve accuracy and efficiency on smartwatches.",
-          section: "Projects",handler: () => {
-              window.location.href = "/projects/8_project/";
-            },},{id: "projects-attention-based-knowledge-distillation-for-efficient-har",
-          title: 'Attention-Based Knowledge Distillation for Efficient HAR',
-          description: "Lightweight human activity recognition with knowledge distillation and attention modules, demonstrating high accuracy and low compute cost on wearable sensor data.",
-          section: "Projects",handler: () => {
-              window.location.href = "/projects/9_project/";
             },},{
       id: 'light-theme',
       title: 'Change theme to light',
