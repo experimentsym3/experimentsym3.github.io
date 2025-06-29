@@ -71,6 +71,11 @@ ninja.data = [{
           description: "Implementation of a Variational Autoencoder combining an LSTM encoder and CNN decoder to generate handwritten digits, exploring architecture variations and training dynamics.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/6_project/";
+            },},{id: "projects-efficient-feature-engineering-for-wrist-motion-recognition",
+          title: 'Efficient Feature Engineering for Wrist Motion Recognition',
+          description: "Activity recognition pipeline combining accelerometer and gyroscope signals, adaptive sampling strategies, and comprehensive feature extraction for wearable devices.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/7_project/";
             },},{
       id: 'light-theme',
       title: 'Change theme to light',
