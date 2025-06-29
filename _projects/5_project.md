@@ -66,7 +66,7 @@ Finally, the warped images were combined with the base image to produce a contin
 *Example of a blended result:*
 
 <div class="row mt-3 justify-content-center">
-  <div class="col-sm-8">
+  <div class="col-sm-10">
     <img src="/assets/img/projects/5_project/blended_image.jpg" alt="Blended Image" class="img-fluid rounded z-depth-1">
     <p class="mt-2 text-center"><em>Blended Image</em></p>
   </div>
