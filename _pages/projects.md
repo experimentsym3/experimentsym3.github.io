@@ -5,7 +5,7 @@ permalink: /projects/
 description: 
 nav: true
 nav_order: 4
-display_categories: [Wearable Sensing & Human Activity Recognition, Computer Vision & Image Modeling, ]
+display_categories: [Wearable Sensing & Human Activity Recognition, Computer Vision & Image Modeling, Sequence & Pattern Learning, Generative Modeling]
 horizontal: false
 ---
 

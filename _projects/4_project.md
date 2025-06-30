@@ -4,7 +4,7 @@ title: Expectation-Maximization for GMM from Scratch
 description: Step-by-step implementation of the expectation-maximization (EM) algorithm for Gaussian mixture models (GMMs) from scratch
 img: assets/img/projects/4_project/cover4.png
 importance: 4
-category: work
+category: Sequence & Pattern Learning
 related_publications: false
 ---
 
