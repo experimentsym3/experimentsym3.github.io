@@ -10,9 +10,9 @@ related_publications: false
 
 ### ✨ Motivation
 
-Wearable devices generate vast amounts of motion data, but building a practical recognition pipeline requires more than collecting sensor readings. This project focused on designing an **adaptive activity recognition system** that balances classification accuracy, latency, and energy consumption, targeting scenarios like smoking detection, eating, and locomotion monitoring.
+Wearable devices generate vast amounts of motion data, but building a practical recognition pipeline requires more than collecting sensor readings. This project focused on designing an **adaptive activity recognition system** that balances classification accuracy, latency, and energy consumption, targeting scenarios like smoking, eating, and drinking recognition.
 
-Unlike many prior studies that use fixed data collection parameters, this approach dynamically adjusted sampling rates and window sizes depending on detected motion state (e.g., static vs. complex), aiming for efficient yet reliable recognition.
+Unlike many prior studies that use fixed data collection parameters, this approach dynamically adjusted sampling rates and window sizes depending on detected activity state (e.g., static vs. complex), aiming for efficient yet reliable recognition.
 
 ---
 
@@ -28,7 +28,7 @@ The solution consisted of **three main modules**, orchestrated to process incomi
 **2. Classification Module**  
 - Extracts statistical and frequency-domain features from sensor streams.
 - Trains separate models for simple and complex states.
-- Classifiers include Random Forests and ensemble methods, optimized via cross-validation.
+- Classifiers include Random Forests and ensemble methods, optimized using cross-validation.
 
 **3. Session Module**
 - Aggregates predictions over time.
@@ -43,14 +43,14 @@ The solution consisted of **three main modules**, orchestrated to process incomi
 
 ### 🧠 Feature Extraction Strategy
 
-Features were engineered to capture both temporal and spectral signatures of motion. Selected features included:
+Features were engineered to capture both temporal and spectral signatures of activity. Selected features included:
 
 - **Time-domain:** mean, variance, standard deviation, skewness, kurtosis.
 - **Frequency-domain:** energy and entropy computed via FFT.
 - **Correlation metrics:** inter-axis relationships.
 - **Range and slope indicators:** to capture transitions.
 
-Notably, the **feature set was adapted** depending on the detected state to reduce computational cost in simple motion contexts.
+Notably, the **feature set was adapted** depending on the detected state to reduce computational cost in simple activity contexts.
 
 ---
 
@@ -78,9 +78,7 @@ Key experiments compared static configurations with the dynamic adaptive pipelin
 
 ### 📝 Reflections
 
-Designing this pipeline required careful trade-offs between recognition quality and practicality for real-world wearable deployment. Implementing dynamic sampling and session-based aggregation provided valuable insights into efficient motion sensing strategies.
-
-Feel free to adapt this approach for your own applications, such as health monitoring or gesture recognition on low-power devices!
+Designing this pipeline required careful trade-offs between recognition quality and practicality for real-world wearable deployment. Implementing dynamic sampling and session-based aggregation provided valuable insights into efficient activity sensing strategies.
 
 ---
 

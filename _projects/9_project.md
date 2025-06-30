@@ -10,79 +10,119 @@ related_publications: false
 
 ### ✨ Motivation
 
-Deploying Human Activity Recognition (HAR) models on wearables requires a balance: the models must be accurate enough to detect subtle motion patterns but small and efficient enough to run on low-power devices.  
-
-While large convolutional and recurrent networks can achieve high accuracy, their resource requirements make them impractical for real-time use. This project explores how **knowledge distillation** and **attention mechanisms** can be combined to create compact models that still deliver competitive performance.  
+Deploying Human Activity Recognition (HAR) models on wearables requires balancing accuracy and efficiency. Large deep networks often achieve high recognition performance but are impractical for real-time use on embedded devices. This project combines **knowledge distillation** with **attention mechanisms** to create compact models that retain competitive accuracy while reducing computational demands.
 
 ---
 
 ### 🧭 Approach Overview
 
-The solution integrates two core ideas:
+The approach integrates two ideas:
 
-1. **Knowledge Distillation**  
-   A smaller *student model* learns not just from the labeled data but also by mimicking the outputs of a larger *teacher model*. The teacher's predictions contain richer information about class relationships (softer targets), helping the student generalize better.
+1. **Knowledge Distillation**
+   A smaller *student* model learns not only from ground truth labels but also by mimicking the outputs of a larger *teacher* model. This transfer of "soft targets" enriches the student's learning signal and improves generalization.
 
-2. **Attention Mechanisms**  
-   Two types of attention modules are used:
-   - **Channel Attention (CA):** Learns which sensor channels (e.g., accelerometer vs. gyroscope) are most relevant for each activity.
-   - **Spatial Attention (SA):** Learns which time steps contain the most discriminative patterns.
+2. **Attention Mechanisms**
+   To help the student model focus on the most informative parts of the sensor data, attention modules were added. Specifically:
+   - **Channel Attention (CA):** Identifies which sensor channels (axes) contribute most.
+   - **Spatial Attention (SA):** Highlights time regions containing important patterns.
 
-Combining these techniques allows the student model to focus on important aspects of the data while distilling knowledge from a more powerful network.
+The attention design was inspired by the **Convolutional Block Attention Module (CBAM)**, a widely used technique in computer vision. <a href="https://arxiv.org/abs/1807.06521" target="_blank">[View CBAM Paper]</a>
 
 ---
 
 <div class="text-center my-4">
-  <img src="/assets/img/projects/9_project/distillation_attention_architecture2.png" alt="Distillation + Attention Architecture" class="img-fluid rounded z-depth-1" style="max-width:700px;">
-  <p class="mt-2"><em>Architecture overview combining knowledge distillation and attention modules</em></p>
+  <img src="/assets/img/projects/9_project/cbam_module.png" alt="CBAM Module Architecture" class="img-fluid rounded z-depth-1" style="max-width:700px;">
+  <p class="mt-2"><em>Architecture of CBAM module with architecture of CA and SA modules individually</em></p>
 </div>
+
+---
+
+### 🧮 CBAM Formulations
+
+**Channel Attention:**
+
+The channel attention module applies both average and max pooling, followed by a shared MLP:
+
+$$
+M_c(\mathbf{F}) = \sigma \big( \text{MLP}(\text{AvgPool}(\mathbf{F})) + \text{MLP}(\text{MaxPool}(\mathbf{F})) \big)
+$$
+
+where:
+- $$\sigma$$ is the sigmoid activation,
+- MLP denotes a shared multi-layer perceptron.
+
+---
+
+**Spatial Attention:**
+
+Spatial attention concatenates pooled features across channels and applies convolution:
+
+$$
+M_s(\mathbf{F}) = \sigma \big( f^{7 \times 7} \big( [\text{AvgPool}(\mathbf{F}); \text{MaxPool}(\mathbf{F})] \big) \big)
+$$
+
+where:
+- $$f^{7 \times 7}$$ is a convolution with a $$7 \times 7$$ kernel.
+
+---
+
+**Refinement Process:**
+
+The attention maps sequentially refine the input:
+
+$$
+\mathbf{F}' = M_c(\mathbf{F}) \otimes \mathbf{F}
+$$
+
+$$
+\mathbf{F}'' = M_s(\mathbf{F}') \otimes \mathbf{F}'
+$$
+
+where $$\otimes$$ denotes element-wise multiplication.
 
 ---
 
 ### ⚙️ Model Architecture & Variants
 
-The experiments compared several configurations:
+Several configurations were compared:
 
-- **LM:** A lightweight student model trained with conventional supervision.
-- **LM-Att:** The same student enhanced with attention modules.
-- **RB-KD:** Student model with response-based distillation (matching teacher outputs).
+- **LM:** Baseline lightweight student.
+- **LM-Att:** LM enhanced with attention modules.
+- **RB-KD:** Response-based distillation (matching outputs).
 - **RB-KD-Att:** Distillation combined with attention.
-- **RAB-KD:** The most advanced variant, combining response-based distillation and attention matching.
+- **RAB-KD:** Response and attention-based distillation (matching predictions and attention maps).
 
-**Distillation Loss:**  
-The loss function blended:
-- Cross-entropy with the ground-truth labels.
-- KL divergence between teacher and student predictions.
-- An attention loss aligning the student's attention maps with those of the teacher.
+**Loss Function:**
+- Cross-entropy with ground truth
+- KL divergence between student and teacher outputs
+- Attention alignment loss
 
-**Training Details:**
-- Optimizer: Adam
-- Temperature scaling applied to soften the teacher logits.
-- Datasets: Opportunity, WISDM, and UCI Sensors.
-- Sensors: Wrist accelerometer and gyroscope channels.
+**Training:**
+- Adam optimizer
+- Temperature scaling applied to soften logits
+- Datasets: Opportunity, WISDM, UCI Sensors
 
 ---
 
 ### 🛠️ Experimental Setup
 
 **Datasets:**
-- **Opportunity:** Rich set of activities with multiple modalities.
-- **WISDM:** Smartphone and smartwatch motion data for common activities.
-- **UCI Sensors:** Daily living activities with wrist-worn sensors.
+- **Opportunity:** Multimodal activity dataset
+- **WISDM:** Smartphone and smartwatch activity data
+- **UCI Sensors:** Wearable sensor dataset for daily living activities
+
+**Sensors:**
+- Accelerometer and gyroscope
 
 **Evaluation Metrics:**
-- F1-Score (main metric)
+- F1-Score
 - Accuracy
-- Model size (parameters)
-- FLOPs (compute cost)
-
-Each model was evaluated both on recognition accuracy and computational efficiency to measure practical deployability.
+- Model size
+- FLOPs
 
 ---
 
 ### 📊 Model Size Comparisons
-
-The charts below show how the different configurations scaled in terms of parameter count across datasets.
 
 <div class="row mt-3">
   <div class="col-sm-4">
@@ -94,18 +134,14 @@ The charts below show how the different configurations scaled in terms of parame
     <p class="mt-2 text-center"><em>WISDM dataset</em></p>
   </div>
   <div class="col-sm-4">
-    <img src="/assets/img/projects/9_project/modelsizes_sensors2.png" alt="Model Sizes - Sensors" class="img-fluid rounded z-depth-1">
+    <img src="/assets/img/projects/9_project/modelsizes_sensors2.png" alt="Model Sizes - UCI Sensors" class="img-fluid rounded z-depth-1">
     <p class="mt-2 text-center"><em>UCI Sensors dataset</em></p>
   </div>
 </div>
 
-These results highlight that adding attention modules and distillation moderately increased parameter counts while staying far below the teacher model size.
-
 ---
 
 ### 🟢 Recognition Performance
-
-Performance improved consistently as attention and distillation were layered in.
 
 **Opportunity Dataset:**
 <img src="/assets/img/projects/9_project/opportunity_attdist_results.png" alt="Opportunity Results" class="img-fluid rounded z-depth-1">
@@ -116,28 +152,32 @@ Performance improved consistently as attention and distillation were layered in.
 **UCI Sensors Dataset:**
 <img src="/assets/img/projects/9_project/sensors_attdist_results.png" alt="Sensors Results" class="img-fluid rounded z-depth-1">
 
-In most cases, RAB-KD outperformed simpler configurations, demonstrating that attention distillation provides a richer supervisory signal than matching predictions alone.
-
 ---
 
 ### 🔵 Resource Consumption
 
-Despite higher accuracy, the advanced configurations remained lightweight.
+Despite higher accuracy, advanced configurations remained lightweight:
 
-**Opportunity:**
-<img src="/assets/img/projects/9_project/dist_att_resource.png" alt="Resource Use - Opportunity" class="img-fluid rounded z-depth-1">
-
-**WISDM:**
-<img src="/assets/img/projects/9_project/dist_att2_resource.png" alt="Resource Use - WISDM" class="img-fluid rounded z-depth-1">
-
-**UCI Sensors:**
-<img src="/assets/img/projects/9_project/dist_att3_resource.png" alt="Resource Use - Sensors" class="img-fluid rounded z-depth-1">
+<div class="row mt-3">
+  <div class="col-sm-4">
+    <img src="/assets/img/projects/9_project/dist_att_resource.png" alt="Resource Use - Opportunity" class="img-fluid rounded z-depth-1">
+    <p class="mt-2 text-center"><em>Opportunity</em></p>
+  </div>
+  <div class="col-sm-4">
+    <img src="/assets/img/projects/9_project/dist_att2_resource.png" alt="Resource Use - WISDM" class="img-fluid rounded z-depth-1">
+    <p class="mt-2 text-center"><em>WISDM</em></p>
+  </div>
+  <div class="col-sm-4">
+    <img src="/assets/img/projects/9_project/dist_att3_resource.png" alt="Resource Use - UCI Sensors" class="img-fluid rounded z-depth-1">
+    <p class="mt-2 text-center"><em>UCI Sensors</em></p>
+  </div>
+</div>
 
 ---
 
 ### 🟣 Accuracy vs. Compute Trade-Off
 
-Bubble plots show how the most advanced configurations delivered high F1-scores while requiring substantially fewer FLOPs compared to the teacher models.
+These plots illustrate how RAB-KD delivered strong accuracy while reducing FLOPs by an order of magnitude:
 
 <div class="row mt-3">
   <div class="col-sm-4">
@@ -154,16 +194,14 @@ Bubble plots show how the most advanced configurations delivered high F1-scores 
   </div>
 </div>
 
-These trade-off curves illustrate that RAB-KD achieved a sweet spot of performance and efficiency.
-
 ---
 
 ### 📝 Key Insights
 
-- **Distillation alone** consistently boosted recognition accuracy by 4–6% compared to the baseline student.
-- **Attention modules** further improved discriminative power, particularly on WISDM.
-- **RAB-KD** proved the most effective, combining rich teacher supervision with focus on salient features.
-- Overall, these models reduced computational cost up to 10× compared to teacher architectures, making them viable for embedded deployment.
+- Distillation improved accuracy by 4–6% over conventional training.
+- Attention modules enhanced feature discrimination, particularly on WISDM.
+- RAB-KD consistently achieved the best performance-to-efficiency trade-off.
+- The approach reduced computational cost by up to 10× compared to teacher models.
 
 ---
 
@@ -179,4 +217,3 @@ These trade-off curves illustrate that RAB-KD achieved a sweet spot of performan
 ### 🔗 Links
 
 - [Publication](https://ieeexplore.ieee.org/abstract/document/10599908)
-
