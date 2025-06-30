@@ -9,9 +9,9 @@ ninja.data = [{
     handler: () => {
       window.location.href = "/";
     },
-  },{id: "nav-projects",
-          title: "Projects",
-          description: "🌿 Hi, and thanks for visiting. Here you’ll find projects exploring ideas, methods, and experiments to improve data-driven ML solutions.",
+  },{id: "nav-ml-projects",
+          title: "ML Projects",
+          description: "🌿 Hi, and thanks for visiting!",
           section: "Navigation",
           handler: () => {
             window.location.href = "/projects/";
