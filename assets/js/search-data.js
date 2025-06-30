@@ -43,12 +43,12 @@ ninja.data = [{
           description: "",
           section: "News",},{id: "projects-who-s-wearing-the-glasses",
           title: 'Who’s Wearing the Glasses?',
-          description: "Behavioral biometrics using head gestures.",
+          description: "Behavioral biometrics to identify users by analyzing head gestures",
           section: "Projects",handler: () => {
               window.location.href = "/projects/1_project/";
             },},{id: "projects-how-does-a-cnn-learn",
           title: 'How Does a CNN Learn?',
-          description: "A systematic exploration of CNN parameters on the CIFAR-10 dataset using TensorFlow",
+          description: "In-depth analysis of image classification using convolutional networks, architecture variations, and training dynamics",
           section: "Projects",handler: () => {
               window.location.href = "/projects/2_project/";
             },},{id: "projects-next-word-prediction-from-scratch",
