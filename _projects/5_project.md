@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Image Stitching (Panoramic) from Scratch
-description: Full implementation of homography estimation and panoramic image stitching from scratch, including SVD-based estimation, backward warping, and blending experiments.
+description: Homography estimation and panoramic reconstruction combining SVD, backward warping, and image blending (no built-in libraries like OpenCV)
 img: assets/img/projects/5_project/cover.jpg
 importance: 5
 category: Computer Vision & Image Modeling

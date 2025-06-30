@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Variational Autoencoder for MNIST Digits
-description: Implementation of a Variational Autoencoder combining an LSTM encoder and CNN decoder to generate handwritten digits, exploring architecture variations and training dynamics.
+description: Generative modeling of handwritten digits using a variational autoencoder combining an LSTM encoder and CNN decoder
 img: assets/img/projects/6_project/cover.jpg
 importance: 6
 category: Generative Modeling

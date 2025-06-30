@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Context-Aware Dynamic Activity Recognition on Wearables
-description: Development of a dynamic HAR pipeline adapting sampling rate, window length, and sensor usage to improve accuracy and efficiency on smartwatches.
+description: Adaptive recognition system dynamically adjusting sampling rates and sensor configurations based on detected activity state
 img: assets/img/projects/8_project/Res-FScore-rev.png
 importance: 8
 category: Wearable Sensing & Human Activity Recognition
