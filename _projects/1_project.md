@@ -92,13 +92,6 @@ The system processes motion data from smart glasses to authenticate and identify
   </div>
 </div>
 
-#### 3. Performance Evaluation
-- Authentication metric: Equal Error Rate (EER)
-- Identification metric: Weighted F1-score
-- Best results: 1.3% EER with Adaboost, 99.3% F1-score with Random Forest
-
----
-
 ### 📊 Results
 
 We modeled:
