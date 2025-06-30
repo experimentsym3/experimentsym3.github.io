@@ -4,7 +4,7 @@ title: Efficient Feature Engineering for Wrist Motion Recognition
 description: Activity recognition pipeline combining accelerometer and gyroscope signals, adaptive sampling strategies, and comprehensive feature extraction for wearable devices.
 img: assets/img/projects/7_project/figure1.png
 importance: 7
-category: work
+category: Wearable Sensing & Human Activity Understanding
 related_publications: false
 ---
 
