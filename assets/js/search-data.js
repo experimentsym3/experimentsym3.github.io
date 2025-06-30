@@ -83,7 +83,7 @@ ninja.data = [{
               window.location.href = "/projects/8_project/";
             },},{id: "projects-attention-based-knowledge-distillation-for-efficient-har",
           title: 'Attention-Based Knowledge Distillation for Efficient HAR',
-          description: "Lightweight activity recognition combining knowledge distillation and attention modules to improve performance on wearable sensor data",
+          description: "Lightweight human activity recognition (HAR) combining knowledge distillation and attention modules to improve performance on wearable sensor data",
           section: "Projects",handler: () => {
               window.location.href = "/projects/9_project/";
             },},{
