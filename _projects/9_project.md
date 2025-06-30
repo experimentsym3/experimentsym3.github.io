@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Attention-Based Knowledge Distillation for Efficient HAR
-description: Lightweight activity recognition combining knowledge distillation and attention modules to improve performance on wearable sensor data
+description: Lightweight human activity recognition (HAR) combining knowledge distillation and attention modules to improve performance on wearable sensor data
 img: assets/img/projects/9_project/modelsizes_wisdm2.png
 importance: 9
 category: Wearable Sensing & Human Activity Recognition
