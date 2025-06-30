@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Expectation-Maximization for GMM from Scratch
-description: Unsupervised clustering and density estimation using a Gaussian Mixture Model built entirely from scratch
+description: Unsupervised clustering and density estimation using a Gaussian Mixture Model (GMM) built entirely from scratch (only NumPy)
 img: assets/img/projects/4_project/cover4.png
 importance: 4
 category: Sequence & Pattern Learning
