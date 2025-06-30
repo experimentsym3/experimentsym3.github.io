@@ -14,12 +14,6 @@ This project investigated how **dynamic, context-aware adaptation** can improve 
 
 ---
 
-### 🔗 Links
-
-- [Publication](https://doi.org/10.1016/j.compeleceng.2020.106949)
-
----
-
 ### 📘 Method Overview
 
 The architecture includes **three main modules**, illustrated in the flowchart below:
@@ -157,4 +151,9 @@ Demonstrated that dynamic adaptation improves accuracy while reducing resource l
 - **Devices:** Wrist-worn IMU sensors
 - **Techniques:** Dynamic configuration switching, adaptive feature extraction, energy profiling
 
+---
+
+### 🔗 Links
+
+- [Publication](https://doi.org/10.1016/j.compeleceng.2020.106949)
 

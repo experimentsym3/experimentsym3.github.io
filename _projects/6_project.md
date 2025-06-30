@@ -14,12 +14,6 @@ This project implements a **Variational Autoencoder (VAE)** to learn latent repr
 
 ---
 
-### 🔗 Links
-
-- [Project on GitHub](https://github.com/sumeyye-agac/variational-autoencoder-MNIST-tensorflow)
-
----
-
 ### ⚙️ Implementation Highlights
 
 - **Encoder:** Single-layer LSTM treating each 28×28 image as a sequence of 28 rows. Hidden size: 64 units.
@@ -163,3 +157,9 @@ Sampling from latent space demonstrated improvement over experiments.
 - **Language:** Python
 - **Libraries:** TensorFlow, Keras, NumPy, Matplotlib
 - **Dataset:** MNIST handwritten digits
+
+---
+
+### 🔗 Links
+
+- [Project on GitHub](https://github.com/sumeyye-agac/variational-autoencoder-MNIST-tensorflow)

@@ -14,12 +14,6 @@ This project explores how **knowledge distillation and attention mechanisms** ca
 
 ---
 
-### 🔗 Links
-
-- [Publication](https://ieeexplore.ieee.org/abstract/document/10599908)
-
----
-
 ### 📘 Method Overview
 
 The core idea is to **transfer knowledge** from a large, accurate *teacher* model (OM/MM) to a lightweight *student* model (LM), while also incorporating **channel and spatial attention modules** into the student. 
@@ -159,6 +153,12 @@ These visuals summarize the **trade-off between recognition performance and FLOP
 - **Libraries:** TensorFlow, Keras, NumPy
 - **Datasets:** Opportunity, WISDM, UCI Sensors
 - **Hardware:** Experiments performed on GPU-enabled compute node
+
+---
+
+### 🔗 Links
+
+- [Publication](https://ieeexplore.ieee.org/abstract/document/10599908)
 
 ---
 

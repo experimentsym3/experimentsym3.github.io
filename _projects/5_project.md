@@ -14,12 +14,6 @@ This project demonstrates how homography estimation can be used to warp and blen
 
 ---
 
-### 🔗 Links
-
-- [Project on GitHub](https://github.com/sumeyye-agac/homography-and-image-stitching-from-scratch)
-
----
-
 ### 🛠️ Pipeline Overview
 
 The process consists of four main modules:
@@ -88,6 +82,12 @@ Finally, the warped images were combined with the base image to produce a contin
 - **SVD Stability:** Robust when outliers were minimized.
 - **Blending:** Simple merging created visible seams; more advanced blending could improve results.
 - **Learning Outcome:** Building the pipeline manually provided an in-depth understanding of homography-based image stitching.
+
+---
+
+### 🔗 Links
+
+- [Project on GitHub](https://github.com/sumeyye-agac/homography-and-image-stitching-from-scratch)
 
 ---
 

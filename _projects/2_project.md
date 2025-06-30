@@ -16,11 +16,6 @@ Using the CIFAR-10 benchmark dataset, I ran over 30 comparative experiments, iso
 
 ---
 
-### 🔗 Links  
-- [Project on GitHub](https://github.com/sumeyye-agac/object-classification-CIFAR10-tensorflow)
-
----
-
 ### 🧩 Architecture Overview
 
 The final CNN model consists of three convolutional layers with ReLU activation and He initialization, followed by a dense layer. Max pooling and batch normalization were applied, but dropout was intentionally omitted after experimental comparison. Input data was normalized and augmented with horizontal flips and random crops.
@@ -107,3 +102,8 @@ Each configuration was logged, visualized, and interpreted to understand not jus
 - **Architecture**: 3-layer CNN  
 - **Visualization**: t-SNE, Matplotlib, comparative charts   
 - **Training**: Manual tuning, early stopping, augmentation
+
+---
+
+### 🔗 Links  
+- [Project on GitHub](https://github.com/sumeyye-agac/object-classification-CIFAR10-tensorflow)

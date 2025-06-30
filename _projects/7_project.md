@@ -16,12 +16,6 @@ Unlike many prior studies that use fixed data collection parameters, this approa
 
 ---
 
-### 🔗 Links
-
-- [Publication](https://dl.acm.org/doi/abs/10.5220/0006007100760084)
-
----
-
 ### ⚙️ Pipeline Overview
 
 The solution consisted of **three main modules**, orchestrated to process incoming wrist-worn accelerometer (ACC) and gyroscope (GYR) data:
@@ -95,4 +89,10 @@ Feel free to adapt this approach for your own applications, such as health monit
 - **Language:** Python
 - **Libraries:** Scikit-learn, NumPy, SciPy, Matplotlib
 - **Sensors:** 3-axis accelerometer and gyroscope
+
+---
+
+### 🔗 Links
+
+- [Publication](https://dl.acm.org/doi/abs/10.5220/0006007100760084)
 

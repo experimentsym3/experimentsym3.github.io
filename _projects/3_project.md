@@ -16,11 +16,6 @@ The goal was to predict the most likely **4th word** given a sequence of 3 input
 
 ---
 
-### 🔗 Links  
-- [Project on GitHub](https://github.com/sumeyye-agac/next-word-prediction-using-MLP-from-scratch)
-
----
-
 ### 🧩 Network Architecture
 
 The model predicts the next word by processing three input words in sequence:
@@ -240,3 +235,7 @@ These results reflect learned sequential patterns despite architectural simplici
 - **Optimization**: Custom backward propagation & SGD
 - **Evaluation**: Accuracy, Loss, Manual t-SNE, Prediction sampling
 
+---
+
+### 🔗 Links  
+- [Project on GitHub](https://github.com/sumeyye-agac/next-word-prediction-using-MLP-from-scratch)

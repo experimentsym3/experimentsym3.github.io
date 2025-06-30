@@ -23,12 +23,6 @@ The project advances both **user authentication** and **user identification** on
 
 ---
 
-### 🔗 Links  
-- [Project on GitHub](https://github.com/sumeyye-agac/glass-data-participant-detection)  
-- [Published Paper (SN Computer Science, 2023)](https://doi.org/10.1007/s42979-023-02202-4)
-
----
-
 ### 👤 Head Gestures
 <div class="row">
   <div class="col-sm">
@@ -126,3 +120,11 @@ Using lightweight statistical features (mean, min, max) over 1s windows, we achi
 - **Features**: Mean, Min, Max in 1s windows  
 - **Models**: Adaboost, Random Forest, SVM, MLP  
 - **Tools**: Python, Scikit-learn, SMOTE, Matplotlib
+
+---
+
+### 🔗 Links  
+- [Project on GitHub](https://github.com/sumeyye-agac/glass-data-participant-detection)  
+- [Published Paper (SN Computer Science, 2023)](https://doi.org/10.1007/s42979-023-02202-4)
+
+

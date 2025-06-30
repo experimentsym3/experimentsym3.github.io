@@ -16,11 +16,6 @@ The implementation was built **from scratch** in Python, with custom logic for t
 
 ---
 
-### 🔗 Links  
-- [Project on GitHub](https://github.com/sumeyye-agac/logistic-regression-from-scratch)
-
----
-
 ### 🧩 Algorithm Summary
 
 We aim to fit the data with $$K = 3$$ Gaussian components. The EM algorithm proceeds iteratively with the following two steps:
@@ -160,3 +155,8 @@ Different random initializations lead to different convergence paths. Below are 
 - **Evaluation**: Log-likelihood trends, cluster interpretability, sensitivity analysis
 
 ---
+
+### 🔗 Links  
+- [Project on GitHub](https://github.com/sumeyye-agac/logistic-regression-from-scratch)
+
+
