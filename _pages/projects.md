@@ -2,10 +2,10 @@
 layout: page
 title: Projects
 permalink: /projects/
-description: ToDo
+description: 
 nav: true
-nav_order: 3
-display_categories: [work, fun]
+nav_order: 4
+display_categories: [Wearable Sensing & Human Activity Recognition, Computer Vision & Image Modeling, ]
 horizontal: false
 ---
 
