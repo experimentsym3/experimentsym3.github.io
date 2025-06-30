@@ -4,7 +4,7 @@ title: How Does a CNN Learn?
 description: A systematic exploration of CNN parameters on the CIFAR-10 dataset using TensorFlow
 img: assets/img/projects/2_project/cover2.png
 importance: 1
-category: work
+category: Computer Vision & Image Modeling
 related_publications: false
 ---
 
