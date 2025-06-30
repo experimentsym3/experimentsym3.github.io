@@ -1,8 +1,8 @@
 ---
 layout: page
-title: Projects
+title: ML Projects
 permalink: /projects/
-description: 🌿 Hi, and thanks for visiting. Here you’ll find projects exploring ideas, methods, and experiments to improve data-driven ML solutions.
+description: 🌿 Hi, and thanks for visiting!
 nav: true
 nav_order: 2
 display_categories: [Wearable Sensing & Human Activity Recognition, Computer Vision & Image Modeling, Sequence & Pattern Learning, Generative Modeling]
