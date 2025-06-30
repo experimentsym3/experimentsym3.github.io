@@ -43,7 +43,7 @@ ninja.data = [{
           description: "",
           section: "News",},{id: "projects-who-s-wearing-the-glasses",
           title: 'Who’s Wearing the Glasses?',
-          description: "User authentication and identification using head movements for smart glasses",
+          description: "Behavioral biometrics using head gestures.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/1_project/";
             },},{id: "projects-how-does-a-cnn-learn",
