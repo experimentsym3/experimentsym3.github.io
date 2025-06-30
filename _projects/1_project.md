@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Who’s Wearing the Glasses?
-description: Behavioral biometrics using head gestures.
+description: Behavioral biometrics to identify users by analyzing head gestures
 img: assets/img/projects/1_project/cover1.png
 importance: 1
 category: Wearable Sensing & Human Activity Recognition

@@ -1,7 +1,7 @@
 ---
 layout: page
 title: How Does a CNN Learn?
-description: A systematic exploration of CNN parameters on the CIFAR-10 dataset using TensorFlow
+description: In-depth analysis of image classification using convolutional networks, architecture variations, and training dynamics
 img: assets/img/projects/2_project/cover2.png
 importance: 1
 category: Computer Vision & Image Modeling
