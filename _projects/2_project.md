@@ -3,7 +3,7 @@ layout: page
 title: How Does a CNN Learn?
 description: In-depth analysis of image classification using convolutional networks, architecture variations, and training dynamics
 img: assets/img/projects/2_project/cover2.png
-importance: 1
+importance: 5
 category: Computer Vision & Image Modeling
 related_publications: false
 ---
