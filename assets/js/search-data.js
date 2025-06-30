@@ -53,37 +53,37 @@ ninja.data = [{
               window.location.href = "/projects/2_project/";
             },},{id: "projects-next-word-prediction-from-scratch",
           title: 'Next-Word Prediction from Scratch',
-          description: "Building and training a multi-layer perceptron for next-word prediction on a 250-word vocabulary using only NumPy",
+          description: "Sequence modeling of text data with a custom multi-layer perceptron built entirely from scratch (only NumPy)",
           section: "Projects",handler: () => {
               window.location.href = "/projects/3_project/";
             },},{id: "projects-expectation-maximization-for-gmm-from-scratch",
           title: 'Expectation-Maximization for GMM from Scratch',
-          description: "Step-by-step implementation of the expectation-maximization (EM) algorithm for Gaussian mixture models (GMMs) from scratch",
+          description: "Unsupervised clustering and density estimation using a Gaussian Mixture Model built entirely from scratch",
           section: "Projects",handler: () => {
               window.location.href = "/projects/4_project/";
             },},{id: "projects-image-stitching-panoramic-from-scratch",
           title: 'Image Stitching (Panoramic) from Scratch',
-          description: "Full implementation of homography estimation and panoramic image stitching from scratch, including SVD-based estimation, backward warping, and blending experiments.",
+          description: "Homography estimation and panoramic reconstruction combining SVD, backward warping, and image blending (no built-in libraries like OpenCV)",
           section: "Projects",handler: () => {
               window.location.href = "/projects/5_project/";
             },},{id: "projects-variational-autoencoder-for-mnist-digits",
           title: 'Variational Autoencoder for MNIST Digits',
-          description: "Implementation of a Variational Autoencoder combining an LSTM encoder and CNN decoder to generate handwritten digits, exploring architecture variations and training dynamics.",
+          description: "Generative modeling of handwritten digits using a variational autoencoder combining an LSTM encoder and CNN decoder",
           section: "Projects",handler: () => {
               window.location.href = "/projects/6_project/";
             },},{id: "projects-efficient-feature-engineering-for-wrist-motion-recognition",
           title: 'Efficient Feature Engineering for Wrist Motion Recognition',
-          description: "Activity recognition pipeline combining accelerometer and gyroscope signals, adaptive sampling strategies, and comprehensive feature extraction for wearable devices.",
+          description: "Wearable sensor data pipeline extracting time and frequency features to classify daily activities efficiently",
           section: "Projects",handler: () => {
               window.location.href = "/projects/7_project/";
             },},{id: "projects-context-aware-dynamic-activity-recognition-on-wearables",
           title: 'Context-Aware Dynamic Activity Recognition on Wearables',
-          description: "Development of a dynamic HAR pipeline adapting sampling rate, window length, and sensor usage to improve accuracy and efficiency on smartwatches.",
+          description: "Adaptive recognition system dynamically adjusting sampling rates and sensor configurations based on detected activity state",
           section: "Projects",handler: () => {
               window.location.href = "/projects/8_project/";
             },},{id: "projects-attention-based-knowledge-distillation-for-efficient-har",
           title: 'Attention-Based Knowledge Distillation for Efficient HAR',
-          description: "Lightweight human activity recognition with knowledge distillation and attention modules, demonstrating high accuracy and low compute cost on wearable sensor data.",
+          description: "Lightweight activity recognition combining knowledge distillation and attention modules to improve performance on wearable sensor data",
           section: "Projects",handler: () => {
               window.location.href = "/projects/9_project/";
             },},{
