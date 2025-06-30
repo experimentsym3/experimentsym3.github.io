@@ -2,7 +2,7 @@
 layout: page
 title: Attention-Based Knowledge Distillation for Efficient HAR
 description: Lightweight human activity recognition (HAR) combining knowledge distillation and attention modules to improve performance on wearable sensor data
-img: assets/img/projects/9_project/Fig9_Resource_Consumption.png
+img: assets/img/projects/9_project/modelsizes_wisdm2.png
 importance: 9
 category: Wearable Sensing & Human Activity Recognition
 related_publications: false
@@ -10,139 +10,118 @@ related_publications: false
 
 ### ✨ Motivation
 
-Deploying Human Activity Recognition (HAR) models on wearables requires balancing accuracy and efficiency. Large deep networks often achieve excellent performance but are unsuitable for real-time execution on low-power devices. This project explores combining **knowledge distillation** and **attention mechanisms** to create smaller models that retain competitive recognition accuracy while reducing computational cost.
+Deploying Human Activity Recognition (HAR) models on wearables requires balancing accuracy and efficiency. While large deep networks can achieve high performance, they are impractical for resource-constrained devices. This project explores how combining **knowledge distillation** and **attention mechanisms** can train compact models that retain competitive recognition accuracy with dramatically reduced computation and model size.
 
 ---
 
 ### 🧭 Approach Overview
 
-The proposed framework integrates:
+The work compares several configurations:
 
-- **Response-Based Knowledge Distillation (RB-KD):** The student model learns to approximate the softened outputs of a larger teacher model.
-- **Attention Modules:** Channel and spatial attention modules guide the student to focus on the most relevant channels and time steps.
-- **Response and Attention-Based Knowledge Distillation (RAB-KD):** A more advanced variant combining distillation of predictions and alignment of attention maps.
+- **LM (Lightweight Model):** A compact student network trained from scratch.
+- **RB-KD (Response-Based Knowledge Distillation):** The student trained to match the softened predictions of a larger teacher model.
+- **LM-Att:** Adding channel and spatial attention to the lightweight model.
+- **RB-KD-Att:** RB-KD with attention modules in the student.
+- **RAB-KD (Response and Attention-Based KD):** The most advanced variant, where the student mimics both predictions and attention maps from the teacher.
 
 ---
 
-### 🛠️ System Architectures
+### 🛠️ Model Architectures
 
-Below are the architectures used in the study:
+Below are the key architectures evaluated in the study:
 
 ---
 
 <div class="text-center my-4">
-  <img src="/assets/img/projects/9_project/Fig1_ResponseKD.png" alt="Response-Based Knowledge Distillation" class="img-fluid rounded z-depth-1" style="max-width:700px;">
-  <p class="mt-2"><em>Figure 1: Response-based knowledge distillation architecture</em></p>
+  <img src="/assets/img/projects/9_project/distillation_architecture2.png" alt="Response-Based Knowledge Distillation" class="img-fluid rounded z-depth-1" style="max-width:700px;">
+  <p class="mt-2"><em>Figure 1. Response-based knowledge distillation architecture (RB-KD).</em></p>
 </div>
 
 ---
 
 <div class="text-center my-4">
-  <img src="/assets/img/projects/9_project/Fig2_CBAM.png" alt="CBAM Attention Module" class="img-fluid rounded z-depth-1" style="max-width:700px;">
-  <p class="mt-2"><em>Figure 2: CBAM module with channel and spatial attention components</em></p>
+  <img src="/assets/img/projects/9_project/attention_architecture.png" alt="Attention Module Architecture" class="img-fluid rounded z-depth-1" style="max-width:700px;">
+  <p class="mt-2"><em>Figure 2. Lightweight model with CBAM channel and spatial attention modules (LM-Att).</em></p>
 </div>
 
 ---
 
 <div class="text-center my-4">
-  <img src="/assets/img/projects/9_project/Fig3_RABKD.png" alt="Response and Attention-Based Knowledge Distillation" class="img-fluid rounded z-depth-1" style="max-width:700px;">
-  <p class="mt-2"><em>Figure 3: RAB-KD combining prediction and attention distillation</em></p>
-</div>
-
----
-
-<div class="text-center my-4">
-  <img src="/assets/img/projects/9_project/Fig4_RBKD_Attention.png" alt="Response KD with Student Attention" class="img-fluid rounded z-depth-1" style="max-width:700px;">
-  <p class="mt-2"><em>Figure 4: Response-based KD with attention applied to the student model</em></p>
+  <img src="/assets/img/projects/9_project/attdistillation_architecture2.png" alt="Response and Attention-Based Knowledge Distillation" class="img-fluid rounded z-depth-1" style="max-width:700px;">
+  <p class="mt-2"><em>Figure 3. Response and Attention-Based Knowledge Distillation (RAB-KD) combining prediction and attention supervision.</em></p>
 </div>
 
 ---
 
 ### 🧮 Loss Formulations
 
+The training objective combines multiple components:
+
 **Student Prediction Loss (Cross-Entropy):**
 
 $$
-L_{\text{stud}} = -\sum_{k} y_k \log(p_k)
+L_{\\text{stud}} = - \\sum_{k} y_k \\log(p_k)
 $$
-
----
 
 **Distillation Loss (KL Divergence):**
 
 $$
-L_{\text{dist}} = \sum_{k} q_k^{(T)} \log \frac{q_k^{(T)}}{q_k^{(S)}}
+L_{\\text{dist}} = \\sum_{k} q_k^{(T)} \\log \\frac{q_k^{(T)}}{q_k^{(S)}}
 $$
-
-where:
-- \(q_k^{(T)}\): Teacher probabilities (softened)
-- \(q_k^{(S)}\): Student probabilities (softened)
-
----
 
 **Channel Attention Loss:**
 
 $$
-L_{CA} = \frac{1}{C}\sum_{c=1}^C \bigl(M_c^{(T)} - M_c^{(S)}\bigr)^2
+L_{CA} = \\frac{1}{C} \\sum_{c=1}^C \\bigl(M_c^{(T)} - M_c^{(S)}\\bigr)^2
 $$
-
----
 
 **Spatial Attention Loss:**
 
 $$
-L_{SA} = \frac{1}{H \times W}\sum_{i=1}^H \sum_{j=1}^W \bigl(M_{s,ij}^{(T)} - M_{s,ij}^{(S)}\bigr)^2
+L_{SA} = \\frac{1}{H \\times W} \\sum_{i=1}^H \\sum_{j=1}^W \\bigl(M_{s,ij}^{(T)} - M_{s,ij}^{(S)}\\bigr)^2
 $$
-
----
 
 **Total Attention Loss:**
 
 $$
-L_{\text{Att}} = L_{CA} + L_{SA}
+L_{\\text{Att}} = L_{CA} + L_{SA}
 $$
-
----
 
 **Overall Objective:**
 
 $$
-L = \alpha \cdot L_{\text{stud}} + (1-\alpha)\cdot L_{\text{dist}} + \beta \cdot L_{\text{Att}}
+L = \\alpha \\cdot L_{\\text{stud}} + (1-\\alpha) \\cdot L_{\\text{dist}} + \\beta \\cdot L_{\\text{Att}}
 $$
 
 ---
 
 ### 📘 CBAM Attention Mechanism
 
-The Channel and Spatial Attention components were adapted from the **Convolutional Block Attention Module (CBAM)**:
+The channel and spatial attention modules were adapted from the **Convolutional Block Attention Module (CBAM)**:
 
 **Channel Attention:**
 
 $$
-M_c(F) = \sigma\bigl(\text{MLP}(\text{AvgPool}(F)) \oplus \text{MLP}(\text{MaxPool}(F))\bigr)
+M_c(F) = \\sigma\\bigl(\\text{MLP}(\\text{AvgPool}(F)) \\oplus \\text{MLP}(\\text{MaxPool}(F))\\bigr)
 $$
-
----
 
 **Spatial Attention:**
 
 $$
-M_s(F) = \sigma\Bigl(f^{7 \times 7}\bigl[\text{AvgPool}(F);\ \text{MaxPool}(F)\bigr]\Bigr)
+M_s(F) = \\sigma\\Bigl(f^{7 \\times 7}\\bigl[\\text{AvgPool}(F);\\ \\text{MaxPool}(F)\\bigr]\\Bigr)
 $$
 
----
-
-**Refinement:**
+**Feature Refinement:**
 
 $$
-F' = M_c(F)\otimes F
+F' = M_c(F) \\otimes F
 $$
 
 $$
-F'' = M_s(F')\otimes F'
+F'' = M_s(F') \\otimes F'
 $$
 
-where \(\oplus\) denotes elementwise summation and \(\otimes\) elementwise multiplication.
+where \\(\\oplus\\) denotes elementwise summation and \\(\\otimes\\) elementwise multiplication.
 
 <a href="https://arxiv.org/abs/1807.06521" target="_blank">[View CBAM Paper]</a>
 
@@ -152,41 +131,70 @@ where \(\oplus\) denotes elementwise summation and \(\otimes\) elementwise multi
 
 - **Datasets:** Opportunity, WISDM, UCI Sensors
 - **Sensors:** Wrist accelerometer and gyroscope
-- **Models:** LM, LM-Att, RB-KD, RB-KD-Att, RAB-KD
 - **Metrics:** F1-Score, Accuracy, FLOPs, Model size
-- **Training:** Adam optimizer, temperature scaling
+- **Training:** Adam optimizer with temperature scaling for softened outputs
 
 ---
 
 ### 📊 Evaluation Results
 
-Below are results reported in the study.
+Below are performance comparisons and resource usage across configurations and datasets.
 
 ---
 
-**Performance Comparison:**
+**Model Size per Dataset:**
 
-<div class="text-center my-4">
-  <img src="/assets/img/projects/9_project/Fig5_Performance.png" alt="Performance Comparison" class="img-fluid rounded z-depth-1" style="max-width:800px;">
-  <p class="mt-2"><em>Figure 5: Recognition performance comparison across configurations</em></p>
+<div class="row mt-3">
+  <div class="col-sm-4">
+    <img src="/assets/img/projects/9_project/modelsizes_opp2.png" alt="Model Sizes - Opportunity" class="img-fluid rounded z-depth-1">
+    <p class="mt-2 text-center"><em>Figure 4. Model size and compute for Opportunity dataset.</em></p>
+  </div>
+  <div class="col-sm-4">
+    <img src="/assets/img/projects/9_project/modelsizes_wisdm2.png" alt="Model Sizes - WISDM" class="img-fluid rounded z-depth-1">
+    <p class="mt-2 text-center"><em>Figure 5. Model size and compute for WISDM dataset.</em></p>
+  </div>
+  <div class="col-sm-4">
+    <img src="/assets/img/projects/9_project/modelsizes_sensors2.png" alt="Model Sizes - Sensors" class="img-fluid rounded z-depth-1">
+    <p class="mt-2 text-center"><em>Figure 6. Model size and compute for UCI Sensors dataset.</em></p>
+  </div>
 </div>
 
 ---
 
-**F1-Score per Dataset:**
+**Recognition Performance Comparison:**
 
 <div class="text-center my-4">
-  <img src="/assets/img/projects/9_project/Fig6_F1Score.png" alt="F1-Score Results" class="img-fluid rounded z-depth-1" style="max-width:800px;">
-  <p class="mt-2"><em>Figure 6: F1-Score across datasets</em></p>
+  <img src="/assets/img/projects/9_project/opportunity_attdist_results.png" alt="Opportunity Results" class="img-fluid rounded z-depth-1" style="max-width:800px;">
+  <p class="mt-2"><em>Figure 7. Opportunity dataset recognition results.</em></p>
+</div>
+
+<div class="text-center my-4">
+  <img src="/assets/img/projects/9_project/wisdm_attdist_results.png" alt="WISDM Results" class="img-fluid rounded z-depth-1" style="max-width:800px;">
+  <p class="mt-2"><em>Figure 8. WISDM dataset recognition results.</em></p>
+</div>
+
+<div class="text-center my-4">
+  <img src="/assets/img/projects/9_project/sensors_attdist_results.png" alt="Sensors Results" class="img-fluid rounded z-depth-1" style="max-width:800px;">
+  <p class="mt-2"><em>Figure 9. UCI Sensors dataset recognition results.</em></p>
 </div>
 
 ---
 
-**Bubble Plot: Accuracy vs. Compute:**
+**Bubble Plot: Accuracy vs. Compute Trade-off:**
 
 <div class="text-center my-4">
-  <img src="/assets/img/projects/9_project/Fig7_Bubble.png" alt="Bubble Plot" class="img-fluid rounded z-depth-1" style="max-width:800px;">
-  <p class="mt-2"><em>Figure 7: Accuracy vs. FLOPs trade-off</em></p>
+  <img src="/assets/img/projects/9_project/dist_att_rec.png" alt="Opportunity Bubble Chart" class="img-fluid rounded z-depth-1" style="max-width:800px;">
+  <p class="mt-2"><em>Figure 10. Accuracy vs. FLOPs – Opportunity dataset.</em></p>
+</div>
+
+<div class="text-center my-4">
+  <img src="/assets/img/projects/9_project/dist_att2_rec.png" alt="WISDM Bubble Chart" class="img-fluid rounded z-depth-1" style="max-width:800px;">
+  <p class="mt-2"><em>Figure 11. Accuracy vs. FLOPs – WISDM dataset.</em></p>
+</div>
+
+<div class="text-center my-4">
+  <img src="/assets/img/projects/9_project/dist_att3_rec.png" alt="Sensors Bubble Chart" class="img-fluid rounded z-depth-1" style="max-width:800px;">
+  <p class="mt-2"><em>Figure 12. Accuracy vs. FLOPs – UCI Sensors dataset.</em></p>
 </div>
 
 ---
@@ -194,18 +202,28 @@ Below are results reported in the study.
 **Resource Consumption:**
 
 <div class="text-center my-4">
-  <img src="/assets/img/projects/9_project/Fig9_Resource_Consumption.png" alt="Resource Consumption" class="img-fluid rounded z-depth-1" style="max-width:800px;">
-  <p class="mt-2"><em>Figure 9: FLOPs and parameter counts per configuration</em></p>
+  <img src="/assets/img/projects/9_project/dist_att_resource.png" alt="Opportunity Resource Usage" class="img-fluid rounded z-depth-1" style="max-width:800px;">
+  <p class="mt-2"><em>Figure 13. FLOPs and parameter changes – Opportunity dataset.</em></p>
+</div>
+
+<div class="text-center my-4">
+  <img src="/assets/img/projects/9_project/dist_att2_resource.png" alt="WISDM Resource Usage" class="img-fluid rounded z-depth-1" style="max-width:800px;">
+  <p class="mt-2"><em>Figure 14. FLOPs and parameter changes – WISDM dataset.</em></p>
+</div>
+
+<div class="text-center my-4">
+  <img src="/assets/img/projects/9_project/dist_att3_resource.png" alt="Sensors Resource Usage" class="img-fluid rounded z-depth-1" style="max-width:800px;">
+  <p class="mt-2"><em>Figure 15. FLOPs and parameter changes – UCI Sensors dataset.</em></p>
 </div>
 
 ---
 
-### 📝 Key Insights
+### 📝 Key Takeaways
 
-- Distillation consistently improved accuracy over training from scratch.
-- Attention modules enhanced recognition by focusing on salient regions.
-- RAB-KD achieved the best trade-off, reducing FLOPs by up to 10× while maintaining strong performance.
-- These techniques enable efficient HAR on embedded platforms.
+- **Distillation improves accuracy:** RB-KD alone yielded measurable gains over training from scratch.
+- **Attention modules further enhance performance:** LM-Att consistently improved F1-Score, especially on Opportunity and WISDM datasets.
+- **RAB-KD offers the best trade-off:** Matching both predictions and attention maps preserved accuracy while reducing FLOPs by up to 10×.
+- This strategy makes **on-device HAR feasible for real-world applications.**
 
 ---
 
