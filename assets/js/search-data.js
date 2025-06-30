@@ -58,7 +58,7 @@ ninja.data = [{
               window.location.href = "/projects/3_project/";
             },},{id: "projects-expectation-maximization-for-gmm-from-scratch",
           title: 'Expectation-Maximization for GMM from Scratch',
-          description: "Unsupervised clustering and density estimation using a Gaussian Mixture Model built entirely from scratch",
+          description: "Unsupervised clustering and density estimation using a Gaussian Mixture Model (GMM) built entirely from scratch (only NumPy)",
           section: "Projects",handler: () => {
               window.location.href = "/projects/4_project/";
             },},{id: "projects-image-stitching-panoramic-from-scratch",
@@ -68,7 +68,7 @@ ninja.data = [{
               window.location.href = "/projects/5_project/";
             },},{id: "projects-variational-autoencoder-for-mnist-digits",
           title: 'Variational Autoencoder for MNIST Digits',
-          description: "Generative modeling of handwritten digits using a variational autoencoder combining an LSTM encoder and CNN decoder",
+          description: "Generative modeling of handwritten digits using a variational autoencoder (VAE) combining an LSTM encoder and CNN decoder",
           section: "Projects",handler: () => {
               window.location.href = "/projects/6_project/";
             },},{id: "projects-efficient-feature-engineering-for-wrist-motion-recognition",
