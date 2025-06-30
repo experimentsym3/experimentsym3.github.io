@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Attention-Based Knowledge Distillation for Efficient HAR
-description: Lightweight activity recognition combining knowledge distillation and attention modules to improve performance on wearable sensor data
+description: Lightweight human activity recognition (HAR) combining knowledge distillation and attention modules to improve performance on wearable sensor data
 img: assets/img/projects/9_project/modelsizes_wisdm2.png
 importance: 9
 category: Wearable Sensing & Human Activity Recognition
@@ -51,21 +51,21 @@ The core idea is to **transfer knowledge** from a large, accurate *teacher* mode
 - **Metrics:**
   - F1-Score
   - Accuracy
-  - FLOPs (compute)
+  - FLOPs
   - Parameter count
 - **Variants:**
   - LM (student)
-  - LM-Att (student + attention)
-  - RB-KD (rule-based distillation)
-  - RB-KD-Att
-  - RAB-KD (attention distillation)
+  - LM-Att (student with attention)
+  - RB-KD (response-based knowledge distillation)
+  - RB-KD-Att (response-based knowledge distillation + student with attention)
+  - RAB-KD (response and attention-based knowledge distillation)
 - **Training:**
   - Optimizer: Adam
   - Temperature scaling applied for soft targets
 
 ---
 
-### 🧪 Results and Visualizations
+### 🧪 Todo
 
 ---
 
@@ -73,15 +73,15 @@ The core idea is to **transfer knowledge** from a large, accurate *teacher* mode
 
 <div class="row mt-3">
   <div class="col-sm-4">
-    <img src="/assets/img/projects/8_project/modelsizes_opp2.png" alt="Model Sizes - Opportunity" class="img-fluid rounded z-depth-1">
+    <img src="/assets/img/projects/9_project/modelsizes_opp2.png" alt="Model Sizes - Opportunity" class="img-fluid rounded z-depth-1">
     <p class="mt-2 text-center"><em>Model Sizes – Opportunity Dataset</em></p>
   </div>
   <div class="col-sm-4">
-    <img src="/assets/img/projects/8_project/modelsizes_wisdm2.png" alt="Model Sizes - WISDM" class="img-fluid rounded z-depth-1">
+    <img src="/assets/img/projects/9_project/modelsizes_wisdm2.png" alt="Model Sizes - WISDM" class="img-fluid rounded z-depth-1">
     <p class="mt-2 text-center"><em>Model Sizes – WISDM Dataset</em></p>
   </div>
   <div class="col-sm-4">
-    <img src="/assets/img/projects/8_project/modelsizes_sensors2.png" alt="Model Sizes - Sensors" class="img-fluid rounded z-depth-1">
+    <img src="/assets/img/projects/9_project/modelsizes_sensors2.png" alt="Model Sizes - Sensors" class="img-fluid rounded z-depth-1">
     <p class="mt-2 text-center"><em>Model Sizes – Sensors Dataset</em></p>
   </div>
 </div>
@@ -92,46 +92,46 @@ The core idea is to **transfer knowledge** from a large, accurate *teacher* mode
 
 **Opportunity Dataset:**
 
-<img src="/assets/img/projects/8_project/opportunity_attdist_results.png" alt="Opportunity Results" class="img-fluid rounded z-depth-1">
+<img src="/assets/img/projects/9_project/opportunity_attdist_results.png" alt="Opportunity Results" class="img-fluid rounded z-depth-1">
 
 **WISDM Dataset:**
 
-<img src="/assets/img/projects/8_project/wisdm_attdist_results.png" alt="WISDM Results" class="img-fluid rounded z-depth-1">
+<img src="/assets/img/projects/9_project/wisdm_attdist_results.png" alt="WISDM Results" class="img-fluid rounded z-depth-1">
 
 **Sensors Dataset:**
 
-<img src="/assets/img/projects/8_project/sensors_attdist_results.png" alt="Sensors Results" class="img-fluid rounded z-depth-1">
+<img src="/assets/img/projects/9_project/sensors_attdist_results.png" alt="Sensors Results" class="img-fluid rounded z-depth-1">
 
 ---
 
 #### 🔵 Performance Comparisons (Resource Use)
 
 **Opportunity:**
-<img src="/assets/img/projects/8_project/dist_att_resource.png" alt="Resource Trade-offs Opportunity" class="img-fluid rounded z-depth-1">
+<img src="/assets/img/projects/9_project/dist_att_resource.png" alt="Resource Trade-offs Opportunity" class="img-fluid rounded z-depth-1">
 
 **WISDM:**
-<img src="/assets/img/projects/8_project/dist_att2_resource.png" alt="Resource Trade-offs WISDM" class="img-fluid rounded z-depth-1">
+<img src="/assets/img/projects/9_project/dist_att2_resource.png" alt="Resource Trade-offs WISDM" class="img-fluid rounded z-depth-1">
 
 **Sensors:**
-<img src="/assets/img/projects/8_project/dist_att3_resource.png" alt="Resource Trade-offs Sensors" class="img-fluid rounded z-depth-1">
+<img src="/assets/img/projects/9_project/dist_att3_resource.png" alt="Resource Trade-offs Sensors" class="img-fluid rounded z-depth-1">
 
 ---
 
-#### 🟣 Bubble Charts (Accuracy vs. Compute)
+#### 🟣 Bubble Charts (Accuracy vs. Resource )
 
 These visuals summarize the **trade-off between recognition performance and FLOPs**, highlighting how *attention distillation approaches yield strong performance with much lower compute* compared to monolithic teacher models.
 
 <div class="row mt-3">
   <div class="col-sm-4">
-    <img src="/assets/img/projects/8_project/dist_att_rec.png" alt="Bubble Chart Opportunity" class="img-fluid rounded z-depth-1">
+    <img src="/assets/img/projects/9_project/dist_att_rec.png" alt="Bubble Chart Opportunity" class="img-fluid rounded z-depth-1">
     <p class="mt-2 text-center"><em>F1-Score vs. FLOPs – Opportunity</em></p>
   </div>
   <div class="col-sm-4">
-    <img src="/assets/img/projects/8_project/dist_att2_rec.png" alt="Bubble Chart WISDM" class="img-fluid rounded z-depth-1">
+    <img src="/assets/img/projects/9_project/dist_att2_rec.png" alt="Bubble Chart WISDM" class="img-fluid rounded z-depth-1">
     <p class="mt-2 text-center"><em>F1-Score vs. FLOPs – WISDM</em></p>
   </div>
   <div class="col-sm-4">
-    <img src="/assets/img/projects/8_project/dist_att3_rec.png" alt="Bubble Chart Sensors" class="img-fluid rounded z-depth-1">
+    <img src="/assets/img/projects/9_project/dist_att3_rec.png" alt="Bubble Chart Sensors" class="img-fluid rounded z-depth-1">
     <p class="mt-2 text-center"><em>F1-Score vs. FLOPs – Sensors</em></p>
   </div>
 </div>

@@ -94,7 +94,7 @@ Experiments evaluated Static, Semi-Dynamic, and Dynamic configurations:
   - Decreasing energy consumption by ~38%
   - Lowering memory usage
 
-**Visual Results:**
+**Results:**
 
 <div class="row mt-3">
   <div class="col-sm-6">
