@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Who’s Wearing the Glasses?
-description: User authentication and identification using head movements for smart glasses
+description: Behavioral biometrics using head gestures.
 img: assets/img/projects/1_project/cover1.png
 importance: 1
 category: Wearable Sensing & Human Activity Recognition
